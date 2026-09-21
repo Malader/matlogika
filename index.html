@@ -1,0 +1,1852 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Поминутный сценарий первого семинара по математической логике для первокурсников: множества и логика высказываний по главам 1-2 пособия Д. Е. Пальчунова. Что писать на доске, что говорить, какие задачи разбирать, шпаргалка по всем знакам.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Множества и логика высказываний">
+<meta property="og:description" content="Поминутный сценарий первого семинара по математической логике для первокурсников: множества и логика высказываний по главам 1-2 пособия Д. Е. Пальчунова. Что писать на доске, что говорить, какие задачи разбирать, шпаргалка по всем знакам.">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<title>Множества и логика высказываний</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* reset equivalent to the artifact host skeleton */
+:root{
+  color-scheme:light dark;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<style>
+:root{
+  --paper:#F1F2F7;
+  --surface:#FFFFFF;
+  --surface-2:#F7F7FB;
+  --ink:#181A26;
+  --ink-2:#4B4F66;
+  --ink-3:#7B7F98;
+  --rule:#D8DAE6;
+  --rule-2:#E9EAF2;
+  --accent:#4A3FB5;
+  --accent-soft:#E8E6F8;
+  --on-accent:#FFFFFF;
+  --board:#1A2A23;
+  --board-2:#243A30;
+  --board-edge:#0E1713;
+  --chalk:#E9F0EA;
+  --chalk-2:#9FB8A8;
+  --chalk-3:#6E8878;
+  --true:#0E7551;
+  --false:#AE3644;
+  --shade:rgba(74,63,181,.16);
+  --shade-2:rgba(74,63,181,.30);
+  --warn:#8A5A12;
+  --warn-soft:#FBF2DF;
+  --shadow:0 1px 2px rgba(24,26,38,.05), 0 8px 24px -12px rgba(24,26,38,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121320;
+    --surface:#1A1B2A;
+    --surface-2:#202133;
+    --ink:#E9EAF3;
+    --ink-2:#AFB3C8;
+    --ink-3:#7E8299;
+    --rule:#2E3145;
+    --rule-2:#262838;
+    --accent:#A79CFF;
+    --accent-soft:#272444;
+    --on-accent:#14152A;
+    --board:#0D1712;
+    --board-2:#17251E;
+    --board-edge:#060B08;
+    --chalk:#E9F0EA;
+    --chalk-2:#93AC9C;
+    --chalk-3:#63796C;
+    --true:#43C495;
+    --false:#F2848F;
+    --shade:rgba(167,156,255,.18);
+    --shade-2:rgba(167,156,255,.34);
+    --warn:#E0B463;
+    --warn-soft:#2A2314;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121320;
+  --surface:#1A1B2A;
+  --surface-2:#202133;
+  --ink:#E9EAF3;
+  --ink-2:#AFB3C8;
+  --ink-3:#7E8299;
+  --rule:#2E3145;
+  --rule-2:#262838;
+  --accent:#A79CFF;
+  --accent-soft:#272444;
+  --on-accent:#14152A;
+  --board:#0D1712;
+  --board-2:#17251E;
+  --board-edge:#060B08;
+  --chalk:#E9F0EA;
+  --chalk-2:#93AC9C;
+  --chalk-3:#63796C;
+  --true:#43C495;
+  --false:#F2848F;
+  --shade:rgba(167,156,255,.18);
+  --shade-2:rgba(167,156,255,.34);
+  --warn:#E0B463;
+  --warn-soft:#2A2314;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Golos Text","Segoe UI",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px;margin:0 auto;padding-inline:20px;padding-block:0 72px}
+
+/* ---------- header ---------- */
+.masthead{padding-block:40px 24px;border-bottom:2px solid var(--ink);margin-bottom:0}
+.eyebrow{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin:0 0 14px;
+}
+h1{
+  font-family:"Bitter",Georgia,serif;font-weight:700;
+  font-size:clamp(30px,6.2vw,46px);line-height:1.08;letter-spacing:-.015em;
+  margin:0 0 14px;text-wrap:balance;
+}
+.sub{font-size:17px;color:var(--ink-2);margin:0 0 20px;max-width:60ch}
+.meta{
+  display:flex;flex-wrap:wrap;gap:8px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;
+}
+.meta span{
+  border:1px solid var(--rule);border-radius:2px;padding:4px 9px;
+  color:var(--ink-2);background:var(--surface);
+}
+
+/* ---------- control bar ---------- */
+.bar{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  background:var(--paper);border-bottom:1px solid var(--rule);
+  margin-inline:-20px;padding:10px 20px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.clock{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;
+  color:var(--ink);min-width:66px;
+}
+.clock small{display:block;font-size:10px;font-weight:500;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+button{
+  font-family:"Golos Text",system-ui,sans-serif;font-size:13px;font-weight:500;
+  background:var(--surface);color:var(--ink);
+  border:1px solid var(--rule);border-radius:3px;
+  padding:7px 13px;cursor:pointer;transition:background .12s,border-color .12s;
+}
+button:hover{background:var(--accent-soft);border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.bar .spacer{flex:1}
+.now{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;
+  color:var(--accent);font-weight:500;
+}
+
+/* ---------- timeline rail ---------- */
+.rail{
+  display:grid;grid-template-columns:repeat(8,1fr);gap:3px;
+  margin:0 -20px 0;padding:0 20px 14px;
+  border-bottom:1px solid var(--rule);
+}
+.rail a{
+  display:block;text-decoration:none;color:var(--ink-3);
+  border-top:3px solid var(--rule);padding-top:7px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+  line-height:1.3;transition:color .15s,border-color .15s;
+}
+.rail a b{display:block;font-size:11px;color:var(--ink-2);font-weight:700}
+.rail a:hover{color:var(--accent)}
+.rail a.live{border-top-color:var(--accent);color:var(--accent)}
+.rail a.live b{color:var(--accent)}
+.rail a.done{border-top-color:var(--ink-3)}
+
+/* ---------- blocks ---------- */
+.block{padding-block:40px;border-bottom:1px solid var(--rule-2);scroll-margin-top:96px}
+.block-head{margin-bottom:22px}
+.mins{
+  display:inline-block;font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;font-weight:700;letter-spacing:.06em;
+  background:var(--ink);color:var(--paper);padding:3px 8px;border-radius:2px;
+  margin-bottom:11px;font-variant-numeric:tabular-nums;
+}
+h2{
+  font-family:"Bitter",Georgia,serif;font-weight:700;
+  font-size:clamp(21px,3.6vw,27px);line-height:1.2;letter-spacing:-.01em;
+  margin:0 0 8px;text-wrap:balance;
+}
+h3{
+  font-family:"Bitter",Georgia,serif;font-weight:600;font-size:17px;
+  margin:30px 0 10px;line-height:1.3;
+}
+.goal{margin:0;color:var(--ink-2);font-size:15px;max-width:62ch}
+p{margin:0 0 13px;max-width:66ch}
+.block > *:last-child{margin-bottom:0}
+
+/* ---------- board panel ---------- */
+.board{
+  background:var(--board);
+  border:1px solid var(--board-edge);
+  border-radius:3px;
+  margin:20px 0;
+  position:relative;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.board::before{
+  content:attr(data-tag);
+  position:absolute;top:0;left:0;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--board);background:var(--chalk-2);
+  padding:3px 9px;border-radius:0 0 3px 0;
+}
+.board pre{
+  margin:0;padding:34px 18px 20px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:13.5px;line-height:1.72;color:var(--chalk);
+  white-space:pre;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.board pre .dim{color:var(--chalk-3)}
+.board pre .hi{color:#FFD98A;font-weight:700}
+.board pre .rule{color:var(--chalk-2)}
+
+/* ---------- speech ---------- */
+.say{
+  border-left:3px solid var(--accent);
+  padding:2px 0 2px 16px;margin:18px 0;
+}
+.say::before{
+  content:"говорим";display:block;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--accent);margin-bottom:7px;
+}
+.say p{margin:0 0 9px}
+.say p:last-child{margin-bottom:0}
+.line{font-style:italic;color:var(--ink)}
+.line::before{content:"« ";color:var(--ink-3);font-style:normal}
+.line::after{content:" »";color:var(--ink-3);font-style:normal}
+
+/* ---------- key frame ---------- */
+.key{
+  border:2px solid var(--ink);border-radius:3px;
+  background:var(--surface);
+  padding:16px 18px;margin:20px 0;
+}
+.key .tag{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);display:block;margin-bottom:8px;
+}
+.key p{margin:0 0 8px;font-size:16px}
+.key p:last-child{margin-bottom:0}
+.key strong{font-weight:600}
+
+/* ---------- note ---------- */
+.note{
+  background:var(--warn-soft);border-left:3px solid var(--warn);
+  padding:13px 16px;margin:18px 0;font-size:14.5px;color:var(--ink);
+}
+.note b{color:var(--warn)}
+.note p{margin:0 0 8px}
+.note p:last-child{margin-bottom:0}
+
+/* ---------- exercises ---------- */
+.ex{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:18px;margin:22px 0;box-shadow:var(--shadow);
+}
+.ex-head{display:flex;align-items:baseline;gap:10px;margin-bottom:11px;flex-wrap:wrap}
+.ex-no{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;font-weight:700;
+  letter-spacing:.08em;color:var(--accent);
+  border:1px solid var(--accent);border-radius:2px;padding:2px 7px;white-space:nowrap;
+}
+.ex-title{font-family:"Bitter",Georgia,serif;font-weight:600;font-size:16.5px;line-height:1.3}
+.ex-how{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;
+  color:var(--ink-3);letter-spacing:.04em;
+}
+.ans{
+  border-top:1px dashed var(--rule);margin-top:14px;padding-top:13px;
+}
+.ans::before{
+  content:"разбор";display:block;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);margin-bottom:8px;
+}
+.ans p{margin:0 0 9px}
+.ans p:last-child{margin-bottom:0}
+.f{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px;background:var(--surface-2);padding:1px 5px;border-radius:2px;white-space:nowrap}
+.fb{
+  display:block;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px;
+  background:var(--surface-2);border-left:2px solid var(--rule);
+  padding:10px 13px;margin:10px 0;overflow-x:auto;line-height:1.7;white-space:pre;
+}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:16px 0;-webkit-overflow-scrolling:touch}
+table{
+  border-collapse:collapse;font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:13px;font-variant-numeric:tabular-nums;background:var(--surface);
+  min-width:min(100%,340px);
+}
+th,td{border:1px solid var(--rule);padding:5px 11px;text-align:center;white-space:nowrap}
+th{background:var(--surface-2);font-weight:700;color:var(--ink-2);font-size:12px}
+td.lft,th.lft{text-align:left}
+.vi{color:var(--true);font-weight:700}
+.vl{color:var(--false);font-weight:700}
+.res{background:var(--accent-soft)}
+tr.out td{opacity:.42}
+
+/* ---------- venn ---------- */
+.venns{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0}
+.venn-item{flex:1 1 140px;min-width:132px}
+.venn{display:block;width:100%;max-width:100%;height:auto}
+.venn-cap{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;
+  color:var(--ink-2);text-align:center;margin-top:5px;
+}
+
+
+/* ---------- symbol hints ---------- */
+.sym{
+  margin-top:15px;padding-top:12px;border-top:1px solid var(--rule-2);
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+}
+.sym-lab{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);width:100%;margin-bottom:3px;
+}
+.sym-i{
+  display:inline-flex;align-items:baseline;gap:7px;
+  background:var(--surface-2);border:1px solid var(--rule-2);border-radius:2px;
+  padding:3px 9px;font-size:12.5px;color:var(--ink-2);line-height:1.5;
+}
+.sym-i b{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;color:var(--accent);font-weight:700}
+
+/* ---------- glossary ---------- */
+.gl-sec{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:22px 20px;margin:26px 0 0;box-shadow:var(--shadow);
+}
+table.gl{width:100%;min-width:0;font-family:"Golos Text","Segoe UI",system-ui,sans-serif;font-size:14px}
+table.gl th,table.gl td{text-align:left;white-space:normal;padding:7px 11px;vertical-align:top}
+table.gl th{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+table.gl td.s{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:16px;
+  color:var(--accent);font-weight:700;white-space:nowrap;text-align:center;
+}
+table.gl td.n{font-weight:600;white-space:nowrap}
+.vs{display:grid;gap:12px;margin:18px 0}
+.vs-row{background:var(--surface-2);border-left:3px solid var(--accent);padding:13px 16px}
+.vs-pair{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:15px;font-weight:700;
+  color:var(--accent);margin-bottom:5px;
+}
+.vs-row p{margin:0;font-size:14.5px;max-width:none}
+.btnlink{
+  font-family:"Golos Text",system-ui,sans-serif;font-size:13px;font-weight:500;
+  background:var(--surface);color:var(--ink);text-decoration:none;
+  border:1px solid var(--rule);border-radius:3px;padding:7px 13px;
+  transition:background .12s,border-color .12s;
+}
+.btnlink:hover{background:var(--accent-soft);border-color:var(--accent)}
+.btnlink:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- misc lists ---------- */
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:66ch}
+li{margin-bottom:6px}
+ul.tight li,ol.tight li{margin-bottom:3px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lvl{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink-3);
+  border-bottom:1px solid var(--rule);padding-bottom:6px;margin:30px 0 4px;
+}
+.final{
+  background:var(--surface);border:2px solid var(--ink);border-radius:3px;
+  padding:22px;margin:26px 0;
+}
+.final ol{counter-reset:fin;list-style:none;padding-left:0;max-width:none}
+.final ol li{
+  counter-increment:fin;position:relative;padding-left:34px;margin-bottom:11px;
+}
+.final ol li::before{
+  content:counter(fin);position:absolute;left:0;top:1px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;font-weight:700;
+  color:var(--paper);background:var(--ink);
+  width:21px;height:21px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+footer{
+  padding-block:30px;color:var(--ink-3);font-size:13px;
+  border-top:1px solid var(--rule);
+}
+
+@media (max-width:560px){
+  .rail{grid-template-columns:repeat(4,1fr);gap:6px 4px}
+  .cols{grid-template-columns:1fr}
+  .board pre{font-size:12px;padding:32px 14px 16px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+html{scroll-behavior:smooth}
+
+@media print{
+  .bar,.rail,footer{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  .board{background:#fff;border:1.5pt solid #000}
+  .board pre{color:#000}
+  .board pre .dim{color:#555}
+  .board pre .hi{color:#000;font-weight:700;text-decoration:underline}
+  .board pre .rule{color:#555}
+  .board::before{color:#000;background:#ddd}
+  .block{break-inside:auto;page-break-inside:auto}
+  .ex,.key,.note,.gl-sec,.vs-row{break-inside:avoid;page-break-inside:avoid;box-shadow:none}
+  .sym{border-top:1px solid #bbb}
+  .sym-i{border:1px solid #bbb;background:#f4f4f4}
+  .ans{display:block!important}
+  h2{break-after:avoid}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="eyebrow">Семинар 1 · Математическая логика и теория алгоритмов</p>
+  <h1>Множества и логика высказываний</h1>
+  <p class="sub">Поминутный сценарий одной пары по главам 1 и 2 пособия Д. Е. Пальчунова: что писать на доске, что говорить вслух, какие задачи разбирать и в каком порядке.</p>
+  <div class="meta">
+    <span>90 минут</span>
+    <span>1 курс</span>
+    <span>Пальчунов, стр. 5-36</span>
+    <span>10 задач у доски + 10 в запасе</span>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="clock"><span id="t">00:00</span><small id="tstate">пара не начата</small></div>
+  <button id="go">Старт</button>
+  <button id="rs">Сброс</button>
+  <a class="btnlink" href="#slovar">Шпаргалка знаков</a>
+  <button id="theme">Тема</button>
+  <div class="spacer"></div>
+  <span class="now" id="now"></span>
+  <button id="ans" aria-pressed="false">Скрыть разборы</button>
+</div>
+
+<nav class="rail" id="rail">
+  <a href="#b0" data-start="0" data-end="4"><b>0-4</b>вводка</a>
+  <a href="#b1" data-start="4" data-end="16"><b>4-16</b>множества</a>
+  <a href="#b2" data-start="16" data-end="26"><b>16-26</b>тупик</a>
+  <a href="#b3" data-start="26" data-end="42"><b>26-42</b>связки</a>
+  <a href="#b4" data-start="42" data-end="52"><b>42-52</b>~ и долг</a>
+  <a href="#b5" data-start="52" data-end="68"><b>52-68</b>ДНФ КНФ</a>
+  <a href="#b6" data-start="68" data-end="82"><b>68-82</b>мост</a>
+  <a href="#b7" data-start="82" data-end="90"><b>82-90</b>итог</a>
+</nav>
+
+
+<!-- =================== GLOSSARY =================== -->
+<section class="block" id="slovar">
+  <div class="block-head">
+    <span class="mins">справочник</span>
+    <h2>Шпаргалка: как называются и как читаются все знаки</h2>
+    <p class="goal">Всё, что встретится на этой паре. Под каждым упражнением ниже продублированы только те знаки, которые в нём участвуют.</p>
+  </div>
+
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Греческие буквы</h3>
+    <div class="tw">
+      <table class="gl">
+        <tr><th>Знак</th><th>Название</th><th>Как читают вслух</th><th>Зачем нужна</th></tr>
+        <tr><td class="s">φ</td><td class="n">фи</td><td>«фи»</td><td>произвольная формула (любая, какая угодно)</td></tr>
+        <tr><td class="s">ψ</td><td class="n">пси</td><td>«пси»</td><td>вторая произвольная формула</td></tr>
+        <tr><td class="s">ξ</td><td class="n">кси</td><td>«кси»</td><td>третья произвольная формула</td></tr>
+        <tr><td class="s">ρ</td><td class="n">ро</td><td>«ро»</td><td>перевод терма теории множеств в формулу (§2.5)</td></tr>
+        <tr><td class="s">σ</td><td class="n">сигма</td><td>«сигма»</td><td>сигнатура, появится в §3</td></tr>
+        <tr><td class="s">τ</td><td class="n">тау</td><td>«тау»</td><td>местность функции, появится в §3</td></tr>
+        <tr><td class="s">Γ, Δ</td><td class="n">гамма, дельта</td><td>«гамма», «дельта»</td><td>множества формул, появятся в исчислении</td></tr>
+      </table>
+    </div>
+    <div class="note" style="margin-bottom:0">
+      <p><b>Почему букв два сорта и это важнее, чем кажется.</b></p>
+      <p><span class="f">A, B, C</span> это пропозициональные переменные. Они живут <b>внутри</b> формулы и сами являются её частью: <span class="f">(A → B)</span> это формула.</p>
+      <p><span class="f">φ, ψ, ξ</span> это метапеременные. Они живут <b>снаружи</b>, в наших рассуждениях о формулах, и означают «подставь сюда любую формулу целиком». <span class="f">(φ → ψ)</span> это не формула, а схема формул.</p>
+      <p>Школьная аналогия для доски: в тождестве <span class="f">(a+b)² = a²+2ab+b²</span> буквы <span class="f">a, b</span> означают любые числа. Точно так же в <span class="f">(φ → ψ) ~ (¬φ ∨ ψ)</span> буквы <span class="f">φ, ψ</span> означают любые формулы. Именно поэтому в пособии сначала идёт Предложение 2.15 с буквами <span class="f">A, B</span>, а потом Следствие 2.16 с буквами <span class="f">φ, ψ</span>: это одни и те же 18 тождеств, но второй список сильнее.</p>
+      <p><b>Как писать от руки, чтобы группа скопировала правильно.</b> <span class="f">φ</span> это овал, через который насквозь проходит вертикальная палочка. <span class="f">ψ</span> это трезубец на ножке. <span class="f">ξ</span> это три волны сверху вниз с хвостиком. Проговорите это один раз, иначе в тетрадях будет три разных значка.</p>
+    </div>
+  </div>
+
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Знаки теории множеств</h3>
+    <div class="tw">
+      <table class="gl">
+        <tr><th>Знак</th><th>Название</th><th>Как читают вслух</th><th>Что с чем связывает</th></tr>
+        <tr><td class="s">∈</td><td class="n">знак принадлежности</td><td>«принадлежит», «лежит в», «является элементом»</td><td><b>элемент и множество</b></td></tr>
+        <tr><td class="s">∉</td><td class="n">не принадлежит</td><td>«не принадлежит»</td><td>элемент и множество</td></tr>
+        <tr><td class="s">⊆</td><td class="n">знак включения</td><td>«является подмножеством», «содержится в», «включено в»</td><td><b>два множества</b></td></tr>
+        <tr><td class="s">⊊</td><td class="n">строгое включение</td><td>«собственное подмножество», «подмножество, но не равно»</td><td>два множества</td></tr>
+        <tr><td class="s">⊄</td><td class="n">не включено</td><td>«не является подмножеством»</td><td>два множества</td></tr>
+        <tr><td class="s">∅</td><td class="n">пустое множество</td><td>«пустое множество». Не «ноль» и не «о перечёркнутое»</td><td>множество без элементов</td></tr>
+        <tr><td class="s">∪</td><td class="n">объединение</td><td>«A объединить B», «объединение A и B»</td><td>два множества, результат множество</td></tr>
+        <tr><td class="s">∩</td><td class="n">пересечение</td><td>«A пересечь B», «пересечение A и B»</td><td>два множества, результат множество</td></tr>
+        <tr><td class="s">\</td><td class="n">разность</td><td>«A без B», «A минус B»</td><td>два множества</td></tr>
+        <tr><td class="s">∸</td><td class="n">симметрическая разность</td><td>«A симметрическая разность B»</td><td>два множества</td></tr>
+        <tr><td class="s">Ā</td><td class="n">дополнение</td><td>«дополнение A», «не A», «A с чертой»</td><td>одно множество, внутри универсума</td></tr>
+        <tr><td class="s">U</td><td class="n">универсум</td><td>«универсум», «универсальное множество»</td><td>множество, содержащее всё рассматриваемое</td></tr>
+        <tr><td class="s">{ x | … }</td><td class="n">задание множества</td><td>«множество таких x, что …». Вертикальная черта читается «таких, что»</td><td>иногда пишут двоеточие: { x : … }</td></tr>
+        <tr><td class="s">|A|</td><td class="n">мощность</td><td>«мощность A», для конечного «число элементов A»</td><td>множество, результат число</td></tr>
+        <tr><td class="s">×</td><td class="n">декартово произведение</td><td>«A на B»</td><td>появится в §3</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Связки логики высказываний (живут внутри формулы)</h3>
+    <div class="tw">
+      <table class="gl">
+        <tr><th>Знак</th><th>Название</th><th>Как читают вслух</th><th>Когда истинна</th></tr>
+        <tr><td class="s">¬</td><td class="n">отрицание</td><td>«не A»</td><td>когда A ложна</td></tr>
+        <tr><td class="s">&amp;</td><td class="n">конъюнкция</td><td>«A и B»</td><td>когда обе истинны</td></tr>
+        <tr><td class="s">∨</td><td class="n">дизъюнкция</td><td>«A или B»</td><td>когда истинна хотя бы одна</td></tr>
+        <tr><td class="s">→</td><td class="n">импликация</td><td>«если A, то B», «из A следует B», «A влечёт B»</td><td>всегда, кроме единственного случая и → л</td></tr>
+        <tr><td class="s">↔</td><td class="n">эквиваленция</td><td>«A равносильно B», «A тогда и только тогда, когда B»</td><td>когда значения совпадают</td></tr>
+        <tr><td class="s">и, л</td><td class="n">значения истинности</td><td>«истина», «ложь»</td><td>в англоязычных книгах T и F, в схемотехнике 1 и 0</td></tr>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--ink-2);margin-bottom:0">Другие принятые обозначения тех же связок, их стоит назвать вслух один раз: конъюнкция <span class="f">&amp;</span> или <span class="f">∧</span> или точка; дизъюнкция <span class="f">∨</span>; импликация <span class="f">→</span> или <span class="f">⊃</span>; эквиваленция <span class="f">↔</span> или <span class="f">≡</span> или <span class="f">∼</span>; отрицание <span class="f">¬A</span> или <span class="f">Ā</span> или <span class="f">~A</span>. Мнемоника: <span class="f">∨</span> от латинского <i>vel</i> («или»), <span class="f">&amp;</span> это сросшееся <i>et</i> («и»).</p>
+  </div>
+
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Знаки рассуждения (живут снаружи, в нашей речи о формулах)</h3>
+    <div class="tw">
+      <table class="gl">
+        <tr><th>Знак</th><th>Название</th><th>Как читают вслух</th><th>Пример из пособия</th></tr>
+        <tr><td class="s">⇒</td><td class="n">следование</td><td>«следует», «влечёт», «если …, то …»</td><td>в Опр. 1.2: <span class="f">∀x (x ∈ A ⇒ x ∈ B)</span></td></tr>
+        <tr><td class="s">⟺</td><td class="n">равносильность</td><td>«тогда и только тогда, когда», «равносильно»</td><td>в Опр. 1.3: <span class="f">A = B ⟺ ∀x (…)</span></td></tr>
+        <tr><td class="s">~</td><td class="n">эквивалентность формул</td><td>«эквивалентно», «формулы эквивалентны»</td><td>Опр. 2.13: <span class="f">φ ~ ψ</span></td></tr>
+        <tr><td class="s">∀</td><td class="n">квантор всеобщности</td><td>«для любого», «для всех», «каково бы ни было»</td><td>перевёрнутая латинская A, от <i>All</i></td></tr>
+        <tr><td class="s">∃</td><td class="n">квантор существования</td><td>«существует», «найдётся»</td><td>перевёрнутая E, от <i>Exists</i>; подробно в §3</td></tr>
+        <tr><td class="s">∎</td><td class="n">конец доказательства</td><td>«что и требовалось доказать»</td><td>пишут также □ или ч.т.д.</td></tr>
+        <tr><td class="s">↦</td><td class="n">знак отображения элемента</td><td>«переходит в», «соответствует»</td><td>в §2.5: <span class="f">∪ ↦ ∨</span>. Не путать с <span class="f">→</span></td></tr>
+        <tr><td class="s">:=</td><td class="n">равенство по определению</td><td>«положим по определению»</td><td>встречается как <span class="f">≝</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Пять пар, которые путают все и всегда</h3>
+    <div class="vs">
+      <div class="vs-row">
+        <div class="vs-pair">∈ против ⊆</div>
+        <p><b>Способ проверки за одну секунду:</b> посмотрите, что стоит слева. Перед <span class="f">∈</span> стоит элемент, перед <span class="f">⊆</span> стоит множество. <span class="f">1 ∈ {1,2}</span> верно, <span class="f">1 ⊆ {1,2}</span> бессмысленно. <span class="f">{1} ⊆ {1,2}</span> верно, <span class="f">{1} ∈ {1,2}</span> неверно. Одно и то же выражение может стоять и слева от <span class="f">∈</span>, и слева от <span class="f">⊆</span>, если оно само множество, которое к тому же перечислено как элемент.</p>
+      </div>
+      <div class="vs-row">
+        <div class="vs-pair">→ против ⇒</div>
+        <p><span class="f">→</span> это связка, часть формулы: <span class="f">(A → B)</span> это формула, её можно подставить в таблицу истинности. <span class="f">⇒</span> это знак нашего рассуждения, он соединяет два утверждения на обычном языке. Поэтому в Опр. 1.2 стоит именно <span class="f">⇒</span>: запись <span class="f">x ∈ A</span> это не пропозициональная переменная, а утверждение про конкретный x.</p>
+      </div>
+      <div class="vs-row">
+        <div class="vs-pair">↔ против ⟺ против ~</div>
+        <p><span class="f">(φ ↔ ψ)</span> это формула, объект. <span class="f">φ ~ ψ</span> это утверждение об этих двух формулах: у них совпадают таблицы истинности. Связь между ними стоит сказать вслух, она красивая: <b><span class="f">φ ~ ψ</span> выполнено тогда и только тогда, когда формула <span class="f">(φ ↔ ψ)</span> тождественно истинна.</b> А <span class="f">⟺</span> это то же самое «тогда и только тогда», сказанное про утверждения, а не про формулы.</p>
+      </div>
+      <div class="vs-row">
+        <div class="vs-pair">= против ~</div>
+        <p><span class="f">=</span> ставится между множествами (или между числами). <span class="f">~</span> ставится между формулами. Написать <span class="f">A ∪ B ~ B ∪ A</span> это ошибка, там множества, нужно <span class="f">=</span>. В Теореме 2.41 оба знака стоят рядом и по разные стороны стрелки: <span class="f">t₁ = t₂ ⟺ ρ(t₁) ~ ρ(t₂)</span>. Левая часть про множества, правая про формулы.</p>
+      </div>
+      <div class="vs-row">
+        <div class="vs-pair">A, B, C против φ, ψ, ξ</div>
+        <p>Латинские буквы это конкретные переменные внутри формулы. Греческие это «любая формула целиком». Проверка: если вы можете вместо буквы подставить длинное выражение со скобками и запись останется осмысленной, это греческая буква.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Как диктовать формулу вслух</h3>
+    <p>Первокурсники записывают со слуха, поэтому у доски полезно читать формулу по одному и тому же правилу: сначала главная связка, скобки проговариваются словами.</p>
+    <div class="tw">
+      <table class="gl">
+        <tr><th>Запись</th><th>Как произносить</th></tr>
+        <tr><td class="s" style="text-align:left">∀x (x ∈ A ⇒ x ∈ B)</td><td>«для любого икс: если икс принадлежит A, то икс принадлежит B»</td></tr>
+        <tr><td class="s" style="text-align:left">A ⊆ B</td><td>«A является подмножеством B», не «A меньше B»</td></tr>
+        <tr><td class="s" style="text-align:left">¬(A &amp; B) ~ (¬A ∨ ¬B)</td><td>«не, в скобках A и B, конец скобки, эквивалентно, в скобках не A или не B»</td></tr>
+        <tr><td class="s" style="text-align:left">(φ → ψ) ~ (¬φ ∨ ψ)</td><td>«фи влечёт пси эквивалентно не фи или пси»</td></tr>
+        <tr><td class="s" style="text-align:left">ρ(t₁ ∪ t₂)</td><td>«ро от тэ первое объединить тэ второе»</td></tr>
+        <tr><td class="s" style="text-align:left">Ā</td><td>«дополнение A», а если группа ещё не привыкла, то «A с чертой»</td></tr>
+      </table>
+    </div>
+    <p style="margin-bottom:0">Одна привычка экономит много времени: проговаривая скобку, делайте паузу и стучите мелом. Аудитория ставит скобку в тетради в том же месте, где вы её поставили на доске.</p>
+  </div>
+</section>
+
+<!-- =================== BLOCK 0 =================== -->
+<section class="block" id="b0">
+  <div class="block-head">
+    <span class="mins">0-4 мин</span>
+    <h2>Вводка: рамка всей пары</h2>
+    <p class="goal">Задать сюжет. В главе 1 мы упрёмся в стену, в главе 2 соберём инструмент, который её пробивает. Если студенты уйдут, поняв только это, пара удалась.</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre>Семинар 1.  Множества.  Логика высказываний.
+<span class="dim">Пальчунов, гл. 1-2</span>
+
+План:
+  1. Язык множеств и операции
+  2. Как доказывают, что два множества равны
+  3. Таблицы истинности
+  4. ДНФ, КНФ, СДНФ, СКНФ
+  5. Мост: почему пункты 1 и 3 это одно и то же</pre>
+  </div>
+
+  <div class="say">
+    <p class="line">Этот курс не про то, чтобы что-то посчитать. Он про то, чтобы доказать. Считать вы умеете со школы, доказывать почти никто не умеет.</p>
+    <p class="line">У сегодняшней пары один сюжет. Первые двадцать минут мы будем доказывать простые вещи про множества и на четвёртом же тождестве упрёмся в стену. Оставшиеся час с небольшим мы будем строить инструмент, который эту стену ломает. В конце вернёмся и добьём.</p>
+    <p class="line">И правило на весь семестр: слово «очевидно» здесь стоит ноль баллов. Сказали «очевидно», я попрошу объяснить. Не получилось объяснить, значит, с довольно большой вероятностью это ещё и неверно.</p>
+  </div>
+
+  <div class="note">
+    <p><b>Зачем это айтишнику.</b> Полезно сказать одной фразой и не растекаться: SQL это исчисление предикатов, типы в языке это множества значений, условия в <span class="f">if</span> это формулы логики высказываний, а компилятор упрощает их ровно теми тождествами, которые мы сегодня выпишем.</p>
+  </div>
+</section>
+
+<!-- =================== BLOCK 1 =================== -->
+<section class="block" id="b1">
+  <div class="block-head">
+    <span class="mins">4-16 мин</span>
+    <h2>1. Множества: язык, на котором всё записано</h2>
+    <p class="goal">Цель: развести <span class="f">∈</span> и <span class="f">⊆</span> (первая и главная ловушка первокурсника) и записать все операции через связки «или», «и», «не».</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre>Множество: <span class="hi">неопределяемое (первичное) понятие.</span>
+Не определяем, как «точку» в геометрии. Задаётся своими элементами.
+
+x ∈ A                                <span class="dim">принадлежность</span>
+A ⊆ B   ⟺   ∀x (x ∈ A ⇒ x ∈ B)       <span class="dim">Опр. 1.2, подмножество</span>
+A = B   ⟺   ∀x (x ∈ A ⟺ x ∈ B)       <span class="dim">Опр. 1.3, принцип равнообъёмности</span>
+<span class="hi">A = B   ⟺   A ⊆ B  и  B ⊆ A          Зам. 1.4, рабочий инструмент</span></pre>
+  </div>
+
+  <div class="sym">
+    <span class="sym-lab">новые знаки на этой доске</span>
+    <span class="sym-i"><b>∈</b> принадлежит: слева элемент, справа множество</span>
+    <span class="sym-i"><b>⊆</b> является подмножеством: слева и справа множества</span>
+    <span class="sym-i"><b>∀</b> для любого, для всех</span>
+    <span class="sym-i"><b>⇒</b> следует: знак рассуждения, не связка</span>
+    <span class="sym-i"><b>⟺</b> тогда и только тогда, равносильно</span>
+  </div>
+
+  <div class="say">
+    <p>Начать с вопроса в зал и выдержать паузу: <span class="line">Дайте определение множества.</span> Обычно кто-то пробует «это совокупность объектов». Ответ:</p>
+    <p class="line">Определения нет. И не будет. Это первичное понятие, из него выводятся другие понятия математики, а само оно не выводится ни из чего. Ровно как точка в геометрии. Всё, что мы про него знаем: множество есть совокупность своих элементов.</p>
+    <p>Добавить, что «совокупность», «набор», «коллекция», «семейство» это синонимы, а не разные вещи. И бросить крючок на будущее: не всякая совокупность является множеством, есть более общее понятие класса, и если не ставить ограничений, вылезут парадоксы (параграф 6.3). Сегодня работаем наивно, для IT этого хватает с запасом.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 1</span>
+      <span class="ex-title">∈ или ⊆</span>
+      <span class="ex-how">устно, вразнобой по аудитории, 4 мин</span>
+    </div>
+    <p>Пусть <span class="f">A = {1, 2, {1,2}, ∅}</span>. Верно ли каждое из утверждений?</p>
+    <div class="tw">
+      <table>
+        <tr><th class="lft">Утверждение</th><th>Ответ</th><th class="lft">Почему</th></tr>
+        <tr><td class="lft"><span class="f">1 ∈ A</span></td><td class="vi">да</td><td class="lft">1 перечислена как элемент</td></tr>
+        <tr><td class="lft"><span class="f">{1} ∈ A</span></td><td class="vl">нет</td><td class="lft">среди элементов есть 1, но не {1}</td></tr>
+        <tr><td class="lft"><span class="f">{1} ⊆ A</span></td><td class="vi">да</td><td class="lft">единственный элемент {1}, то есть 1, лежит в A</td></tr>
+        <tr><td class="lft"><span class="f">{1,2} ∈ A</span></td><td class="vi">да</td><td class="lft">это множество перечислено как элемент</td></tr>
+        <tr><td class="lft"><span class="f">{1,2} ⊆ A</span></td><td class="vi">да</td><td class="lft">и 1, и 2 лежат в A</td></tr>
+        <tr><td class="lft"><span class="f">∅ ∈ A</span></td><td class="vi">да</td><td class="lft">перечислено как элемент</td></tr>
+        <tr><td class="lft"><span class="f">∅ ⊆ A</span></td><td class="vi">да</td><td class="lft">всегда, Зам. 1.9</td></tr>
+        <tr><td class="lft"><span class="f">{∅} ⊆ A</span></td><td class="vi">да</td><td class="lft">элемент ∅ лежит в A</td></tr>
+        <tr><td class="lft"><span class="f">{∅} ∈ A</span></td><td class="vl">нет</td><td class="lft">элемент ∅ есть, а {∅} нет</td></tr>
+        <tr><td class="lft"><span class="f">A ∈ A</span></td><td class="vl">нет</td><td class="lft">A не перечислено среди своих элементов</td></tr>
+        <tr><td class="lft"><span class="f">|A| = 4</span></td><td class="vi">да</td><td class="lft">элементов четыре, один из них сам множество</td></tr>
+      </table>
+    </div>
+    <div class="ans">
+      <p>Две строки, вокруг которых надо задержаться.</p>
+      <p><b>Строки 4 и 5.</b> <span class="f">{1,2}</span> одновременно и элемент, и подмножество A. Это не противоречие и не опечатка: <span class="f">∈</span> связывает элемент с множеством, <span class="f">⊆</span> связывает два множества. Разные отношения, проверяются по-разному.</p>
+      <p><b>Строка 7.</b> Разворачиваем определение: <span class="f">∅ ⊆ A</span> означает <span class="f">∀x (x ∈ ∅ ⇒ x ∈ A)</span>. Элементов в <span class="f">∅</span> нет, проверять нечего, поэтому утверждение выполнено автоматически. Пока это звучит как софистика. Записать в угол доски: <b>ДОЛГ 2: почему пустая проверка проходит.</b> Вернёмся в блоке 3, через двадцать минут, когда разберём таблицу импликации.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∈</b> принадлежит: слева элемент, справа множество</span>
+      <span class="sym-i"><b>∉</b> не принадлежит</span>
+      <span class="sym-i"><b>⊆</b> является подмножеством: слева и справа множества</span>
+      <span class="sym-i"><b>∅</b> пустое множество</span>
+      <span class="sym-i"><b>{x | …}</b> «множество таких x, что …»</span>
+      <span class="sym-i"><b>|A|</b> мощность, число элементов</span>
+    </div></div>
+
+  <h3>Операции над множествами</h3>
+
+  <div class="board" data-tag="на доске">
+<pre>A ∪ B  =  { x | x ∈ A  <span class="hi">или</span>  x ∈ B }     <span class="dim">объединение</span>
+A ∩ B  =  { x | x ∈ A   <span class="hi">и</span>   x ∈ B }     <span class="dim">пересечение</span>
+A \ B  =  { x | x ∈ A   <span class="hi">и</span>   x ∉ B }     <span class="dim">разность</span>
+A ∸ B  =  (A\B) ∪ (B\A)                 <span class="dim">симметрическая разность</span>
+  Ā    =  U \ A                         <span class="dim">дополнение, U универсум (Опр. 1.10)</span></pre>
+  </div>
+
+  <div class="venns">
+    <div class="venn-item">
+      <svg class="venn" viewBox="0 0 150 96" role="img" aria-label="Объединение A и B">
+        <rect x="1" y="1" width="148" height="94" fill="none" stroke="var(--rule)" stroke-width="1"/>
+        <path d="M28,52 a30,30 0 1,0 60,0 a30,30 0 1,0 -60,0 Z M62,52 a30,30 0 1,0 60,0 a30,30 0 1,0 -60,0 Z" fill="var(--shade-2)" fill-rule="nonzero"/>
+        <circle cx="58" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <circle cx="92" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="34" y="18" fill="var(--ink)" font-size="13" font-family="Bitter,Georgia,serif">A</text>
+        <text x="112" y="18" fill="var(--ink)" font-size="13" font-family="Bitter,Georgia,serif">B</text>
+      </svg>
+      <div class="venn-cap">A ∪ B</div>
+    </div>
+    <div class="venn-item">
+      <svg class="venn" viewBox="0 0 150 96" role="img" aria-label="Пересечение A и B">
+        <defs><clipPath id="cpA"><circle cx="58" cy="52" r="30"/></clipPath></defs>
+        <rect x="1" y="1" width="148" height="94" fill="none" stroke="var(--rule)" stroke-width="1"/>
+        <circle cx="92" cy="52" r="30" fill="var(--shade-2)" clip-path="url(#cpA)"/>
+        <circle cx="58" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <circle cx="92" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="34" y="18" fill="var(--ink)" font-size="13" font-family="Bitter,Georgia,serif">A</text>
+        <text x="112" y="18" fill="var(--ink)" font-size="13" font-family="Bitter,Georgia,serif">B</text>
+      </svg>
+      <div class="venn-cap">A ∩ B</div>
+    </div>
+    <div class="venn-item">
+      <svg class="venn" viewBox="0 0 150 96" role="img" aria-label="Разность A без B">
+        <defs><mask id="mkAB"><circle cx="58" cy="52" r="30" fill="#fff"/><circle cx="92" cy="52" r="30" fill="#000"/></mask></defs>
+        <rect x="1" y="1" width="148" height="94" fill="none" stroke="var(--rule)" stroke-width="1"/>
+        <rect x="1" y="1" width="148" height="94" fill="var(--shade-2)" mask="url(#mkAB)"/>
+        <circle cx="58" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <circle cx="92" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="34" y="18" fill="var(--ink)" font-size="13" font-family="Bitter,Georgia,serif">A</text>
+        <text x="112" y="18" fill="var(--ink)" font-size="13" font-family="Bitter,Georgia,serif">B</text>
+      </svg>
+      <div class="venn-cap">A \ B</div>
+    </div>
+    <div class="venn-item">
+      <svg class="venn" viewBox="0 0 150 96" role="img" aria-label="Симметрическая разность">
+        <rect x="1" y="1" width="148" height="94" fill="none" stroke="var(--rule)" stroke-width="1"/>
+        <path d="M28,52 a30,30 0 1,0 60,0 a30,30 0 1,0 -60,0 Z M62,52 a30,30 0 1,0 60,0 a30,30 0 1,0 -60,0 Z" fill="var(--shade-2)" fill-rule="evenodd"/>
+        <circle cx="58" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <circle cx="92" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="34" y="18" fill="var(--ink)" font-size="13" font-family="Bitter,Georgia,serif">A</text>
+        <text x="112" y="18" fill="var(--ink)" font-size="13" font-family="Bitter,Georgia,serif">B</text>
+      </svg>
+      <div class="venn-cap">A ∸ B</div>
+    </div>
+    <div class="venn-item">
+      <svg class="venn" viewBox="0 0 150 96" role="img" aria-label="Дополнение A до универсума">
+        <defs><mask id="mkC"><rect x="1" y="1" width="148" height="94" fill="#fff"/><circle cx="75" cy="52" r="30" fill="#000"/></mask></defs>
+        <rect x="1" y="1" width="148" height="94" fill="var(--shade-2)" mask="url(#mkC)"/>
+        <rect x="1" y="1" width="148" height="94" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <circle cx="75" cy="52" r="30" fill="none" stroke="var(--ink)" stroke-width="1.4"/>
+        <text x="75" y="57" fill="var(--ink)" font-size="13" text-anchor="middle" font-family="Bitter,Georgia,serif">A</text>
+        <text x="10" y="16" fill="var(--ink)" font-size="12" font-family="Bitter,Georgia,serif">U</text>
+      </svg>
+      <div class="venn-cap">Ā = U \ A</div>
+    </div>
+  </div>
+
+  <div class="key">
+    <span class="tag">обвести в рамку и не стирать до конца пары</span>
+    <p><strong>Каждая операция над множествами определена через связку: «или», «и», «не».</strong></p>
+    <p>Запомните эту строку. Через час она у нас станет теоремой.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 2</span>
+      <span class="ex-title">Посчитать руками</span>
+      <span class="ex-how">один студент у доски, 5 мин</span>
+    </div>
+    <p><span class="f">U = {1,…,10}</span>, <span class="f">A = {1,2,3,4,5}</span>, <span class="f">B = {4,5,6,7}</span>, <span class="f">C = {2,4,6,8,10}</span>.</p>
+    <p>Найти: <span class="f">A∪B</span>, <span class="f">A∩B</span>, <span class="f">A\B</span>, <span class="f">B\A</span>, <span class="f">A∸B</span>, <span class="f">Ā</span>, <span class="f">A∩(B∪C)</span>, <span class="f">(A∩B)∪(A∩C)</span>.</p>
+    <div class="ans">
+      <span class="fb">A∪B = {1,2,3,4,5,6,7}
+A∩B = {4,5}
+A\B = {1,2,3}
+B\A = {6,7}
+A∸B = {1,2,3} ∪ {6,7} = {1,2,3,6,7}
+ Ā  = {6,7,8,9,10}
+
+B∪C = {2,4,5,6,7,8,10}   →   A∩(B∪C) = {2,4,5}
+A∩B = {4,5}, A∩C = {2,4} →   (A∩B)∪(A∩C) = {2,4,5}</span>
+      <p>Последние две строки совпали. Спросить: случайность или нет? Это тождество 6 из Предложения 1.11, дистрибутивность пересечения относительно объединения. Сказать вслух: <span class="line">Мы проверили его на одном примере. Один пример ничего не доказывает. Как доказать для всех множеств сразу, разбираем прямо сейчас.</span></p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∪</b> объединение, «A объединить B»</span>
+      <span class="sym-i"><b>∩</b> пересечение, «A пересечь B»</span>
+      <span class="sym-i"><b>\</b> разность, «A без B»</span>
+      <span class="sym-i"><b>∸</b> симметрическая разность</span>
+      <span class="sym-i"><b>Ā</b> дополнение, «не A», «A с чертой»</span>
+      <span class="sym-i"><b>U</b> универсум, множество всего рассматриваемого</span>
+    </div></div>
+</section>
+
+<!-- =================== BLOCK 2 =================== -->
+<section class="block" id="b2">
+  <div class="block-head">
+    <span class="mins">16-26 мин</span>
+    <h2>2. Как доказывают равенство множеств, и где мы застреваем</h2>
+    <p class="goal">Цель: дать шаблон доказательства на весь семестр и честно упереться в стену. Стена нужна, не смягчайте её.</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="hi">Шаблон. Как доказывают  X = Y :</span>
+
+   x ∈ X   ⟺   … <span class="dim">разворачиваем определения операций</span> …
+           ⟺   … <span class="dim">работаем со словами «и», «или», «не»</span> …
+           ⟺   x ∈ Y
+
+   по принципу равнообъёмности (Опр. 1.3)   X = Y.   ∎
+
+<span class="rule">Три шага: развернуть → поработать со связками → свернуть обратно.</span></pre>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 3</span>
+      <span class="ex-title">Доказать A ∪ B = B ∪ A полностью</span>
+      <span class="ex-how">пишет преподаватель, образцово, 3 мин</span>
+    </div>
+    <p>Первое доказательство пары пишем сами и медленно. Дальше по этому образцу будут писать студенты.</p>
+    <div class="ans">
+      <span class="fb">x ∈ A ∪ B  ⟺  x ∈ A или x ∈ B      (по определению ∪)
+           ⟺  x ∈ B или x ∈ A      (переставили слова вокруг «или»)
+           ⟺  x ∈ B ∪ A            (по определению ∪)
+
+Значит ∀x (x ∈ A∪B ⟺ x ∈ B∪A), то есть A ∪ B = B ∪ A.  ∎</span>
+      <p>Подчеркнуть вслух: <span class="line">Всё содержание доказательства спряталось во вторую строку. Мы воспользовались тем, что «или» можно переставлять. Свойство множеств мы свели к свойству слова.</span></p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∈</b> принадлежит: слева элемент, справа множество</span>
+      <span class="sym-i"><b>∪</b> объединение, «A объединить B»</span>
+      <span class="sym-i"><b>⟺</b> тогда и только тогда, равносильно</span>
+      <span class="sym-i"><b>∀</b> для любого, для всех</span>
+      <span class="sym-i"><b>∎</b> что и требовалось доказать</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 4</span>
+      <span class="ex-title">Тот же приём на дистрибутивности: A ∪ (B ∩ C) = (A∪B) ∩ (A∪C)</span>
+      <span class="ex-how">вместе с аудиторией, 5 мин, и намеренно не доводим до конца</span>
+    </div>
+    <p>Просим развернуть обе части. Студенты справятся, дальше начнётся интересное.</p>
+    <div class="ans">
+      <span class="fb">слева:   x ∈ A ∪ (B ∩ C)
+         ⟺  x ∈ A  или  (x ∈ B и x ∈ C)
+
+справа:  x ∈ (A ∪ B) ∩ (A ∪ C)
+         ⟺  (x ∈ A или x ∈ B)  и  (x ∈ A или x ∈ C)</span>
+      <p>И здесь останавливаемся. В упражнении 3 левая и правая части сошлись сами. Здесь не сходятся, и непонятно, что делать дальше.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∈</b> принадлежит: слева элемент, справа множество</span>
+      <span class="sym-i"><b>∪</b> объединение, «A объединить B»</span>
+      <span class="sym-i"><b>∩</b> пересечение, «A пересечь B»</span>
+      <span class="sym-i"><b>⟺</b> тогда и только тогда, равносильно</span>
+    </div></div>
+
+  <div class="board" data-tag="на доске">
+<pre>   «x ∈ A  или  (x ∈ B  и  x ∈ C)»
+
+                 и
+
+   «(x ∈ A или x ∈ B)  и  (x ∈ A или x ∈ C)»
+
+<span class="hi">Это одно и то же утверждение или нет?</span></pre>
+  </div>
+
+  <div class="say">
+    <p>Кто-то в аудитории скажет «ну очевидно да». Вот здесь читаем вслух Пальчунова, стр. 11, это лучшая цитата в пособии:</p>
+    <p class="line">Как правило, если кто-то говорит, что для него некоторое утверждение является очевидным, но при этом не может сразу внятно пояснить, почему это утверждение является верным, то в половине случаев это утверждение является неверным.</p>
+    <p>И дальше своими словами: <span class="line">Нам нужна не внутренняя убеждённость, а строгий метод проверки. По-хорошему, алгоритм: чтобы можно было не спорить, а посчитать. Такой алгоритм существует, называется таблицы истинности, и вся вторая глава про него.</span></p>
+  </div>
+
+  <div class="key">
+    <span class="tag">записать в угол доски и оставить</span>
+    <p><strong>ДОЛГ 1.</strong> Доказать дистрибутивность. Вернёмся к ней на 45-й минуте.</p>
+    <p><strong>ДОЛГ 2.</strong> Почему <span class="f">∅ ⊆ A</span> всегда. Вернёмся через 10 минут.</p>
+  </div>
+
+  <div class="note">
+    <p><b>Не сокращайте этот блок.</b> Именно ощущение «я честно застрял» делает вторую половину пары осмысленной. Если проскочить, таблицы истинности будут выглядеть как бессмысленная бюрократия: «зачем расписывать восемь строк, если и так видно».</p>
+  </div>
+</section>
+
+<!-- =================== BLOCK 3 =================== -->
+<section class="block" id="b3">
+  <div class="block-head">
+    <span class="mins">26-42 мин</span>
+    <h2>3. Логика высказываний: связки и таблицы истинности</h2>
+    <p class="goal">Цель: аккуратно завести четыре связки, разобраться с импликацией (главный камень преткновения) и закрыть ДОЛГ 2.</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre>Логика высказываний = <span class="hi">«арифметика меры истинности»</span>.
+
+  арифметика:  переменные = числа,     операции = + , ×
+  логика:      переменные = <span class="hi">{и, л}</span>,   операции = связки ∨ & → ¬ (↔)
+
+Пропозициональная переменная A, B, C, … :
+  неизвестное высказывание, про которое известно только одно,
+  истинно оно или ложно.  <span class="dim">Опр. 2.1</span></pre>
+  </div>
+
+  <div class="say">
+    <p class="line">Вся разница с арифметикой в том, что значений всего два. В арифметике переменная пробегает бесконечное множество чисел, и перебрать все значения нельзя. Здесь переменная пробегает два значения, поэтому всё, что в арифметике требует изобретательности, здесь делается перебором. Это и есть источник нашего алгоритма.</p>
+  </div>
+
+  <h3>Таблицы истинности связок</h3>
+
+  <div class="tw">
+    <table>
+      <tr>
+        <th>A</th><th>B</th>
+        <th class="res">A ∨ B</th><th class="res">A &amp; B</th><th class="res">A → B</th><th class="res">A ↔ B</th>
+        <th>¬A</th>
+      </tr>
+      <tr><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td><td class="res vi">и</td><td class="res vi">и</td><td class="res vi">и</td><td class="vl">л</td></tr>
+      <tr><td class="vi">и</td><td class="vl">л</td><td class="res vi">и</td><td class="res vl">л</td><td class="res vl">л</td><td class="res vl">л</td><td class="vl">л</td></tr>
+      <tr><td class="vl">л</td><td class="vi">и</td><td class="res vi">и</td><td class="res vl">л</td><td class="res vi">и</td><td class="res vl">л</td><td class="vi">и</td></tr>
+      <tr><td class="vl">л</td><td class="vl">л</td><td class="res vl">л</td><td class="res vl">л</td><td class="res vi">и</td><td class="res vi">и</td><td class="vi">и</td></tr>
+    </table>
+  </div>
+  <p style="font-size:13.5px;color:var(--ink-2)">Столбец <span class="f">¬A</span> читается по первому столбцу: <span class="f">¬и = л</span>, <span class="f">¬л = и</span>.</p>
+
+  <div class="note">
+    <p><b>Опечатка в пособии, стр. 12.</b> В Определении 2.2 подписи перепутаны: «Дизъюнкция. Означает связку „и“» и «Конъюнкция. Означает связку „или“». Должно быть наоборот: дизъюнкция <span class="f">∨</span> это «или», конъюнкция <span class="f">&amp;</span> это «и». Таблицы истинности на стр. 13 при этом правильные. Проговорите это вслух, иначе половина группы выучит наизусть неверно.</p>
+    <p>Мнемоника на доску: <span class="f">∨</span> похожа на <b>v</b> из латинского <i>vel</i> («или»), <span class="f">&amp;</span> это сросшееся <i>et</i> («и»).</p>
+  </div>
+
+  <h3>Импликация: тратим на неё отдельные пять минут</h3>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="hi">A → B  ложна РОВНО в одной строке:   и → л .
+Во всех остальных трёх случаях истинна.</span>
+
+Учить одну строку, а не четыре.</pre>
+  </div>
+
+  <div class="say">
+    <p>Три захода, давать все три, разным людям заходит разное.</p>
+    <p><b>Обещание.</b> <span class="line">Я говорю: „Если завтра будет дождь, я возьму зонт“. В каком единственном случае вы скажете, что я соврал? Дождь был, а зонта нет. Если дождя не было, я не соврал, что бы я ни сделал с зонтом. Поэтому при ложной посылке импликация истинна.</span></p>
+    <p><b>Логика, а не причинность.</b> <span class="line">„Если 2×2=5, то я папа римский“ это истинное высказывание. Связи между частями нет никакой, и не требуется. Импликация не про причину и следствие, она просто функция двух аргументов, заданная таблицей.</span></p>
+    <p><b>Долг 2.</b> Возвращаемся к пустому множеству.</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="hi">ДОЛГ 2 закрыт.</span>
+
+∅ ⊆ A   ⟺   ∀x ( x ∈ ∅  ⇒  x ∈ A )
+                 └────┬────┘
+              всегда ложно
+
+<span class="rule">посылка ложна  →  импликация истинна  →  включение верно, для любого A.</span></pre>
+  </div>
+
+  <h3>Что вообще такое формула</h3>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="dim">Опр. 2.3, индуктивное определение.</span>
+
+ 1. A, B, C, …  <span class="dim">пропозициональные переменные</span>  являются формулами;
+ 2. если φ и ψ формулы, то формулами являются
+       (φ ∨ ψ),  (φ & ψ),  (φ → ψ),  (¬φ);
+ 3. <span class="hi">других формул нет.</span>
+
+Обратите внимание: ↔ в список НЕ входит.</pre>
+  </div>
+
+  <div class="say">
+    <p>Два вопроса, которые стоит проговорить.</p>
+    <p><b>Зачем пункт 3.</b> <span class="line">Без него определение ничего не запрещает. Пункт 3 говорит: формула это ровно то, что можно собрать по правилам 1 и 2 за конечное число шагов, и ничего больше. Именно поэтому мы потом сможем доказывать утверждения индукцией по построению формулы.</span></p>
+    <p><b>Для тех, кто уже программирует.</b> <span class="line">Это ровно описание рекурсивного типа данных или БНФ-грамматики. Пункт 1 это базовые конструкторы, пункт 2 рекурсивные, пункт 3 говорит, что тип замкнут. Разбор формулы это построение синтаксического дерева.</span></p>
+    <p><b>Почему нет ↔.</b> Потому что её можно выразить через остальные, это тождество 18 из Предложения 2.15. Определение делают минимальным: чем меньше случаев в пункте 2, тем короче любое доказательство индукцией по построению. <span class="f">↔</span> дальше используем как сокращение.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 5</span>
+      <span class="ex-title">Формула или нет</span>
+      <span class="ex-how">устно, быстро, 2 мин</span>
+    </div>
+    <div class="tw">
+      <table>
+        <tr><th class="lft">Запись</th><th>Формула?</th><th class="lft">Комментарий</th></tr>
+        <tr><td class="lft"><span class="f">(A → (B ∨ ¬C))</span></td><td class="vi">да</td><td class="lft">собирается по пунктам 1 и 2</td></tr>
+        <tr><td class="lft"><span class="f">(¬(A → B))</span></td><td class="vi">да</td><td class="lft">сначала импликация, потом отрицание</td></tr>
+        <tr><td class="lft"><span class="f">(A ¬ B)</span></td><td class="vl">нет</td><td class="lft">¬ одноместная, между двумя формулами не ставится</td></tr>
+        <tr><td class="lft"><span class="f">(A &amp; B ∨ C)</span></td><td class="vl">нет</td><td class="lft">по строгому определению каждая связка даёт свои скобки</td></tr>
+        <tr><td class="lft"><span class="f">((A → B) ↔ C)</span></td><td class="vl">нет</td><td class="lft">строго нет (↔ не в списке), но допустимо как сокращение</td></tr>
+      </table>
+    </div>
+    <div class="ans">
+      <p>Вывод, ради которого делалось упражнение: <span class="line">Формула это сначала текст, и только потом смысл. Сейчас мы проверяли синтаксис, ни одного значения истинности не вычислили. Дальше в курсе разделение синтаксиса и семантики будет главной линией.</span></p>
+      <p>На практике скобки опускают по приоритету <span class="f">¬</span>, затем <span class="f">&amp;</span>, затем <span class="f">∨</span>, затем <span class="f">→</span>. Сказать, что это соглашение о сокращении записи, а не часть определения.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>φ</b> фи: любая формула целиком</span>
+      <span class="sym-i"><b>ψ</b> пси: вторая любая формула</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>→</b> импликация, «если …, то …»</span>
+      <span class="sym-i"><b>↔</b> эквиваленция, «равносильно»</span>
+      <span class="sym-i"><b>A, B, C</b> пропозициональные переменные, в отличие от φ, ψ</span>
+    </div></div>
+
+  <h3>Четыре слова про формулу</h3>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="dim">Опр. 2.5 - 2.8. Смотрим на столбец значений формулы.</span>
+
+ тождественно истинная (<span class="hi">тавтология</span>)  весь столбец «и»
+ тождественно ложная                  весь столбец «л»
+ выполнимая                           есть хотя бы одна «и»
+ опровержимая                         есть хотя бы одна «л»
+
+ φ тожд. истинна  ⟺  ¬φ тожд. ложна        <span class="dim">Зам. 2.10</span>
+ φ выполнима      ⟺  ¬φ опровержима</pre>
+  </div>
+
+  <div class="say">
+    <p>Главная путаница: студенты думают, что «выполнимая» противоположна «тождественно истинной». Нет. Тавтология выполнима, просто она ещё и не опровержима. Проще всего нарисовать на доске столбец и показать пальцем: <span class="line">Выполнимая значит „хотя бы одна и“. Опровержимая значит „хотя бы одна л“. Формула может быть и той, и другой одновременно, это обычный случай.</span></p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 6</span>
+      <span class="ex-title">Первая таблица своими руками: (A → B) ~ (¬A ∨ B)</span>
+      <span class="ex-how">студент у доски, 3 мин</span>
+    </div>
+    <div class="ans">
+      <div class="tw">
+        <table>
+          <tr><th>A</th><th>B</th><th class="res">A → B</th><th>¬A</th><th class="res">¬A ∨ B</th></tr>
+          <tr><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td><td class="vl">л</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vl">л</td><td class="res vl">л</td><td class="vl">л</td><td class="res vl">л</td></tr>
+          <tr><td class="vl">л</td><td class="vi">и</td><td class="res vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+        </table>
+      </div>
+      <p>Два выделенных столбца совпали. Обязательно обвести результат в рамку на доске:</p>
+      <span class="fb">(φ → ψ)  ~  (¬φ ∨ ψ)        тождество 12, Предложение 2.15
+
+Самое ходовое тождество курса. С него начинается любое
+приведение к нормальной форме.</span>
+      <p>Заодно напомнить порядок заполнения таблицы: сначала столбцы переменных (строгий перебор сверху вниз, чтобы ничего не потерять), потом подформулы в порядке их построения, главная связка последней.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>→</b> импликация, «если …, то …»</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+      <span class="sym-i"><b>и, л</b> истина и ложь</span>
+      <span class="sym-i"><b>φ</b> фи: любая формула целиком</span>
+      <span class="sym-i"><b>ψ</b> пси: вторая любая формула</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 7</span>
+      <span class="ex-title">Восемь строк: тавтология ли ((A→B) &amp; (B→C)) → (A→C)</span>
+      <span class="ex-how">студент у доски, 5 мин</span>
+    </div>
+    <p>Это транзитивность импликации, основа почти любого рассуждения «из этого следует то, а из того вот это».</p>
+    <div class="ans">
+      <div class="tw">
+        <table>
+          <tr><th>A</th><th>B</th><th>C</th><th>A→B</th><th>B→C</th><th>(A→B)&amp;(B→C)</th><th>A→C</th><th class="res">вся формула</th></tr>
+          <tr><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+        </table>
+      </div>
+      <p>Столбец целиком «и», значит тавтология.</p>
+      <p><b>Приём, который экономит время и его стоит показать.</b> Импликация ложна только в случае «и → л». Значит, вместо восьми строк достаточно проверить, бывает ли посылка <span class="f">(A→B)&amp;(B→C)</span> истинной при ложном <span class="f">A→C</span>. <span class="f">A→C</span> ложно только при <span class="f">A=и, C=л</span>. Тогда: если <span class="f">B=и</span>, то <span class="f">B→C = и→л = л</span>, посылка ложна. Если <span class="f">B=л</span>, то <span class="f">A→B = и→л = л</span>, посылка снова ложна. Противоречия нет ни при каком B, значит тавтология. Три строки вместо таблицы.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>→</b> импликация, «если …, то …»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>и, л</b> истина и ложь</span>
+    </div></div>
+</section>
+
+<!-- =================== BLOCK 4 =================== -->
+<section class="block" id="b4">
+  <div class="block-head">
+    <span class="mins">42-52 мин</span>
+    <h2>4. Эквивалентность формул и возврат ДОЛГА 1</h2>
+    <p class="goal">Цель: ввести <span class="f">~</span> и тут же расплатиться по долгу из блока 2. Это кульминация первой половины пары, группа должна почувствовать, что стена пробита.</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="dim">Опр. 2.13.</span>  φ ~ ψ , если при любых значениях переменных
+        значения истинности формул совпадают
+        (совпадают столбцы в таблице истинности).</pre>
+  </div>
+
+  <div class="say">
+    <p>Тут важное методическое замечание самого Пальчунова, стр. 16, его стоит зачитать:</p>
+    <p class="line">Смысл математического термина не определяется этимологией слова, обозначающего этот термин. Например, нечётная функция это не функция, которая не является чётной.</p>
+    <p>И пояснить: <span class="line">Мы назвали отношение „эквивалентностью“, но это пока просто имя. Что оно действительно рефлексивно, симметрично и транзитивно, надо доказывать отдельно, это Предложение 2.14. Название не доказательство.</span></p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 8</span>
+      <span class="ex-title">ДОЛГ 1: A ∨ (B &amp; C) ~ (A ∨ B) &amp; (A ∨ C)</span>
+      <span class="ex-how">студент у доски, 4 мин, вся группа проверяет</span>
+    </div>
+    <p>Перед тем как строить таблицу, показать пальцем на ДОЛГ 1 в углу доски: <span class="line">Двадцать пять минут назад мы не знали, что делать. Теперь у нас есть алгоритм. Просто заполняем восемь строк.</span></p>
+    <div class="ans">
+      <div class="tw">
+        <table>
+          <tr><th>A</th><th>B</th><th>C</th><th>B&amp;C</th><th class="res">A ∨ (B&amp;C)</th><th>A∨B</th><th>A∨C</th><th class="res">(A∨B)&amp;(A∨C)</th></tr>
+          <tr><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="res vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="res vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="res vl">л</td></tr>
+          <tr><td class="vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="res vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="res vl">л</td></tr>
+          <tr><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vl">л</td></tr>
+        </table>
+      </div>
+      <p>Два выделенных столбца совпадают строка в строку. Значит <span class="f">A ∨ (B&amp;C) ~ (A∨B) &amp; (A∨C)</span>. Никакой изобретательности не потребовалось, только аккуратность.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+      <span class="sym-i"><b>и, л</b> истина и ложь</span>
+    </div></div>
+
+  <div class="key">
+    <span class="tag">главная мысль первой половины пары</span>
+    <p>Двадцать пять минут назад дистрибутивность была вопросом веры. Теперь это <strong>вычисление</strong>: восемь строк, механическая проверка, ответ не зависит от того, кому что очевидно.</p>
+    <p>Но формально мы доказали пока утверждение <em>про формулы</em>, а нужно было <em>про множества</em>. Честный переход от одного к другому разберём в последнем блоке.</p>
+  </div>
+
+  <div class="note">
+    <p><b>Если время поджимает.</b> Этот блок сокращать нельзя, он оплачивает долг. Резать надо упражнение 7 (транзитивность импликации) в предыдущем блоке: отдайте его на дом, а на доске покажите только приём «от противного» в три строки.</p>
+  </div>
+</section>
+
+<!-- =================== BLOCK 5 =================== -->
+<section class="block" id="b5">
+  <div class="block-head">
+    <span class="mins">52-68 мин</span>
+    <h2>5. Нормальные формы: ДНФ, КНФ, СДНФ, СКНФ</h2>
+    <p class="goal">Цель: дать два алгоритма (через тождества и через таблицу) и мнемонику, которая не даёт перепутать СДНФ и СКНФ.</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="dim">Опр. 2.24 - 2.28, 2.31 - 2.32</span>
+
+литерал                  A   или   ¬A
+элементарная конъюнкция  A & ¬B & C          <span class="dim">только & между литералами</span>
+элементарная дизъюнкция  A ∨ ¬B ∨ C          <span class="dim">только ∨ между литералами</span>
+
+<span class="hi">ДНФ</span> = дизъюнкция элементарных конъюнкций    <span class="dim">∨ снаружи, & внутри</span>
+<span class="hi">КНФ</span> = конъюнкция элементарных дизъюнкций    <span class="dim">& снаружи, ∨ внутри</span>
+
+<span class="hi">СДНФ / СКНФ</span> (совершенные): каждая переменная входит в каждый
+             член ровно один раз, с отрицанием или без.
+
+<span class="rule">Мнемоника: «Д снаружи это ДНФ». Первая буква = внешняя связка.</span></pre>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="hi">Алгоритм приведения к ДНФ.</span>  <span class="dim">Теорема 2.29, четыре шага.</span>
+
+ 1. убрать →      по  (φ → ψ) ~ (¬φ ∨ ψ)
+ 2. загнать ¬ внутрь, до переменных:
+       ¬(φ ∨ ψ) ~ (¬φ & ¬ψ)      <span class="dim">де Морган</span>
+       ¬(φ & ψ) ~ (¬φ ∨ ¬ψ)      <span class="dim">де Морган</span>
+       ¬¬φ ~ φ                   <span class="dim">снятие двойного отрицания</span>
+    <span class="dim">получили формулу с тесными отрицаниями (Опр. 2.24)</span>
+ 3. раскрыть скобки:  φ & (ψ ∨ ξ) ~ (φ & ψ) ∨ (φ & ξ)
+ 4. убрать лишние скобки по ассоциативности
+
+<span class="rule">Для КНФ те же шаги 1 и 2, а на шаге 3 наоборот:
+ φ ∨ (ψ & ξ) ~ (φ ∨ ψ) & (φ ∨ ξ)</span></pre>
+  </div>
+
+  <div class="say">
+    <p class="line">Шаги 1 и 2 одинаковые всегда. Разница между ДНФ и КНФ только в том, что вы выносите наружу на третьем шаге. Если вы путаетесь, спросите себя, какая связка должна оказаться главной, и раскрывайте скобки в её пользу.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 9</span>
+      <span class="ex-title">Привести к ДНФ: ¬((A → B) &amp; ¬C)</span>
+      <span class="ex-how">студент у доски, 3 мин</span>
+    </div>
+    <div class="ans">
+      <span class="fb">¬((A → B) & ¬C)
+  ~ ¬((¬A ∨ B) & ¬C)              шаг 1: убрали →
+  ~ ¬(¬A ∨ B) ∨ ¬¬C               шаг 2: де Морган
+  ~ (¬¬A & ¬B) ∨ ¬¬C              шаг 2: де Морган ещё раз
+  ~ (A & ¬B) ∨ C                  шаг 2: сняли двойные отрицания
+
+ДНФ:  (A & ¬B) ∨ C</span>
+      <p>Скобки раскрывать не пришлось, шаг 3 отработал вхолостую. Проверка здравым смыслом: исходная формула истинна, когда <span class="f">(A→B)&amp;¬C</span> ложно, то есть когда <span class="f">A→B</span> ложно (это <span class="f">A=и, B=л</span>) или когда <span class="f">C</span> истинно. Ровно то, что получилось.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>→</b> импликация, «если …, то …»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+    </div></div>
+
+  <h3>Совершенные формы строятся прямо по таблице</h3>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="hi">СДНФ</span> <span class="dim">(Теорема 2.33, для выполнимой формулы)</span>
+ 1. строим таблицу истинности
+ 2. оставляем строки, где формула = <span class="hi">и</span>
+ 3. по каждой строке пишем элементарную конъюнкцию:
+       переменная = и  →  берём A      <span class="hi">«как есть»</span>
+       переменная = л  →  берём ¬A
+ 4. соединяем всё через ∨
+
+<span class="hi">СКНФ</span> <span class="dim">(Теорема 2.34, для опровержимой формулы)</span>
+ 1. строим таблицу истинности
+ 2. оставляем строки, где формула = <span class="hi">л</span>
+ 3. по каждой строке пишем элементарную дизъюнкцию:
+       переменная = л  →  берём A      <span class="hi">«наоборот»</span>
+       переменная = и  →  берём ¬A
+ 4. соединяем всё через &</pre>
+  </div>
+
+  <div class="key">
+    <span class="tag">записать отдельно, это спасает на контрольной</span>
+    <p><strong>СДНФ</strong>: строки с «и», переменную читаем <strong>как есть</strong>.<br>
+       <strong>СКНФ</strong>: строки с «л», переменную читаем <strong>наоборот</strong>.</p>
+    <p>Проверка: число членов СДНФ плюс число членов СКНФ равно числу строк таблицы, то есть <span class="f">2ⁿ</span>. Если не сходится, где-то ошибка.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 10</span>
+      <span class="ex-title">Построить СДНФ и СКНФ для (A → B) → C</span>
+      <span class="ex-how">двое у доски одновременно, один делает СДНФ, другой СКНФ, 6 мин</span>
+    </div>
+    <p>Хороший формат: два человека пишут на разных половинах доски из одной таблицы, потом вместе проверяем правило «5 + 3 = 8».</p>
+    <div class="ans">
+      <div class="tw">
+        <table>
+          <tr><th>№</th><th>A</th><th>B</th><th>C</th><th>A→B</th><th class="res">(A→B)→C</th><th class="lft">идёт в</th></tr>
+          <tr><td>1</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td><td class="lft">СДНФ</td></tr>
+          <tr><td>2</td><td class="vi">и</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="res vl">л</td><td class="lft">СКНФ</td></tr>
+          <tr><td>3</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="res vi">и</td><td class="lft">СДНФ</td></tr>
+          <tr><td>4</td><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td><td class="lft">СДНФ</td></tr>
+          <tr><td>5</td><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td><td class="lft">СДНФ</td></tr>
+          <tr><td>6</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="res vl">л</td><td class="lft">СКНФ</td></tr>
+          <tr><td>7</td><td class="vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td><td class="lft">СДНФ</td></tr>
+          <tr><td>8</td><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="res vl">л</td><td class="lft">СКНФ</td></tr>
+        </table>
+      </div>
+      <span class="fb">СДНФ  (строки 1, 3, 4, 5, 7, читаем «как есть»):
+
+  (A & B & C) ∨ (A & ¬B & C) ∨ (A & ¬B & ¬C) ∨ (¬A & B & C) ∨ (¬A & ¬B & C)
+
+СКНФ  (строки 2, 6, 8, читаем «наоборот»):
+
+  (¬A ∨ ¬B ∨ C) & (A ∨ ¬B ∨ C) & (A ∨ B ∨ C)
+
+Проверка:  5 + 3 = 8 = 2³   ✓</span>
+      <p>Быстрая проверка СКНФ у доски: возьмём строку 2, там <span class="f">A=и, B=и, C=л</span>. Первый множитель <span class="f">(¬A ∨ ¬B ∨ C)</span> даёт <span class="f">л ∨ л ∨ л = л</span>, значит вся конъюнкция ложна, как и должно быть.</p>
+      <p>И завершающая мысль блока: <span class="line">Обратите внимание, что мы сделали. Мы взяли таблицу, то есть чистую семантику, и по ней построили формулу, то есть синтаксис. Это Предложение 2.36: любая логическая функция задаётся формулой. Значит, четырёх связок хватает, чтобы выразить вообще всё.</span></p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>и, л</b> истина и ложь</span>
+      <span class="sym-i"><b>2ⁿ</b> два в степени n: число строк таблицы</span>
+    </div></div>
+</section>
+
+<!-- =================== BLOCK 6 =================== -->
+<section class="block" id="b6">
+  <div class="block-head">
+    <span class="mins">68-82 мин</span>
+    <h2>6. Мост: почему тождества множеств это тождества логики</h2>
+    <p class="goal">Цель: замкнуть сюжет пары. Параграф 2.5 и Теорема 2.41 это ответ на вопрос, который мы задали на 20-й минуте.</p>
+  </div>
+
+  <div class="say">
+    <p>Начать с того, что вернуть группу к Предложению 1.11, где 17 тождеств для множеств, и к Предложению 2.15, где 18 тождеств для формул.</p>
+    <p class="line">Откройте два списка рядом. Они совпадают. Отличаются только значками. Вопрос: это совпадение, красивая аналогия, или за этим стоит теорема?</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="hi">Словарь перевода.</span>
+
+    ∪  ↦  ∨
+    ∩  ↦  &
+    ‾  ↦  ¬
+    =  ↦  ~
+
+Пример:
+  (A ∪ B) ∩ (A ∪ C)   ↦   (A ∨ B) & (A ∨ C)
+  ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾       ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+  выражение про          формула логики
+  множества              высказываний</pre>
+  </div>
+
+  <div class="sym">
+    <span class="sym-lab">новые знаки на этой доске</span>
+    <span class="sym-i"><b>↦</b> «переходит в», «соответствует»: знак перевода, не импликация</span>
+    <span class="sym-i"><b>ρ</b> ро: само отображение перевода</span>
+    <span class="sym-i"><b>t₁, t₂</b> тэ первое, тэ второе: термы теории множеств</span>
+    <span class="sym-i"><b>T, F</b> множество всех термов и множество всех формул</span>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="dim">Опр. 2.37. Термы теории множеств, снова индуктивно:</span>
+  1. A, B, C, … переменные для множеств, это термы;
+  2. если t₁, t₂ термы, то (t₁ ∪ t₂), (t₁ ∩ t₂), t̄₁ тоже термы;
+  3. других термов нет.
+
+<span class="dim">Опр. 2.39. Перевод  ρ : T → F  (термы → формулы):</span>
+  ρ(A) = A
+  ρ(t₁ ∪ t₂) = ( ρ(t₁) ∨ ρ(t₂) )
+  ρ(t₁ ∩ t₂) = ( ρ(t₁) & ρ(t₂) )
+  ρ( t̄₁ )    = ¬ ρ(t₁)
+
+<span class="hi">ТЕОРЕМА 2.41.   t₁ = t₂  для любых множеств
+                       ⟺
+                ρ(t₁) ~ ρ(t₂)  в логике высказываний.</span></pre>
+  </div>
+
+  <div class="say">
+    <p>Полное доказательство в пособии занимает шесть страниц (леммы 2.42, 2.44, 2.45). На семинаре его пересказывать не надо. Надо объяснить идею за четыре строки, это студенты унесут, а детали прочитают.</p>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre><span class="hi">Идея доказательства.</span>
+
+Зафиксируем элемент x. Каждому множеству Aᵢ сопоставим
+значение пропозициональной переменной:
+
+        Aᵢ := и,  если x ∈ Aᵢ
+        Aᵢ := л,  если x ∉ Aᵢ
+
+<span class="rule">Лемма 2.42:   x ∈ t   ⟺   формула ρ(t) истинна при этих значениях.
+              Индукция по построению терма. Ровно потому,
+              что ∪ определено через «или», ∩ через «и», ‾ через «не».</span>
+
+(⇐) формулы эквивалентны ⇒ принадлежность совпадает для всех x
+                         ⇒ множества равны.            <span class="dim">Лемма 2.44</span>
+
+(⇒) формулы не эквивалентны ⇒ есть набор значений, который их
+    различает. Строим контрпример: берём числа 2 и 3 и кладём
+        Aᵢ = {2}, если в этом наборе Aᵢ = и
+        Aᵢ = {3}, если Aᵢ = л
+    Тогда 2 ∈ t₁, но 2 ∉ t₂, значит t₁ ≠ t₂.           <span class="dim">Лемма 2.45</span></pre>
+  </div>
+
+  <div class="say">
+    <p>Трюк с двумя числами стоит проговорить отдельно, он красивый и неочевидный: <span class="line">Нам нужно из набора нулей и единиц смастерить настоящие множества. Берём два числа, 2 и 3. Число 2 это наш пробный элемент. Множество Aᵢ содержит двойку ровно тогда, когда переменная Aᵢ истинна. Всё, набор значений превратился в конкретные множества, и контрпример готов.</span></p>
+  </div>
+
+  <div class="key">
+    <span class="tag">ради чего была вся пара</span>
+    <p>Теперь ни одно из 17 тождеств Предложения 1.11 не надо доказывать руками. <strong>Переводим в логику, строим таблицу, готово.</strong></p>
+    <p>Именно поэтому автор и оставил пункты 5-17 Предложения 1.11 в виде упражнения: к моменту, когда вы до них дошли, у вас уже есть машина, которая их считает.</p>
+  </div>
+
+  <div class="ex">
+    <div class="ex-head">
+      <span class="ex-no">Упр. 11</span>
+      <span class="ex-title">Финальное: доказать A \ (B ∩ C) = (A \ B) ∪ (A \ C)</span>
+      <span class="ex-how">вся группа, разбираем вместе, 6 мин</span>
+    </div>
+    <p>Задача собирает всю пару: сначала надо заметить проблему с разностью, потом перевести, потом применить тождества.</p>
+    <div class="ans">
+      <p><b>Шаг 0, ловушка.</b> Спросить: можно ли сразу применить <span class="f">ρ</span>? Нет. В Определении 2.37 термы строятся только из <span class="f">∪</span>, <span class="f">∩</span> и дополнения, разности там нет. Сначала выражаем её:</p>
+      <span class="fb">A \ B = A ∩ B̄</span>
+      <p><b>Шаг 1, переписываем обе части как термы.</b></p>
+      <span class="fb">слева:   A ∩ (B ∩ C)‾
+справа:  (A ∩ B̄) ∪ (A ∩ C̄)</span>
+      <p><b>Шаг 2, применяем ρ.</b></p>
+      <span class="fb">ρ(слева)  =  A & ¬(B & C)
+ρ(справа) =  (A & ¬B) ∨ (A & ¬C)</span>
+      <p><b>Шаг 3, доказываем эквивалентность цепочкой тождеств.</b></p>
+      <span class="fb">A & ¬(B & C)
+  ~ A & (¬B ∨ ¬C)              де Морган, тождество 10
+  ~ (A & ¬B) ∨ (A & ¬C)        дистрибутивность, тождество 6</span>
+      <p><b>Шаг 4, вывод.</b> Формулы эквивалентны, значит по Теореме 2.41 термы равны при любых множествах, то есть <span class="f">A \ (B∩C) = (A\B) ∪ (A\C)</span>. <span class="f">∎</span></p>
+      <p>Если группа идёт быстро, попросить дополнительно проверить шаг 3 таблицей истинности на восемь строк и убедиться, что цепочка тождеств и таблица дают один результат. Это хорошо закрепляет мысль, что оба пути законны.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>ρ</b> ро: перевод терма в формулу</span>
+      <span class="sym-i"><b>t₁, t₂</b> тэ первое, тэ второе: термы теории множеств</span>
+      <span class="sym-i"><b>Ā</b> дополнение, «не A», «A с чертой»</span>
+      <span class="sym-i"><b>∩</b> пересечение, «A пересечь B»</span>
+      <span class="sym-i"><b>∪</b> объединение, «A объединить B»</span>
+      <span class="sym-i"><b>\</b> разность, «A без B»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+      <span class="sym-i"><b>∎</b> что и требовалось доказать</span>
+    </div></div>
+</section>
+
+<!-- =================== BLOCK 7 =================== -->
+<section class="block" id="b7">
+  <div class="block-head">
+    <span class="mins">82-90 мин</span>
+    <h2>Итог и что делать дальше</h2>
+    <p class="goal">Не пересказывать пару заново. Пять строк на доске, пока студенты собираются.</p>
+  </div>
+
+  <div class="final">
+    <ol>
+      <li>Равенство множеств доказывается через <span class="f">∀x (x ∈ A ⟺ x ∈ B)</span>, или, что то же, через два включения.</li>
+      <li>«Очевидно» не доказательство. Таблица истинности это алгоритм, он работает без вдохновения.</li>
+      <li>Импликация ложна ровно в одной строке: <span class="f">и → л</span>. Отсюда же <span class="f">∅ ⊆ A</span>.</li>
+      <li>Любая формула приводится к ДНФ и КНФ четырьмя шагами. Совершенные формы читаются прямо по таблице: СДНФ «как есть», СКНФ «наоборот».</li>
+      <li>Теория множеств и логика высказываний это одно и то же с точностью до перевода <span class="f">ρ</span> (Теорема 2.41).</li>
+    </ol>
+  </div>
+
+  <div class="board" data-tag="на доске">
+<pre>К следующему семинару:
+
+  прочитать   §1.1 - §2.5   <span class="dim">стр. 5-36</span>
+  выучить     таблицы четырёх связок, наизусть
+  уметь       строить таблицу истинности для 3 переменных
+              не подглядывая в порядок перебора
+
+Следующий раз: логика предикатов, §3. Появятся ∀ и ∃,
+и выяснится, что алгоритма проверки там уже нет.</pre>
+  </div>
+
+  <div class="say">
+    <p>Хорошая последняя фраза, которая оставляет крючок: <span class="line">Сегодня мы получили алгоритм, который решает любой вопрос логики высказываний перебором. В следующей главе мы добавим всего два значка, „для всех“ и „существует“, и такого алгоритма больше не будет. Это, собственно, и есть содержание всего курса.</span></p>
+  </div>
+</section>
+
+<!-- =================== SPARE =================== -->
+<section class="block" id="spare">
+  <div class="block-head">
+    <span class="mins">запас</span>
+    <h2>Задачи для самостоятельной у доски</h2>
+    <p class="goal">Если группа идёт быстрее плана или нужно занять двоих у доски параллельно. Расставлены по возрастанию сложности, ответы для вас.</p>
+  </div>
+
+  <p class="lvl">Уровень 1: техника</p>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З1</span><span class="ex-title">Операции на конкретных множествах</span></div>
+    <p><span class="f">U = {1,…,12}</span>, <span class="f">A</span> чётные, <span class="f">B</span> кратные трём, <span class="f">C = {1,2,3,4,5}</span>. Найти <span class="f">A∩B</span>, <span class="f">A∪B</span>, <span class="f">Ā∩C</span>, <span class="f">A∸B</span>, <span class="f">(A∪B)\C</span>.</p>
+    <div class="ans">
+      <span class="fb">A = {2,4,6,8,10,12},  B = {3,6,9,12}
+
+A∩B     = {6,12}
+A∪B     = {2,3,4,6,8,9,10,12}
+ Ā      = {1,3,5,7,9,11}   →   Ā∩C = {1,3,5}
+A∸B     = {2,4,8,10} ∪ {3,9} = {2,3,4,8,9,10}
+(A∪B)\C = {6,8,9,10,12}</span>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∪</b> объединение, «A объединить B»</span>
+      <span class="sym-i"><b>∩</b> пересечение, «A пересечь B»</span>
+      <span class="sym-i"><b>\</b> разность, «A без B»</span>
+      <span class="sym-i"><b>∸</b> симметрическая разность</span>
+      <span class="sym-i"><b>Ā</b> дополнение, «не A», «A с чертой»</span>
+      <span class="sym-i"><b>U</b> универсум, множество всего рассматриваемого</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З2</span><span class="ex-title">Проверить таблицей: ¬(A &amp; B) ~ (¬A ∨ ¬B)</span></div>
+    <div class="ans">
+      <div class="tw">
+        <table>
+          <tr><th>A</th><th>B</th><th>A&amp;B</th><th class="res">¬(A&amp;B)</th><th>¬A</th><th>¬B</th><th class="res">¬A ∨ ¬B</th></tr>
+          <tr><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vl">л</td></tr>
+          <tr><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="res vi">и</td><td class="vi">и</td><td class="vl">л</td><td class="res vi">и</td></tr>
+          <tr><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+        </table>
+      </div>
+      <p>Столбцы совпали, это закон де Моргана (тождество 10 Предложения 2.15).</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З3</span><span class="ex-title">Классифицировать формулы</span></div>
+    <p>Тождественно истинна, тождественно ложна, просто выполнима и опровержима?</p>
+    <p><span class="f">A ∨ ¬A</span>; <span class="f">A &amp; ¬A</span>; <span class="f">A → A</span>; <span class="f">(A→B) → A</span>; <span class="f">A → (B → A)</span>; <span class="f">(A→B) → (B→A)</span>.</p>
+    <div class="ans">
+      <div class="tw">
+        <table>
+          <tr><th class="lft">Формула</th><th class="lft">Ответ</th><th class="lft">Проверка</th></tr>
+          <tr><td class="lft"><span class="f">A ∨ ¬A</span></td><td class="lft">тождественно истинна</td><td class="lft">закон исключённого третьего</td></tr>
+          <tr><td class="lft"><span class="f">A &amp; ¬A</span></td><td class="lft">тождественно ложна</td><td class="lft">закон противоречия</td></tr>
+          <tr><td class="lft"><span class="f">A → A</span></td><td class="lft">тождественно истинна</td><td class="lft">обе строки дают и</td></tr>
+          <tr><td class="lft"><span class="f">(A→B) → A</span></td><td class="lft">выполнима и опровержима</td><td class="lft">A=и даёт и; A=л, B=и даёт л</td></tr>
+          <tr><td class="lft"><span class="f">A → (B → A)</span></td><td class="lft">тождественно истинна</td><td class="lft">Предл. 2.11, п. 1</td></tr>
+          <tr><td class="lft"><span class="f">(A→B) → (B→A)</span></td><td class="lft">выполнима и опровержима</td><td class="lft">A=л, B=и даёт и → л = л</td></tr>
+        </table>
+      </div>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>→</b> импликация, «если …, то …»</span>
+    </div></div>
+
+  <p class="lvl">Уровень 2: нормальные формы</p>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З4</span><span class="ex-title">Привести (A→B) &amp; (B→C) к ДНФ и к КНФ</span></div>
+    <div class="ans">
+      <span class="fb">шаг 1:  (¬A ∨ B) & (¬B ∨ C)        ← это уже КНФ, готово
+
+шаг 3 (раскрываем скобки для ДНФ):
+  (¬A & ¬B) ∨ (¬A & C) ∨ (B & ¬B) ∨ (B & C)
+
+член (B & ¬B) тождественно ложен, его можно отбросить:
+
+ДНФ:  (¬A & ¬B) ∨ (¬A & C) ∨ (B & C)</span>
+      <p>Полезно обсудить: формально <span class="f">(B &amp; ¬B)</span> можно и оставить, определение ДНФ не запрещает. Отбрасываем, потому что <span class="f">φ ∨ л ~ φ</span>.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>→</b> импликация, «если …, то …»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З5</span><span class="ex-title">Построить СДНФ для A ↔ (B ∨ C)</span></div>
+    <div class="ans">
+      <div class="tw">
+        <table>
+          <tr><th>A</th><th>B</th><th>C</th><th>B∨C</th><th class="res">A ↔ (B∨C)</th></tr>
+          <tr><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="res vi">и</td></tr>
+          <tr class="out"><td class="vi">и</td><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vl">л</td></tr>
+          <tr class="out"><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="vi">и</td><td class="res vl">л</td></tr>
+          <tr class="out"><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="res vl">л</td></tr>
+          <tr class="out"><td class="vl">л</td><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="res vl">л</td></tr>
+          <tr><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="vl">л</td><td class="res vi">и</td></tr>
+        </table>
+      </div>
+      <span class="fb">СДНФ:  (A & B & C) ∨ (A & B & ¬C) ∨ (A & ¬B & C) ∨ (¬A & ¬B & ¬C)</span>
+      <p>Проверка: 4 члена в СДНФ, значит в СКНФ должно быть <span class="f">8 − 4 = 4</span> члена.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>↔</b> эквиваленция, «равносильно»</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>и, л</b> истина и ложь</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З6</span><span class="ex-title">Доказать через Теорему 2.41: (A ∪ B) ∩ (A ∪ B̄) = A</span></div>
+    <div class="ans">
+      <span class="fb">ρ(слева) = (A ∨ B) & (A ∨ ¬B)
+         ~ A ∨ (B & ¬B)        дистрибутивность в обратную сторону
+         ~ A ∨ л
+         ~ A
+         = ρ(справа)
+
+Формулы эквивалентны ⇒ по Теореме 2.41 множества равны.  ∎</span>
+      <p>Это тождество 17 из Предложения 2.15 в чистом виде. Хорошая иллюстрация того, что цепочка тождеств иногда короче таблицы.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∪</b> объединение, «A объединить B»</span>
+      <span class="sym-i"><b>∩</b> пересечение, «A пересечь B»</span>
+      <span class="sym-i"><b>Ā</b> дополнение, «не A», «A с чертой»</span>
+      <span class="sym-i"><b>ρ</b> ро: перевод терма в формулу</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+    </div></div>
+
+  <p class="lvl">Уровень 3: для тех, кому скучно</p>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З7</span><span class="ex-title">Доказать A ∸ B = (A ∪ B) \ (A ∩ B)</span></div>
+    <div class="ans">
+      <span class="fb">левая:   (A ∩ B̄) ∪ (B ∩ Ā)     →   (A & ¬B) ∨ (B & ¬A)
+правая:  (A ∪ B) ∩ (A ∩ B)‾    →   (A ∨ B) & ¬(A & B)
+
+(A ∨ B) & ¬(A & B)
+  ~ (A ∨ B) & (¬A ∨ ¬B)                      де Морган
+  ~ (A & ¬A) ∨ (A & ¬B) ∨ (B & ¬A) ∨ (B & ¬B)  раскрыли скобки
+  ~ л ∨ (A & ¬B) ∨ (B & ¬A) ∨ л
+  ~ (A & ¬B) ∨ (B & ¬A)                       совпало с левой  ∎</span>
+      <p>Попутно: это объясняет название. Симметрическая разность это «в одном из двух, но не в обоих», то есть XOR.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>∸</b> симметрическая разность</span>
+      <span class="sym-i"><b>∪</b> объединение, «A объединить B»</span>
+      <span class="sym-i"><b>∩</b> пересечение, «A пересечь B»</span>
+      <span class="sym-i"><b>Ā</b> дополнение, «не A», «A с чертой»</span>
+      <span class="sym-i"><b>\</b> разность, «A без B»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З8</span><span class="ex-title">Сколько существует попарно неэквивалентных формул от n переменных</span></div>
+    <div class="ans">
+      <p>Ответ: <span class="f">2^(2ⁿ)</span>. Для <span class="f">n = 2</span> это 16, для <span class="f">n = 3</span> уже 256.</p>
+      <p>Обоснование: по Предложению 2.36 формулы с точностью до эквивалентности это ровно логические функции <span class="f">{и,л}ⁿ → {и,л}</span>. Таблица истинности имеет <span class="f">2ⁿ</span> строк, в каждой строке столбец значений можно заполнить двумя способами независимо.</p>
+      <p>Хороший вопрос вдогонку: сколько среди них тавтологий? Ровно одна.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>2ⁿ</b> два в степени n: число строк таблицы</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+      <span class="sym-i"><b>A, B, C</b> пропозициональные переменные, в отличие от φ, ψ</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З9</span><span class="ex-title">Показать, что связок &amp; и ¬ хватает для всего</span></div>
+    <div class="ans">
+      <span class="fb">φ ∨ ψ  ~  ¬(¬φ & ¬ψ)              де Морган наоборот
+φ → ψ  ~  ¬φ ∨ ψ  ~  ¬(φ & ¬ψ)
+φ ↔ ψ  ~  (φ → ψ) & (ψ → φ)       тождество 18</span>
+      <p>Это подводка к понятию полной системы связок. Вопрос на подумать: хватит ли одной только <span class="f">∨</span> и <span class="f">&amp;</span> без отрицания? Нет, такими формулами нельзя получить <span class="f">л</span> из всех истинных значений, проверяется индукцией по построению формулы.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>¬</b> отрицание, «не»</span>
+      <span class="sym-i"><b>∨</b> дизъюнкция, «или»</span>
+      <span class="sym-i"><b>→</b> импликация, «если …, то …»</span>
+      <span class="sym-i"><b>↔</b> эквиваленция, «равносильно»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+      <span class="sym-i"><b>φ</b> фи: любая формула целиком</span>
+      <span class="sym-i"><b>ψ</b> пси: вторая любая формула</span>
+    </div></div>
+
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З10</span><span class="ex-title">Почему в Определении 2.3 нет эквиваленции</span></div>
+    <div class="ans">
+      <p>Потому что <span class="f">(φ ↔ ψ) ~ ((φ → ψ) &amp; (ψ → φ))</span>, тождество 18 Предложения 2.15. Выразимая связка в определении не нужна.</p>
+      <p>Содержательная причина: определение формулы индуктивное, и каждое доказательство индукцией по построению формулы разбирает столько случаев, сколько пунктов в шаге 2. Лишняя связка это лишний случай в каждом доказательстве до конца курса. Поэтому базис делают минимальным, а всё остальное вводят как сокращения.</p>
+    </div>
+  
+    <div class="sym">
+      <span class="sym-lab">знаки в этом упражнении</span>
+      <span class="sym-i"><b>↔</b> эквиваленция, «равносильно»</span>
+      <span class="sym-i"><b>→</b> импликация, «если …, то …»</span>
+      <span class="sym-i"><b>&</b> конъюнкция, «и»</span>
+      <span class="sym-i"><b>~</b> эквивалентны: совпадают таблицы истинности</span>
+      <span class="sym-i"><b>φ</b> фи: любая формула целиком</span>
+      <span class="sym-i"><b>ψ</b> пси: вторая любая формула</span>
+    </div></div>
+</section>
+
+<footer>
+  Источник: Д. Е. Пальчунов. Математическая логика и теория алгоритмов. Ч. 1. НГУ, ФИТ, 2016. Главы 1 и 2, стр. 5-36.
+  Нумерация определений, предложений и теорем в сценарии совпадает с пособием.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var LS_KEY = "sem1-answers-hidden";
+  var ansBtn = document.getElementById("ans");
+  var hidden = false;
+  try { hidden = localStorage.getItem(LS_KEY) === "1"; } catch(e){}
+
+  function applyAnswers(){
+    var list = document.querySelectorAll(".ans");
+    for (var i=0;i<list.length;i++){ list[i].hidden = hidden; }
+    ansBtn.setAttribute("aria-pressed", hidden ? "true" : "false");
+    ansBtn.textContent = hidden ? "Показать разборы" : "Скрыть разборы";
+  }
+  ansBtn.addEventListener("click", function(){
+    hidden = !hidden;
+    try { localStorage.setItem(LS_KEY, hidden ? "1" : "0"); } catch(e){}
+    applyAnswers();
+  });
+  applyAnswers();
+
+  var links = Array.prototype.slice.call(document.querySelectorAll("#rail a"));
+  var tEl = document.getElementById("t");
+  var stateEl = document.getElementById("tstate");
+  var nowEl = document.getElementById("now");
+  var goBtn = document.getElementById("go");
+  var rsBtn = document.getElementById("rs");
+  var started = null, accrued = 0, tick = null;
+
+  function elapsedMs(){ return accrued + (started ? Date.now() - started : 0); }
+
+  function pad(n){ return (n<10?"0":"") + n; }
+
+  function render(){
+    var ms = elapsedMs();
+    var total = Math.floor(ms/1000);
+    var m = Math.floor(total/60), s = total%60;
+    tEl.textContent = pad(m) + ":" + pad(s);
+    var live = null;
+    for (var i=0;i<links.length;i++){
+      var a = links[i];
+      var st = +a.dataset.start, en = +a.dataset.end;
+      a.classList.remove("live","done");
+      if (started || accrued){
+        if (m >= en) a.classList.add("done");
+        else if (m >= st) { a.classList.add("live"); live = a; }
+      }
+    }
+    if (live){
+      nowEl.textContent = "сейчас: " + live.textContent.replace(/^\d+-\d+/, "").trim() +
+        "  ·  до конца блока " + (+live.dataset.end - m) + " мин";
+    } else if (started || accrued){
+      nowEl.textContent = m >= 90 ? "пара окончена" : "";
+    } else {
+      nowEl.textContent = "";
+    }
+  }
+
+  goBtn.addEventListener("click", function(){
+    if (started){
+      accrued = elapsedMs(); started = null;
+      clearInterval(tick); tick = null;
+      goBtn.textContent = "Продолжить";
+      stateEl.textContent = "пауза";
+    } else {
+      started = Date.now();
+      tick = setInterval(render, 1000);
+      goBtn.textContent = "Пауза";
+      stateEl.textContent = "идёт пара";
+    }
+    render();
+  });
+
+  rsBtn.addEventListener("click", function(){
+    started = null; accrued = 0;
+    if (tick){ clearInterval(tick); tick = null; }
+    goBtn.textContent = "Старт";
+    stateEl.textContent = "пара не начата";
+    render();
+  });
+
+  render();
+})();
+
+(function(){
+  "use strict";
+  var KEY = "sem1-theme";
+  var btn = document.getElementById("theme");
+  if(!btn) return;
+  var cur = null;
+  try { cur = localStorage.getItem(KEY) || null; } catch(e){}
+  function apply(v){
+    if (v) document.documentElement.setAttribute("data-theme", v);
+    else document.documentElement.removeAttribute("data-theme");
+    btn.textContent = v === "dark" ? "Тёмная тема"
+                    : v === "light" ? "Светлая тема"
+                    : "Тема: как в системе";
+  }
+  apply(cur);
+  btn.addEventListener("click", function(){
+    cur = cur === null ? "light" : cur === "light" ? "dark" : null;
+    try { if (cur) localStorage.setItem(KEY, cur); else localStorage.removeItem(KEY); } catch(e){}
+    apply(cur);
+  });
+})();
+</script>
+</body>
+</html>
