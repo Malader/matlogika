@@ -1,0 +1,1177 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Поминутный сценарий второго семинара по математической логике: сигнатуры, термы, кванторы, свободные переменные, истинность и предваренная нормальная форма по главе 3 пособия Д. Е. Пальчунова.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Логика предикатов">
+<meta property="og:description" content="Поминутный сценарий второго семинара по математической логике: сигнатуры, термы, кванторы, свободные переменные, истинность и предваренная нормальная форма по главе 3 пособия Д. Е. Пальчунова.">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary">
+<title>Логика предикатов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:wght@600;700&family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+/* reset equivalent to the artifact host skeleton */
+:root{
+  color-scheme:light dark;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<style>
+:root{
+  --paper:#F1F2F7;
+  --surface:#FFFFFF;
+  --surface-2:#F7F7FB;
+  --ink:#181A26;
+  --ink-2:#4B4F66;
+  --ink-3:#7B7F98;
+  --rule:#D8DAE6;
+  --rule-2:#E9EAF2;
+  --accent:#4A3FB5;
+  --accent-soft:#E8E6F8;
+  --on-accent:#FFFFFF;
+  --board:#1A2A23;
+  --board-2:#243A30;
+  --board-edge:#0E1713;
+  --chalk:#E9F0EA;
+  --chalk-2:#9FB8A8;
+  --chalk-3:#6E8878;
+  --true:#0E7551;
+  --false:#AE3644;
+  --shade:rgba(74,63,181,.16);
+  --shade-2:rgba(74,63,181,.30);
+  --warn:#8A5A12;
+  --warn-soft:#FBF2DF;
+  --shadow:0 1px 2px rgba(24,26,38,.05), 0 8px 24px -12px rgba(24,26,38,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#121320;
+    --surface:#1A1B2A;
+    --surface-2:#202133;
+    --ink:#E9EAF3;
+    --ink-2:#AFB3C8;
+    --ink-3:#7E8299;
+    --rule:#2E3145;
+    --rule-2:#262838;
+    --accent:#A79CFF;
+    --accent-soft:#272444;
+    --on-accent:#14152A;
+    --board:#0D1712;
+    --board-2:#17251E;
+    --board-edge:#060B08;
+    --chalk:#E9F0EA;
+    --chalk-2:#93AC9C;
+    --chalk-3:#63796C;
+    --true:#43C495;
+    --false:#F2848F;
+    --shade:rgba(167,156,255,.18);
+    --shade-2:rgba(167,156,255,.34);
+    --warn:#E0B463;
+    --warn-soft:#2A2314;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121320;
+  --surface:#1A1B2A;
+  --surface-2:#202133;
+  --ink:#E9EAF3;
+  --ink-2:#AFB3C8;
+  --ink-3:#7E8299;
+  --rule:#2E3145;
+  --rule-2:#262838;
+  --accent:#A79CFF;
+  --accent-soft:#272444;
+  --on-accent:#14152A;
+  --board:#0D1712;
+  --board-2:#17251E;
+  --board-edge:#060B08;
+  --chalk:#E9F0EA;
+  --chalk-2:#93AC9C;
+  --chalk-3:#63796C;
+  --true:#43C495;
+  --false:#F2848F;
+  --shade:rgba(167,156,255,.18);
+  --shade-2:rgba(167,156,255,.34);
+  --warn:#E0B463;
+  --warn-soft:#2A2314;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.6);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Golos Text","Segoe UI",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:860px;margin:0 auto;padding-inline:20px;padding-block:0 72px}
+
+/* ---------- header ---------- */
+.masthead{padding-block:40px 24px;border-bottom:2px solid var(--ink);margin-bottom:0}
+.eyebrow{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:700;margin:0 0 14px;
+}
+h1{
+  font-family:"Bitter",Georgia,serif;font-weight:700;
+  font-size:clamp(30px,6.2vw,46px);line-height:1.08;letter-spacing:-.015em;
+  margin:0 0 14px;text-wrap:balance;
+}
+.sub{font-size:17px;color:var(--ink-2);margin:0 0 20px;max-width:60ch}
+.meta{
+  display:flex;flex-wrap:wrap;gap:8px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;
+}
+.meta span{
+  border:1px solid var(--rule);border-radius:2px;padding:4px 9px;
+  color:var(--ink-2);background:var(--surface);
+}
+
+/* ---------- control bar ---------- */
+.bar{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  background:var(--paper);border-bottom:1px solid var(--rule);
+  margin-inline:-20px;padding:10px 20px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.clock{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;
+  color:var(--ink);min-width:66px;
+}
+.clock small{display:block;font-size:10px;font-weight:500;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+button{
+  font-family:"Golos Text",system-ui,sans-serif;font-size:13px;font-weight:500;
+  background:var(--surface);color:var(--ink);
+  border:1px solid var(--rule);border-radius:3px;
+  padding:7px 13px;cursor:pointer;transition:background .12s,border-color .12s;
+}
+button:hover{background:var(--accent-soft);border-color:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.bar .spacer{flex:1}
+.now{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;
+  color:var(--accent);font-weight:500;
+}
+
+/* ---------- timeline rail ---------- */
+.rail{
+  display:grid;grid-template-columns:repeat(8,1fr);gap:3px;
+  margin:0 -20px 0;padding:0 20px 14px;
+  border-bottom:1px solid var(--rule);
+}
+.rail a{
+  display:block;text-decoration:none;color:var(--ink-3);
+  border-top:3px solid var(--rule);padding-top:7px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10px;
+  line-height:1.3;transition:color .15s,border-color .15s;
+}
+.rail a b{display:block;font-size:11px;color:var(--ink-2);font-weight:700}
+.rail a:hover{color:var(--accent)}
+.rail a.live{border-top-color:var(--accent);color:var(--accent)}
+.rail a.live b{color:var(--accent)}
+.rail a.done{border-top-color:var(--ink-3)}
+
+/* ---------- blocks ---------- */
+.block{padding-block:40px;border-bottom:1px solid var(--rule-2);scroll-margin-top:96px}
+.block-head{margin-bottom:22px}
+.mins{
+  display:inline-block;font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:11px;font-weight:700;letter-spacing:.06em;
+  background:var(--ink);color:var(--paper);padding:3px 8px;border-radius:2px;
+  margin-bottom:11px;font-variant-numeric:tabular-nums;
+}
+h2{
+  font-family:"Bitter",Georgia,serif;font-weight:700;
+  font-size:clamp(21px,3.6vw,27px);line-height:1.2;letter-spacing:-.01em;
+  margin:0 0 8px;text-wrap:balance;
+}
+h3{
+  font-family:"Bitter",Georgia,serif;font-weight:600;font-size:17px;
+  margin:30px 0 10px;line-height:1.3;
+}
+.goal{margin:0;color:var(--ink-2);font-size:15px;max-width:62ch}
+p{margin:0 0 13px;max-width:66ch}
+.block > *:last-child{margin-bottom:0}
+
+/* ---------- board panel ---------- */
+.board{
+  background:var(--board);
+  border:1px solid var(--board-edge);
+  border-radius:3px;
+  margin:20px 0;
+  position:relative;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.board::before{
+  content:attr(data-tag);
+  position:absolute;top:0;left:0;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--board);background:var(--chalk-2);
+  padding:3px 9px;border-radius:0 0 3px 0;
+}
+.board pre{
+  margin:0;padding:34px 18px 20px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:13.5px;line-height:1.72;color:var(--chalk);
+  white-space:pre;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.board pre .dim{color:var(--chalk-3)}
+.board pre .hi{color:#FFD98A;font-weight:700}
+.board pre .rule{color:var(--chalk-2)}
+
+/* ---------- speech ---------- */
+.say{
+  border-left:3px solid var(--accent);
+  padding:2px 0 2px 16px;margin:18px 0;
+}
+.say::before{
+  content:"говорим";display:block;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--accent);margin-bottom:7px;
+}
+.say p{margin:0 0 9px}
+.say p:last-child{margin-bottom:0}
+.line{font-style:italic;color:var(--ink)}
+.line::before{content:"« ";color:var(--ink-3);font-style:normal}
+.line::after{content:" »";color:var(--ink-3);font-style:normal}
+
+/* ---------- key frame ---------- */
+.key{
+  border:2px solid var(--ink);border-radius:3px;
+  background:var(--surface);
+  padding:16px 18px;margin:20px 0;
+}
+.key .tag{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);display:block;margin-bottom:8px;
+}
+.key p{margin:0 0 8px;font-size:16px}
+.key p:last-child{margin-bottom:0}
+.key strong{font-weight:600}
+
+/* ---------- note ---------- */
+.note{
+  background:var(--warn-soft);border-left:3px solid var(--warn);
+  padding:13px 16px;margin:18px 0;font-size:14.5px;color:var(--ink);
+}
+.note b{color:var(--warn)}
+.note p{margin:0 0 8px}
+.note p:last-child{margin-bottom:0}
+
+/* ---------- exercises ---------- */
+.ex{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:18px;margin:22px 0;box-shadow:var(--shadow);
+}
+.ex-head{display:flex;align-items:baseline;gap:10px;margin-bottom:11px;flex-wrap:wrap}
+.ex-no{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;font-weight:700;
+  letter-spacing:.08em;color:var(--accent);
+  border:1px solid var(--accent);border-radius:2px;padding:2px 7px;white-space:nowrap;
+}
+.ex-title{font-family:"Bitter",Georgia,serif;font-weight:600;font-size:16.5px;line-height:1.3}
+.ex-how{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;
+  color:var(--ink-3);letter-spacing:.04em;
+}
+.ans{
+  border-top:1px dashed var(--rule);margin-top:14px;padding-top:13px;
+}
+.ans::before{
+  content:"разбор";display:block;
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);margin-bottom:8px;
+}
+.ans p{margin:0 0 9px}
+.ans p:last-child{margin-bottom:0}
+.f{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px;background:var(--surface-2);padding:1px 5px;border-radius:2px;white-space:nowrap}
+.fb{
+  display:block;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13.5px;
+  background:var(--surface-2);border-left:2px solid var(--rule);
+  padding:10px 13px;margin:10px 0;overflow-x:auto;line-height:1.7;white-space:pre;
+}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto;margin:16px 0;-webkit-overflow-scrolling:touch}
+table{
+  border-collapse:collapse;font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:13px;font-variant-numeric:tabular-nums;background:var(--surface);
+  min-width:min(100%,340px);
+}
+th,td{border:1px solid var(--rule);padding:5px 11px;text-align:center;white-space:nowrap}
+th{background:var(--surface-2);font-weight:700;color:var(--ink-2);font-size:12px}
+td.lft,th.lft{text-align:left}
+.vi{color:var(--true);font-weight:700}
+.vl{color:var(--false);font-weight:700}
+.res{background:var(--accent-soft)}
+tr.out td{opacity:.42}
+
+/* ---------- venn ---------- */
+.venns{display:flex;flex-wrap:wrap;gap:14px;margin:18px 0}
+.venn-item{flex:1 1 140px;min-width:132px}
+.venn{display:block;width:100%;max-width:100%;height:auto}
+.venn-cap{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11.5px;
+  color:var(--ink-2);text-align:center;margin-top:5px;
+}
+
+
+/* ---------- symbol hints ---------- */
+.sym{
+  margin-top:15px;padding-top:12px;border-top:1px solid var(--rule-2);
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+}
+.sym-lab{
+  font-family:"JetBrains Mono",ui-monospace,monospace;
+  font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;
+  color:var(--ink-3);width:100%;margin-bottom:3px;
+}
+.sym-i{
+  display:inline-flex;align-items:baseline;gap:7px;
+  background:var(--surface-2);border:1px solid var(--rule-2);border-radius:2px;
+  padding:3px 9px;font-size:12.5px;color:var(--ink-2);line-height:1.5;
+}
+.sym-i b{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;color:var(--accent);font-weight:700}
+
+/* ---------- glossary ---------- */
+.gl-sec{
+  background:var(--surface);border:1px solid var(--rule);border-radius:3px;
+  padding:22px 20px;margin:26px 0 0;box-shadow:var(--shadow);
+}
+table.gl{width:100%;min-width:0;font-family:"Golos Text","Segoe UI",system-ui,sans-serif;font-size:14px}
+table.gl th,table.gl td{text-align:left;white-space:normal;padding:7px 11px;vertical-align:top}
+table.gl th{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+table.gl td.s{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:16px;
+  color:var(--accent);font-weight:700;white-space:nowrap;text-align:center;
+}
+table.gl td.n{font-weight:600;white-space:nowrap}
+.vs{display:grid;gap:12px;margin:18px 0}
+.vs-row{background:var(--surface-2);border-left:3px solid var(--accent);padding:13px 16px}
+.vs-pair{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:15px;font-weight:700;
+  color:var(--accent);margin-bottom:5px;
+}
+.vs-row p{margin:0;font-size:14.5px;max-width:none}
+.btnlink{
+  font-family:"Golos Text",system-ui,sans-serif;font-size:13px;font-weight:500;
+  background:var(--surface);color:var(--ink);text-decoration:none;
+  border:1px solid var(--rule);border-radius:3px;padding:7px 13px;
+  transition:background .12s,border-color .12s;
+}
+.btnlink:hover{background:var(--accent-soft);border-color:var(--accent)}
+.btnlink:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* ---------- misc lists ---------- */
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:66ch}
+li{margin-bottom:6px}
+ul.tight li,ol.tight li{margin-bottom:3px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.lvl{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--ink-3);
+  border-bottom:1px solid var(--rule);padding-bottom:6px;margin:30px 0 4px;
+}
+.final{
+  background:var(--surface);border:2px solid var(--ink);border-radius:3px;
+  padding:22px;margin:26px 0;
+}
+.final ol{counter-reset:fin;list-style:none;padding-left:0;max-width:none}
+.final ol li{
+  counter-increment:fin;position:relative;padding-left:34px;margin-bottom:11px;
+}
+.final ol li::before{
+  content:counter(fin);position:absolute;left:0;top:1px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;font-weight:700;
+  color:var(--paper);background:var(--ink);
+  width:21px;height:21px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+}
+footer{
+  padding-block:30px;color:var(--ink-3);font-size:13px;
+  border-top:1px solid var(--rule);
+}
+
+@media (max-width:560px){
+  .rail{grid-template-columns:repeat(4,1fr);gap:6px 4px}
+  .cols{grid-template-columns:1fr}
+  .board pre{font-size:12px;padding:32px 14px 16px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+}
+html{scroll-behavior:smooth}
+
+@media print{
+  .bar,.rail,footer{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  .wrap{max-width:none;padding:0}
+  .board{background:#fff;border:1.5pt solid #000}
+  .board pre{color:#000}
+  .board pre .dim{color:#555}
+  .board pre .hi{color:#000;font-weight:700;text-decoration:underline}
+  .board pre .rule{color:#555}
+  .board::before{color:#000;background:#ddd}
+  .block{break-inside:auto;page-break-inside:auto}
+  .ex,.key,.note,.gl-sec,.vs-row{break-inside:avoid;page-break-inside:avoid;box-shadow:none}
+  .sym{border-top:1px solid #bbb}
+  .sym-i{border:1px solid #bbb;background:#f4f4f4}
+  .ans{display:block!important}
+  h2{break-after:avoid}
+}
+
+.seminars{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px}
+.seminars a[aria-current="page"]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.bar .now{min-width:0}
+.block .f{white-space:normal;overflow-wrap:anywhere}
+.sym-i{max-width:100%;overflow-wrap:anywhere}
+table.gl td.n{white-space:normal}
+@media(max-width:560px){
+  .block{scroll-margin-top:205px}
+  .bar{gap:7px}
+  .now{width:100%;order:2}
+  .gl-sec{padding:16px 10px}
+  table.gl th,table.gl td{padding:6px 7px}
+}
+@media print{.seminars{display:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <nav class="seminars" aria-label="Семинары курса">
+    <a class="btnlink" href="./">1. Множества и высказывания</a>
+    <a class="btnlink" href="seminar-2.html" aria-current="page">2. Логика предикатов</a>
+  </nav>
+  <p class="eyebrow">Семинар 2 · Математическая логика и теория алгоритмов</p>
+  <h1>Логика предикатов</h1>
+  <p class="sub">Поминутный сценарий одной пары по главе 3 пособия Д. Е. Пальчунова: от языка и смысла формулы до кванторов и предваренной нормальной формы.</p>
+  <div class="meta">
+    <span>90 минут</span><span>1 курс</span><span>Пальчунов, стр. 37-45</span>
+    <span>12 задач у доски + 4 в запасе</span>
+  </div>
+</header>
+<div class="bar">
+  <div class="clock"><span id="t">00:00</span><small id="tstate">пара не начата</small></div>
+  <button id="go">Старт</button><button id="rs">Сброс</button>
+  <a class="btnlink" href="#slovar">Шпаргалка знаков</a>
+  <button id="theme">Тема</button><div class="spacer"></div>
+  <span class="now" id="now" aria-live="polite"></span>
+  <button id="ans" aria-pressed="false">Скрыть разборы</button>
+</div>
+<nav class="rail" id="rail" aria-label="План пары">
+  <a href="#b0" data-start="0" data-end="5"><b>0-5</b>вводка</a>
+  <a href="#b1" data-start="5" data-end="17"><b>5-17</b>сигнатура</a>
+  <a href="#b2" data-start="17" data-end="30"><b>17-30</b>термы</a>
+  <a href="#b3" data-start="30" data-end="45"><b>30-45</b>кванторы</a>
+  <a href="#b4" data-start="45" data-end="57"><b>45-57</b>переменные</a>
+  <a href="#b5" data-start="57" data-end="70"><b>57-70</b>истинность</a>
+  <a href="#b6" data-start="70" data-end="85"><b>70-85</b>ПНФ</a>
+  <a href="#b7" data-start="85" data-end="90"><b>85-90</b>итог</a>
+</nav>
+<!-- =================== slovar =================== -->
+<section class="block" id="slovar">
+  <div class="block-head">
+    <span class="mins">справочник</span>
+    <h2>Шпаргалка: предметы, формулы и кванторы</h2>
+    <p class="goal">Знаки главы 3 в обозначениях пособия. Под каждой задачей есть собственная подсказка: справочник не нужно держать открытым.</p>
+  </div>
+  <div class="note">
+    <p><b>Два разных вида значений.</b> Предметная переменная <span class="f">x</span> обозначает элемент выбранного множества. Терм <span class="f">f(x)</span> тоже получает элемент. Формула <span class="f">P(f(x))</span> получает истину или ложь. Квантор связывает предметную переменную, а не букву, обозначающую целую формулу.</p>
+  </div>
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Язык и его интерпретация</h3>
+    <div class="tw"><table class="gl">
+      <tr><th>Знак</th><th>Как читать</th><th>Что означает</th></tr>
+      <tr><td class="s">σ</td><td>«сигма», сигнатура</td><td>Список предикатных, функциональных и константных символов с их местностями.</td></tr>
+      <tr><td class="s">𝔄</td><td>«система А», «модель А»</td><td>Область предметов вместе с выбранными значениями символов сигнатуры.</td></tr>
+      <tr><td class="s">M = |𝔄|</td><td>«эм — универсум системы А»</td><td>Основное множество. На этой паре всегда непустое. Черты здесь обозначают универсум, а не число элементов.</td></tr>
+      <tr><td class="s">Mⁿ</td><td>«эм в энной декартовой степени»</td><td>Множество упорядоченных наборов из n элементов M. Например, M² состоит из пар.</td></tr>
+      <tr><td class="s">P¹, R²</td><td>«одноместный P», «двуместный R»</td><td>В сигнатуре верхний индекс — число аргументов, а не степень. Отношение R на M задаёт множество пар, на которых R истинно.</td></tr>
+      <tr><td class="s">f¹, c</td><td>«одноместная функция эф», «константа цэ»</td><td>f выдаёт элемент M по одному элементу M; c обозначает фиксированный элемент M.</td></tr>
+      <tr><td class="s">P<sup>𝔄</sup>, f<sup>𝔄</sup></td><td>«пэ в системе А», «эф в системе А»</td><td>Конкретное отношение или функция, которыми в системе 𝔄 истолкован символ.</td></tr>
+      <tr><td class="s">x, y, z</td><td>«икс», «игрек», «зет»</td><td>Предметные переменные: их значения лежат в M.</td></tr>
+      <tr><td class="s">t, φ, ψ, ξ</td><td>«тэ», «фи», «пси», «кси»</td><td>В наших рассуждениях: t — любой терм, греческие буквы — любые формулы целиком.</td></tr>
+      <tr><td class="s">ℕ, ℤ</td><td>«натуральные», «целые числа»</td><td>Здесь ℕ = {0,1,2,…}, ℤ = {…,−2,−1,0,1,2,…}. Соглашение о нуле фиксируем заранее.</td></tr>
+      <tr><td class="s">∈, ∉, ⊆, ∅</td><td>«принадлежит», «не принадлежит», «подмножество», «пустое множество»</td><td>Знаки теории множеств. Они нужны для описания языка и систем.</td></tr>
+    </table></div>
+  </div>
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Связки и кванторы внутри формулы</h3>
+    <div class="tw"><table class="gl">
+      <tr><th>Знак</th><th>Название и чтение</th><th>Смысл</th></tr>
+      <tr><td class="s">=</td><td>Равенство: «равно»</td><td>Два терма обозначают один и тот же предмет. Равенство — логический символ; отдельно включать его в сигнатуру не требуется.</td></tr>
+      <tr><td class="s">¬</td><td>Отрицание: «не»</td><td>Меняет истину на ложь и ложь на истину.</td></tr>
+      <tr><td class="s">&amp;</td><td>Конъюнкция: «и»</td><td>Обе части истинны.</td></tr>
+      <tr><td class="s">∨</td><td>Дизъюнкция: «или»</td><td>Истинна хотя бы одна часть, в том числе могут быть истинны обе.</td></tr>
+      <tr><td class="s">→</td><td>Импликация: «если …, то …»</td><td>Ложна только при истинной посылке и ложном заключении.</td></tr>
+      <tr><td class="s">∀x</td><td>Квантор всеобщности: «для любого икс»</td><td>Подформула истинна при каждом выборе x из M.</td></tr>
+      <tr><td class="s">∃x</td><td>Квантор существования: «существует икс»</td><td>Есть хотя бы один x из M, при котором подформула истинна. Единственность не утверждается.</td></tr>
+      <tr><td class="s">&lt;, ≤</td><td>«меньше», «меньше или равно»</td><td>В числовых примерах — привычные отношения. Это выбранные интерпретации предикатных символов.</td></tr>
+      <tr><td class="s">и, л</td><td>«истина», «ложь»</td><td>Значения формулы, а не предметы области M.</td></tr>
+    </table></div>
+    <p style="margin-bottom:0">Скобки после квантора показывают его область действия. Запись <span class="f">∀x (P(x) → Q(x))</span> читается: «для любого икс: если пэ от икс, то ку от икс». Проговорить двоеточие и закрывающую скобку.</p>
+  </div>
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Знаки наших рассуждений о формулах</h3>
+    <div class="tw"><table class="gl">
+      <tr><th>Запись</th><th>Как читать</th><th>Что проверяем</th></tr>
+      <tr><td class="s">FV(φ)</td><td>«эф вэ от фи»</td><td>Множество свободных переменных формулы φ. FV(t) — переменные терма t.</td></tr>
+      <tr><td class="s">γ</td><td>«гамма», означивание</td><td>Назначает предметным переменным элементы M. Например, γ(x) = 2.</td></tr>
+      <tr><td class="s">γ[x := a]</td><td>«гамма, в которой икс получает а»</td><td>Новое означивание: x назначен элемент a, остальные значения сохранены. Вспомогательная запись для этой пары.</td></tr>
+      <tr><td class="s">t<sup>𝔄</sup>[γ]</td><td>«значение терма тэ в системе А при гамма»</td><td>Результат вычисления терма; он лежит в M.</td></tr>
+      <tr><td class="s">𝔄 ⊨ φ[γ]</td><td>«в системе А фи истинна при гамма»</td><td>Знак ⊨ — «выполнено», «истинно». Это утверждение о формуле, не связка внутри неё.</td></tr>
+      <tr><td class="s">𝔄 ⊭ φ[γ]</td><td>«в системе А фи ложна при гамма»</td><td>Знак ⊭ — отрицание предыдущего утверждения.</td></tr>
+      <tr><td class="s">φ ∼ ψ</td><td>«фи и пси семантически эквивалентны»</td><td>Совпадают значения при любой интерпретации и любом общем означивании свободных переменных.</td></tr>
+      <tr><td class="s">Qx</td><td>«ку по икс»</td><td>В схеме Q обозначает один из двух кванторов: ∀ или ∃. Это не предикат Q(x).</td></tr>
+    </table></div>
+  </div>
+  <div class="gl-sec">
+    <h3 style="margin-top:0">Три пары, которые проверяем всю пару</h3>
+    <div class="vs">
+      <div class="vs-row"><div class="vs-pair">Терм / формула</div><p><span class="f">f(c)</span> обозначает предмет. <span class="f">P(f(c))</span> утверждает что-то про этот предмет. В вопросе «чему равно?» ждём элемент; в вопросе «истинно ли?» — истину или ложь.</p></div>
+      <div class="vs-row"><div class="vs-pair">Символ / его значение</div><p><span class="f">R</span> — часть языка. <span class="f">R<sup>𝔄</sup></span> — конкретное отношение. Один язык может описывать разные системы: на тех же натуральных числах R можно понять как «меньше» или как «делится на».</p></div>
+      <div class="vs-row"><div class="vs-pair">Формула / утверждение о формуле</div><p><span class="f">∀x P(x)</span> — формула. <span class="f">𝔄 ⊨ ∀x P(x)</span> — наше сообщение о её истинности в системе 𝔄. <span class="f">φ ∼ ψ</span> — сообщение об эквивалентности; знак ∼ не добавляет новую связку к языку.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== b0 =================== -->
+<section class="block" id="b0">
+  <div class="block-head">
+    <span class="mins">0-5 мин</span>
+    <h2>Вводка: что спрятано внутри высказывания</h2>
+    <p class="goal">Вспомнить связки и показать, зачем к ним добавлять предметы и кванторы. Сегодняшний сюжет: от фразы на русском до формулы, её проверки и нормальной формы.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre>Семинар 2. Логика предикатов.  <span class="dim">Пальчунов, гл. 3, стр. 37-45</span>
+
+Раньше:  A → B         <span class="dim">видим только истину и ложь</span>
+Сегодня: ∀x (P(x) → Q(x))
+         <span class="hi">видим предмет x и свойство этого предмета</span>
+
+Вопрос пары: «для каждого есть свой» и «есть один для всех» —
+             одно и то же или нет?</pre></div>
+  <div class="say">
+    <p class="line">В прошлый раз буква A могла скрывать целую фразу «каждый студент сдал хотя бы одну задачу». Таблица истинности не видела ни студентов, ни задач, ни слов «каждый» и «хотя бы одну». Сегодня откроем эту коробку.</p>
+    <p class="line">Правила для «и», «или», «не», «если» остаются прежними. Добавится выбор предметов: сначала договоримся, какие предметы рассматриваем, потом будем говорить обо всех или искать хотя бы один.</p>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 1</span><span class="ex-title">Разогрев: что можно понять без области предметов</span><span class="ex-how">устно, 2 мин</span></div>
+    <p>В каком случае ложна <span class="f">A → B</span>? Что означает <span class="f">¬(A &amp; B)</span>? Можно ли сразу сказать, истинна ли запись <span class="f">x &lt; 3</span>?</p>
+    <div class="ans">
+      <p><span class="f">A → B</span> ложна только при <span class="f">A = и, B = л</span>. <span class="f">¬(A &amp; B)</span> истинна, когда хотя бы одна часть ложна; обе ложные части тоже подходят.</p>
+      <p>У <span class="f">x &lt; 3</span> без назначения x ещё нет определённого значения истинности. На натуральных числах при x = 1 получаем истину, при x = 5 — ложь. Сам текст формулы при этом не меняется.</p>
+      <p><b>Вопрос вдогонку:</b> «А у <span class="f">∃x (x &lt; 0)</span> значение уже есть?» После выбора области — да. На натуральных числах это ложь, на целых — истина. Область нужна даже тогда, когда свободных переменных нет.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>→</b> если …, то …</span><span class="sym-i"><b>¬</b> не</span><span class="sym-i"><b>&amp;</b> и</span><span class="sym-i"><b>&lt;</b> меньше</span><span class="sym-i"><b>∃x</b> существует икс в выбранной области</span></div>
+  </div>
+  <div class="key"><span class="tag">оставить в углу доски</span><p><strong>Текст формулы → интерпретация символов → означивание свободных переменных → истина или ложь.</strong></p><p>Без этих шагов ответ «истинно» может относиться совсем к другой задаче.</p></div>
+</section>
+
+<!-- =================== b1 =================== -->
+<section class="block" id="b1">
+  <div class="block-head">
+    <span class="mins">5-17 мин</span>
+    <h2>1. Сигнатура: какие слова разрешены в нашем языке</h2>
+    <p class="goal">Развести язык и систему. Разобрать отношение, функцию и константу на одном сквозном примере, который останется на доске.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Опр. 3.1-3.4, стр. 37-38</span>
+M² = { (a,b) | a ∈ M, b ∈ M }  <span class="dim">упорядоченные пары</span>
+отношение R на M:   R ⊆ M²      <span class="dim">какие пары подходят</span>
+функция f на M:     f : M → M   <span class="dim">каждому входу ровно один выход</span>
+константа в 𝔄:     cᴬ ∈ M      <span class="dim">один выделенный предмет</span>
+
+Сигнатура:  σ = ⟨P¹, R², f¹, c⟩   <span class="hi">имена + местности</span>
+
+𝔄: M = ℕ = {0,1,2,…}
+   Pᴬ(a): «a чётно»       Rᴬ(a,b): «a &lt; b»
+   fᴬ(a) = a + 1          cᴬ = 0
+
+<span class="hi">Соглашение пары: M ≠ ∅. Все функции определены на всём M.</span></pre></div>
+  <div class="sym"><span class="sym-lab">новые знаки на этой доске</span><span class="sym-i"><b>σ</b> сигма, сигнатура</span><span class="sym-i"><b>M²</b> пары элементов эм</span><span class="sym-i"><b>⊆</b> является подмножеством</span><span class="sym-i"><b>f : M → M</b> функция из эм в эм</span><span class="sym-i"><b>P¹, R²</b> один и два аргумента</span><span class="sym-i"><b>𝔄</b> система А</span><span class="sym-i"><b>≠ ∅</b> не пусто</span></div>
+  <div class="say">
+    <p class="line">Сигнатура похожа на список объявлений: P ждёт один аргумент, R — два, f — один. Но из этого списка ещё не известно, что эти имена означают. Система назначает им значения.</p>
+    <p>Показать три строки: <span class="f">P(2)</span>, <span class="f">R(2,5)</span>, <span class="f">f(2)</span>. Спросить, где ответ предмет, а где истина или ложь. Ожидаем: у первых двух — значение истинности, у последней — число 3.</p>
+    <p class="line">Отношение можно хранить как список подходящих наборов. Для «меньше» пара (2,5) подходит, пара (5,2) не подходит. Функция обязана по каждому входу вернуть ровно один элемент нашей области. Если по одному входу получаются два разных выхода, это уже не функция.</p>
+  </div>
+  <div class="note">
+    <p><b>Почему проверяем замкнутость.</b> На <span class="f">M = {0,1,2}</span> правило <span class="f">f(a) = a + 1</span> не задаёт функцию из M в M: для a = 2 результат 3 лежит за пределами M. Можно задать другую функцию: 0 переходит в 1, 1 в 2, 2 в 0.</p>
+    <p><b>Терминология пособия.</b> В Определении 3.5 «модель» — система только с предикатами, «алгебра» — только с функциями и константами. В §3.3 автор использует слово «модель» и для общей алгебраической системы. Здесь следуем этому употреблению, а в точных определениях говорим «система».</p>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 2</span><span class="ex-title">Одна сигнатура, две интерпретации</span><span class="ex-how">сначала 1 мин самостоятельно, затем 3 мин у доски</span></div>
+    <p>У системы <span class="f">𝔅</span> та же область ℕ и те же P, f, c, что у 𝔄, но <span class="f">R<sup>𝔅</sup>(a,b)</span> означает «a делится на b без остатка»; для b = 0 положим отношение ложным. Сравнить <span class="f">R(c,f(c))</span> и <span class="f">P(f(c))</span> в 𝔄 и 𝔅.</p>
+    <div class="ans">
+      <p><b>Сначала вычисляем предметы:</b> c обозначает 0, f(c) обозначает 1 в обеих системах.</p>
+      <div class="tw"><table><tr><th class="lft">Формула</th><th>𝔄</th><th>𝔅</th></tr><tr><td class="lft">R(c,f(c))</td><td class="vi">и: 0 &lt; 1</td><td class="vi">и: 0 = 0 · 1</td></tr><tr><td class="lft">P(f(c))</td><td class="vl">л: 1 нечётно</td><td class="vl">л: 1 нечётно</td></tr></table></div>
+      <p>Первая формула в этом примере случайно совпала по значению. Чтобы различить системы, берём <span class="f">R(f(c),f(f(c)))</span>: в 𝔄 истинно 1 &lt; 2, в 𝔅 ложно «1 делится на 2».</p>
+      <p><b>Вывод:</b> совпадение одного ответа не делает интерпретации одинаковыми. Сигнатура у систем одна; значения символов могут различаться.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>R(a,b)</b> двуместный предикат</span><span class="sym-i"><b>P(a)</b> одноместный предикат</span><span class="sym-i"><b>f(a)</b> значение функции</span><span class="sym-i"><b>c</b> константа</span><span class="sym-i"><b>R<sup>𝔅</sup></b> отношение R в системе Б</span><span class="sym-i"><b>и, л</b> истина и ложь</span></div>
+  </div>
+  <div class="key"><span class="tag">проверка понимания</span><p><strong>Сигнатура говорит, как составлять выражения. Интерпретация говорит, как их понимать.</strong></p><p>«R двуместен» — про язык. «R означает меньше» — про выбранную систему.</p></div>
+</section>
+
+<!-- =================== b2 =================== -->
+<section class="block" id="b2">
+  <div class="block-head">
+    <span class="mins">17-30 мин</span>
+    <h2>2. Термы и атомарные формулы: сначала собрать, потом вычислить</h2>
+    <p class="goal">Научиться отличать имя предмета от утверждения. Показать рекурсивное построение и вычисление снизу вверх.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Опр. 3.6-3.7, стр. 38-39</span>
+Термы:
+  x, y, z, … и константы;
+  f(t) — терм, если t терм и f одноместен;
+  <span class="hi">других термов нет.</span>
+
+Атомарные формулы:
+  t₁ = t₂;    P(t);    R(t₁,t₂).
+
+Из формул φ, ψ строим:
+  (φ &amp; ψ), (φ ∨ ψ), (φ → ψ), ¬φ, ∀x φ, ∃x φ.
+
+<span class="rule">Терм → элемент M.       Формула → и или л.</span></pre></div>
+  <div class="say">
+    <p class="line">Атомарная формула — самое маленькое утверждение, без логических связок и кванторов. Внутри неё могут быть длинные термы. Слово «атомарная» не означает «короткая».</p>
+    <p>Пройти пальцем по <span class="f">R(f(f(x)),c)</span>: x — терм, f(x) — терм, f(f(x)) — терм, c — терм, затем R получает два терма и выдаёт формулу. Сначала проверяем разрешённость записи, затем назначаем значения. Это два разных действия.</p>
+    <p>Для программистов достаточно одной аналогии: терм имеет тип «предмет области», формула — тип «значение истинности». У <span class="f">f(P(x))</span> ошибка уже на уровне этих типов.</p>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 3</span><span class="ex-title">Терм, формула или недопустимая запись</span><span class="ex-how">2 мин в тетради, 2 мин обсуждение</span></div>
+    <p>Работаем в <span class="f">σ = ⟨P¹, R², f¹, c⟩</span>. Разобрать: <span class="f">f(f(c))</span>; <span class="f">P(f(x))</span>; <span class="f">f(P(x))</span>; <span class="f">R(x)</span>; <span class="f">x = f(c)</span>; <span class="f">∀x R(x,c)</span>; <span class="f">g(x)</span>.</p>
+    <div class="ans"><div class="tw"><table>
+      <tr><th class="lft">Запись</th><th class="lft">Ответ и причина</th></tr>
+      <tr><td class="lft">f(f(c))</td><td class="lft">Терм: два применения одноместной функции к терму.</td></tr>
+      <tr><td class="lft">P(f(x))</td><td class="lft">Атомарная формула: предикат получает один терм.</td></tr>
+      <tr><td class="lft">f(P(x))</td><td class="lft">Недопустимо: аргумент функции должен быть термом, P(x) — формула.</td></tr>
+      <tr><td class="lft">R(x)</td><td class="lft">Недопустимо: R требует два аргумента.</td></tr>
+      <tr><td class="lft">x = f(c)</td><td class="lft">Атомарная формула: равенство двух термов.</td></tr>
+      <tr><td class="lft">∀x R(x,c)</td><td class="lft">Формула, уже не атомарная: применён квантор.</td></tr>
+      <tr><td class="lft">g(x)</td><td class="lft">Недопустимо в этой сигнатуре: символа g в ней нет.</td></tr>
+    </table></div><p><b>Типовая ошибка:</b> «f(f(c)) — истинная формула, потому что получилось 2». Получилось число 2, следовательно это значение терма; вопрос об истинности к нему не относится.</p></div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>σ</b> сигнатура</span><span class="sym-i"><b>P¹, R², f¹</b> местности символов</span><span class="sym-i"><b>=</b> равенство термов</span><span class="sym-i"><b>∀x</b> для любого икс</span><span class="sym-i"><b>c</b> константный символ</span></div>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Опр. 3.10, стр. 40: означивание γ назначает переменным предметы.</span>
+В нашей системе 𝔄: γ(x) = 2, γ(y) = 5.
+
+xᴬ[γ] = 2          cᴬ[γ] = 0
+f(x)ᴬ[γ] = 3       f(f(x))ᴬ[γ] = 4
+
+R(f(f(x)),y) при γ:  4 &lt; 5, то есть и.
+<span class="hi">Запись формулы та же. Результат зависит от системы и γ.</span></pre></div>
+  <div class="sym"><span class="sym-lab">новые знаки на этой доске</span><span class="sym-i"><b>γ</b> гамма, означивание</span><span class="sym-i"><b>t<sup>𝔄</sup>[γ]</b> значение терма в А при гамма</span></div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 4</span><span class="ex-title">Поменять означивание, сохранив формулу</span><span class="ex-how">один студент у доски, 3 мин</span></div>
+    <p>В системе 𝔄 вычислить <span class="f">t = f(f(x))</span> и значение <span class="f">φ = R(t,y) &amp; P(t)</span> сначала при <span class="f">γ(x) = 2, γ(y) = 5</span>, затем при <span class="f">δ(x) = 2, δ(y) = 3</span>.</p>
+    <div class="ans"><span class="fb">при γ:  tᴬ[γ] = 4;  R(4,5) = и;  P(4) = и;  φ получает и.
+при δ:  tᴬ[δ] = 4;  R(4,3) = л;  P(4) = и;  φ получает л.</span><p>Терм t не содержит y, поэтому изменение только y его значения не меняет. Формула φ содержит y свободно, поэтому её значение может измениться.</p><p><b>Устная проверка:</b> «Сколько разных формул мы использовали?» Одну. «Сколько означиваний?» Два. Не записываем <span class="f">φ = и</span> как равенство синтаксического объекта и значения; говорим «φ истинна при γ».</p></div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>γ, δ</b> гамма и дельта, два означивания</span><span class="sym-i"><b>t</b> терм</span><span class="sym-i"><b>φ</b> фи, формула целиком</span><span class="sym-i"><b>&amp;</b> и</span><span class="sym-i"><b>P, R</b> свойства и отношения выбранной системы</span></div>
+  </div>
+</section>
+
+<!-- =================== b3 =================== -->
+<section class="block" id="b3">
+  <div class="block-head">
+    <span class="mins">30-45 мин</span>
+    <h2>3. Кванторы: кто выбирает предмет и в каком порядке</h2>
+    <p class="goal">Перевести три фразы с русского и разобрать разницу между «каждому свой» и «один для всех». Скобки и область предметов проговариваем вслух.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre>∀x φ(x)   <span class="hi">для каждого x из M истинна φ(x)</span>
+∃x φ(x)   <span class="hi">есть хотя бы один x из M, при котором истинна φ(x)</span>
+
+∀: чтобы доказать — охватить все случаи;
+   чтобы опровергнуть — достаточно одного контрпримера.
+∃: чтобы доказать — достаточно одного свидетеля;
+   чтобы опровергнуть — исключить все возможные случаи.
+
+<span class="dim">Квантор не сообщает, что M состоит из чисел или студентов.
+Это выбирается до чтения формулы.</span></pre></div>
+  <div class="say">
+    <p class="line">Существование не означает единственность. Если подходит один предмет, формула истинна. Если подходят пять, она по-прежнему истинна.</p>
+    <p class="line">Для «все студенты» у нас два варианта: выбрать областью только студентов или работать в более широкой области и добавить условие «если x студент». Без этого условия мы можем случайно потребовать сдачу задач от самих задач.</p>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 5</span><span class="ex-title">Студенты и задачи: перевод на язык формул</span><span class="ex-how">2 мин самостоятельно, 4 мин общий разбор</span></div>
+    <p>Область M содержит людей и задачи. <span class="f">S(x)</span> — «x студент», <span class="f">T(y)</span> — «y задача», <span class="f">L(x,y)</span> — «x решил y». Записать:</p>
+    <ol class="tight"><li>Каждый студент решил хотя бы одну задачу.</li><li>Есть студент, не решивший ни одной задачи.</li><li>Каждую задачу решил хотя бы один студент.</li></ol>
+    <div class="ans">
+      <p><b>1. Каждый студент решил хотя бы одну задачу.</b> Сначала выбирается произвольный предмет x. Если он студент, требуется подобрать задачу y, решённую этим студентом:</p>
+      <span class="fb">∀x (S(x) → ∃y (T(y) &amp; L(x,y)))</span>
+      <p>Внешняя импликация отсеивает предметы, которые не являются студентами. Внутреннее «и» требует сразу двух вещей: выбранный y действительно задача и x её решил.</p>
+      <p><b>2. Есть студент, не решивший ни одной задачи.</b> Нужен один свидетель x, который студент и для которого не существует решённой задачи:</p>
+      <span class="fb">∃x (S(x) &amp; ¬∃y (T(y) &amp; L(x,y)))</span>
+      <p>Другой правильный ответ: <span class="f">∃x (S(x) &amp; ∀y (T(y) → ¬L(x,y)))</span>. Равносильность этих записей разберём через отрицание квантора.</p>
+      <p><b>3. Каждую задачу решил хотя бы один студент.</b> Первым выбираем задачу y, затем подбираем студента x:</p>
+      <span class="fb">∀y (T(y) → ∃x (S(x) &amp; L(x,y)))</span>
+      <p><b>Проверка смысла:</b> один сильный студент мог решить все задачи; пункт 3 тогда истинен, даже если остальные ничего не решили. Пункт 1 от этого не следует.</p>
+      <p><b>Типовые ошибки.</b> <span class="f">∀x (S(x) &amp; …)</span> требует, чтобы каждый предмет M был студентом. <span class="f">∃y (T(y) → L(x,y))</span> может оказаться истинным благодаря предмету, который вообще не задача: ложная посылка делает импликацию истинной. Для ограничения существования используем «и», для ограничения всеобщности — «если».</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>∀</b> для любого предмета области</span><span class="sym-i"><b>∃</b> существует хотя бы один</span><span class="sym-i"><b>→</b> если …, то …</span><span class="sym-i"><b>&amp;</b> и, оба условия</span><span class="sym-i"><b>¬</b> не</span><span class="sym-i"><b>S, T, L</b> студент, задача, решил</span></div>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="hi">Порядок выбора важен.</span>
+
+∀x ∃y R(x,y)   сначала x, затем свой y для этого x
+∃y ∀x R(x,y)   сначала один y, затем проверка для всех x
+
+Каждому студенту — своя подходящая задача.
+Одна подходящая задача — для всех студентов.</pre></div>
+  <p>Для разных x свидетели y могут совпадать: формула <span class="f">∀x ∃y R(x,y)</span> не требует разных задач для разных студентов.</p>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 6</span><span class="ex-title">Для каждого числа большее или одно число больше всех</span><span class="ex-how">вместе с аудиторией, 4 мин</span></div>
+    <p>Проверить на ℕ: <span class="f">∀x ∃y (x &lt; y)</span> и <span class="f">∃y ∀x (x &lt; y)</span>. Затем оставить отношение &lt;, но сменить область на <span class="f">M = {0,1,2}</span>.</p>
+    <div class="ans">
+      <p><b>На ℕ первая формула истинна.</b> Получили произвольное натуральное x; выбираем y = x + 1. Это натуральное число и x &lt; x + 1. Свидетель y зависит от выбранного x, что здесь разрешено.</p>
+      <p><b>На ℕ вторая формула ложна.</b> Какое бы число y ни предложили, берём x = y + 1. Получаем ложное x &lt; y. Один y не проходит проверку для всех x.</p>
+      <p><b>На {0,1,2} обе формулы ложны.</b> Для первой контрпример — x = 2: большего элемента в M нет. Для второй любой кандидат y не подходит уже при x = y, поскольку y &lt; y ложно.</p>
+      <p>Мы изменили только область, и истинность первой формулы изменилась. Нельзя подставить y = 3 в конечной системе: квантор выбирает только из M.</p>
+      <p><b>Связь с источником.</b> Это вариант контрпримера Предложения 3.18, стр. 44. В пособии используется ≤: на ℕ первая формула истинна с y = x, вторая ложна. Здесь взяли строгое &lt;, чтобы выбор большего числа был виден сразу.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>∀x ∃y</b> для каждого икс есть свой игрек</span><span class="sym-i"><b>∃y ∀x</b> есть один игрек для всех икс</span><span class="sym-i"><b>&lt;, ≤</b> меньше, меньше или равно</span><span class="sym-i"><b>ℕ</b> натуральные числа, включая ноль</span><span class="sym-i"><b>M</b> область выбора предметов</span></div>
+  </div>
+  <div class="key"><span class="tag">обвести и оставить</span><p><strong>Меняя порядок разных кванторов, можно изменить смысл и истинность.</strong></p><p>Вопрос перед любой перестановкой: выбранный свидетель должен быть общим или может зависеть от предыдущего выбора?</p></div>
+</section>
+
+<!-- =================== b4 =================== -->
+<section class="block" id="b4">
+  <div class="block-head">
+    <span class="mins">45-57 мин</span>
+    <h2>4. Свободные вхождения: что должна назначить оценка</h2>
+    <p class="goal">Находить FV по скобкам, различать вхождения одной буквы и переименовывать связанную переменную без захвата свободной.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Опр. 3.7, стр. 39</span>
+Связанное вхождение x: находится в области квантора по x.
+Свободное вхождение: такого квантора над ним нет.
+
+φ = P(x) &amp; ∀x R(x,y)
+      ↑          ↑ ↑
+  свободное   связ. свободное
+
+FV(φ) = {x,y}
+FV(∀x ψ) = FV(ψ) без x;    FV(∃x ψ) = FV(ψ) без x.
+<span class="hi">Предложение — формула без свободных переменных.</span></pre></div>
+  <div class="sym"><span class="sym-lab">новые знаки на этой доске</span><span class="sym-i"><b>FV(φ)</b> эф вэ от фи, свободные переменные</span><span class="sym-i"><b>FV(t)</b> переменные терма</span></div>
+  <div class="say">
+    <p class="line">Сначала ищем свободные и связанные вхождения, и только потом говорим о переменной. Одна буква x может быть свободной в одном месте и связанной в другом. На доске как раз такой случай.</p>
+    <p>Показать скобками: <span class="f">P(x) &amp; (∀x R(x,y))</span>. Квантор действует на правую часть и не тянется назад через знак «и». Для вычисления всего выражения оценка должна назначить свободные x и y. Значения связанной x перебирает сам квантор.</p>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 7</span><span class="ex-title">Найти свободные переменные и области действия</span><span class="ex-how">2 мин самостоятельно, 2 мин сверка</span></div>
+    <p>В каждом пункте обвести область каждого квантора, найти FV и решить, является ли формула предложением.</p>
+    <ol class="tight"><li><span class="f">∀x (R(x,y) → ∃y P(y))</span>.</li><li><span class="f">(∀x R(x,y)) &amp; (∃y P(y))</span>.</li><li><span class="f">∀x ∃y R(x,y)</span>.</li></ol>
+    <div class="ans">
+      <p><b>1.</b> Область ∀x — вся скобка. Область ∃y — только P(y). x в R связана, y в R свободна, y в P связана. <span class="f">FV = {y}</span>; это не предложение. Для наглядности можно заменить только внутреннюю связанную y: <span class="f">∀x (R(x,y) → ∃z P(z))</span>.</p>
+      <p><b>2.</b> Первый квантор действует на R(x,y), второй — на P(y). Поэтому <span class="f">FV = {y}</span>; это не предложение. Свободная y в левой части не становится связанной от присутствия ∃y справа.</p>
+      <p><b>3.</b> x и y в R связаны своими кванторами. <span class="f">FV = ∅</span>; это предложение. Его значение может зависеть от системы, но не от внешнего назначения x и y.</p>
+      <p><b>Проверка:</b> у формулы из пункта 2 есть квантор по каждой из букв x, y, но она всё равно не замкнута. Счёт кванторов не заменяет проверку их областей действия.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>FV</b> свободные переменные</span><span class="sym-i"><b>∅</b> пустое множество</span><span class="sym-i"><b>∀, ∃</b> для всех, существует</span><span class="sym-i"><b>→</b> если …, то …</span><span class="sym-i"><b>&amp;</b> и</span></div>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Опр. 3.11, стр. 41; короткая запись для изменённой оценки</span>
+γ[x := a] назначает x элемент a, остальные значения сохраняет.
+
+𝔄 ⊨ ∃x φ[γ]:  есть a ∈ M, при котором φ истинна при γ[x := a].
+𝔄 ⊨ ∀x φ[γ]:  для всех a ∈ M φ истинна при γ[x := a].
+
+<span class="rule">Свободные переменные получают значения извне.
+Связанные переменные получают значения внутри квантора.</span></pre></div>
+  <div class="sym"><span class="sym-lab">новые знаки на этой доске</span><span class="sym-i"><b>γ[x := a]</b> гамма с назначением икс равным а</span><span class="sym-i"><b>⊨</b> истинно в системе при оценке</span><span class="sym-i"><b>⊭</b> ложно в системе при оценке</span></div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 8</span><span class="ex-title">Почему нельзя переименовать x в любую букву</span><span class="ex-how">разбор преподавателя, 3 мин</span></div>
+    <p>В <span class="f">∃x R(x,y)</span> заменить связанную x на z, затем попытаться заменить её на y. Какой вариант сохраняет смысл?</p>
+    <div class="ans">
+      <p><b>Свежая z подходит:</b> <span class="f">∃x R(x,y) ∼ ∃z R(z,y)</span>. В обеих формулах ищем предмет, связанный отношением R с тем же внешним значением y. Свободная переменная осталась y.</p>
+      <p><b>Замена на y не подходит:</b> получается <span class="f">∃y R(y,y)</span>. Свободное вхождение y попало под квантор; это называется <b>захватом переменной</b>. Теперь мы ищем предмет, связанный с самим собой.</p>
+      <p>Проверим различие на <span class="f">M = {0,1}</span>, где R — отношение &lt;, а γ(y) = 1. Исходная формула истинна: свидетель x = 0. Ошибочная формула ложна: ни 0 &lt; 0, ни 1 &lt; 1 не верно.</p>
+      <p><b>Безопасное правило пары:</b> выбрать имя, которое нигде в формуле не встречается; заменить переменную в кванторе и только связанные именно с этим квантором вхождения. Такой шаг называют переименованием связанной переменной, или α-переименованием: «альфа-переименованием».</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>∼</b> семантически эквивалентны</span><span class="sym-i"><b>∃</b> существует</span><span class="sym-i"><b>γ(y)</b> значение свободной игрек</span><span class="sym-i"><b>α</b> альфа, название переименования</span><span class="sym-i"><b>&lt;</b> меньше</span></div>
+  </div>
+  <div class="note"><p><b>Переименование и изменение смысла.</b> В <span class="f">∀x (P(x) &amp; ∃x R(x,y))</span> внутренний ∃x перекрывает внешний ∀x. Переименовывая внешний квантор, получаем <span class="f">∀u (P(u) &amp; ∃x R(x,y))</span>: внутреннюю x не трогаем, она связана другим квантором.</p></div>
+</section>
+
+<!-- =================== b5 =================== -->
+<section class="block" id="b5">
+  <div class="block-head">
+    <span class="mins">57-70 мин</span>
+    <h2>5. Истинность: один пример, вся система, все системы</h2>
+    <p class="goal">Проверить кванторы на конечной области и научиться опровергать неверные законы. Один удачный пример не доказывает эквивалентность.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Опр. 3.12 и 3.14, стр. 41-42</span>
+φ истинна при γ в 𝔄:        проверили эту систему и эту оценку.
+φ истинна на системе 𝔄:     истинна при всех оценках в ней.
+φ тождественно истинна:     истинна во всех системах при всех оценках.
+
+φ выполнима:    есть система и оценка, где φ истинна.
+φ опровержима:  есть система и оценка, где φ ложна.
+
+φ ∼ ψ: значения совпадают <span class="hi">во всех системах, при всех оценках</span>.</pre></div>
+  <div class="say">
+    <p class="line">Слова «при этой оценке» нельзя потерять. Формула x &lt; y истинна при x = 0, y = 1, но не при всех назначениях x и y. Это выполнимая и опровержимая формула. Два свойства вполне совместимы.</p>
+    <p>Попросить пример тождественно истинной формулы. Подходит <span class="f">∀x (x = x)</span>: равенство интерпретируется как настоящее равенство во всех системах. А <span class="f">∀x P(x)</span> может быть истинной в одной системе и ложной в другой.</p>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 9</span><span class="ex-title">Конечная система: перебор без потери кванторов</span><span class="ex-how">два студента у доски, 4 мин</span></div>
+    <p>Пусть <span class="f">M = {0,1,2}</span>, R означает &lt;. Проверить <span class="f">∀x ∃y R(x,y)</span> и <span class="f">∃x ∀y ¬R(y,x)</span>. Затем проверить открытую формулу <span class="f">∃x R(x,y)</span> при γ(y) = 2 и при δ(y) = 0.</p>
+    <div class="ans">
+      <p><b>1. Для каждого x искать больший y.</b> В маленькой системе выписываем свидетелей:</p>
+      <div class="tw"><table><tr><th>x</th><th class="lft">Какие y подходят</th><th>∃y R(x,y)</th></tr><tr><td>0</td><td class="lft">1, 2</td><td class="vi">и</td></tr><tr><td>1</td><td class="lft">2</td><td class="vi">и</td></tr><tr><td>2</td><td class="lft">ни один</td><td class="vl">л</td></tr></table></div>
+      <p>Внешний ∀ требует истину во всех трёх строках. Поэтому <span class="f">∀x ∃y R(x,y)</span> ложна; контрпример x = 2.</p>
+      <p><b>2. Найти x, меньше которого ничего нет.</b> Выбираем x = 0. Для y = 0,1,2 утверждение y &lt; 0 ложно, следовательно ¬R(y,0) истинно во всех случаях. Свидетель найден, <span class="f">∃x ∀y ¬R(y,x)</span> истинна.</p>
+      <p><b>3. Открытая формула.</b> При γ(y) = 2 существует x = 0 (подходит и x = 1), так что формула истинна. При δ(y) = 0 подходящего x нет, так что формула ложна. Поэтому она <em>не истинна на этой системе</em> в смысле Определения 3.12: не выполнена при всех означиваниях.</p>
+      <p>Она также <em>не ложна на этой системе</em>: при некоторых означиваниях истинна. «Не истинна при всех» не означает «ложна при всех».</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>R(a,b)</b> а меньше бэ</span><span class="sym-i"><b>∀</b> проверить каждый элемент</span><span class="sym-i"><b>∃</b> найти хотя бы один</span><span class="sym-i"><b>¬</b> не</span><span class="sym-i"><b>γ, δ</b> два означивания свободной y</span></div>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 10</span><span class="ex-title">Два правдоподобных, но неверных распределения</span><span class="ex-how">1 мин подумать, 3 мин проверка</span></div>
+    <p>Пусть <span class="f">M = {0,1}</span>, P истинно только на 0, Q — только на 1. Сравнить значения:</p>
+    <span class="fb">∀x (P(x) ∨ Q(x))        и        (∀x P(x)) ∨ (∀x Q(x))
+∃x (P(x) &amp; Q(x))        и        (∃x P(x)) &amp; (∃x Q(x))</span>
+    <div class="ans">
+      <div class="tw"><table><tr><th>x</th><th>P(x)</th><th>Q(x)</th><th>P(x) ∨ Q(x)</th><th>P(x) &amp; Q(x)</th></tr><tr><td>0</td><td class="vi">и</td><td class="vl">л</td><td class="vi">и</td><td class="vl">л</td></tr><tr><td>1</td><td class="vl">л</td><td class="vi">и</td><td class="vi">и</td><td class="vl">л</td></tr></table></div>
+      <p><b>Первая строка сравнения:</b> слева истина — каждый предмет обладает хотя бы одним свойством. Справа ложь: не все предметы обладают P и не все обладают Q. Разные предметы могут удовлетворять разным частям дизъюнкции.</p>
+      <p><b>Вторая строка сравнения:</b> слева ложь — ни один предмет не обладает обоими свойствами. Справа истина: у P есть свидетель 0, у Q — свидетель 1. Два существования допускают двух разных свидетелей.</p>
+      <p>Получили конечные контрпримеры к двум неверным схемам из Предложения 3.17, стр. 43. Для неэквивалентности достаточно одной системы, где значения различаются.</p>
+      <p><b>Какие распределения верны:</b> <span class="f">∀x (P(x) &amp; Q(x)) ∼ (∀x P(x)) &amp; (∀x Q(x))</span> и <span class="f">∃x (P(x) ∨ Q(x)) ∼ (∃x P(x)) ∨ (∃x Q(x))</span> — Предложение 3.16, пункты 3 и 4. В первом случае каждый обязан иметь оба свойства; во втором достаточно свидетеля хотя бы одной части.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>∀</b> для всех</span><span class="sym-i"><b>∃</b> существует</span><span class="sym-i"><b>∨</b> или</span><span class="sym-i"><b>&amp;</b> и</span><span class="sym-i"><b>∼</b> совпадают во всех системах и оценках</span><span class="sym-i"><b>P, Q</b> два одноместных предиката</span></div>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Предл. 3.16, пункты 1-2</span>
+¬∀x φ  ∼  ∃x ¬φ      «не все» = «есть контрпример»
+¬∃x φ  ∼  ∀x ¬φ      «нет ни одного» = «каждый не подходит»
+
+¬∀x (P(x) → Q(x))
+  ∼ ∃x ¬(P(x) → Q(x))
+  ∼ ∃x (P(x) &amp; ¬Q(x))
+
+<span class="hi">Опровержение «все P имеют Q» — найти P без Q.</span></pre></div>
+  <div class="say"><p class="line">«Не каждый студент решил задачу» не означает «каждый студент не решил задачу». В первом случае достаточно одного не справившегося, во втором не справился никто. Когда отрицание проходит через квантор, квантор меняется.</p></div>
+  <div class="note"><p><b>Что здесь можно решить перебором.</b> В фиксированной конечной системе перебрать значения переменных и вычислить формулу можно: мы только что это сделали. Для произвольных систем, включая бесконечные, такой конечный перебор не работает. Алгоритм приведения к ПНФ преобразует запись; сам по себе он не решает общую задачу истинности во всех системах.</p></div>
+</section>
+
+<!-- =================== b6 =================== -->
+<section class="block" id="b6">
+  <div class="block-head">
+    <span class="mins">70-85 мин</span>
+    <h2>6. Предваренная нормальная форма: кванторы в начало</h2>
+    <p class="goal">Получить ПНФ по четырём шагам пособия. На каждом переносе проверять свободные переменные, на каждом переименовании — отсутствие захвата.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Предл. 3.16, пункты 5-8. При M ≠ ∅ и x ∉ FV(ξ):</span>
+((∀x φ) &amp; ξ)  ∼  ∀x (φ &amp; ξ)
+((∀x φ) ∨ ξ)  ∼  ∀x (φ ∨ ξ)
+((∃x φ) &amp; ξ)  ∼  ∃x (φ &amp; ξ)
+((∃x φ) ∨ ξ)  ∼  ∃x (φ ∨ ξ)
+
+<span class="hi">ξ не должна содержать свободных x.</span>
+Для квантора справа проверяем свободные переменные слева.
+Через → по этим правилам не переносим: сначала убираем →.</pre></div>
+  <div class="say">
+    <p class="line">Вынести квантор — значит расширить его область действия. В добавляемом кусочке не должно быть свободной переменной с тем же именем. Иначе мы свяжем то, что раньше было свободным, и изменим задачу.</p>
+    <p>Показать опасную запись: <span class="f">(∃x P(x)) &amp; Q(x)</span>. Слева свободная x в Q(x) назначена извне. Запись <span class="f">∃x (P(x) &amp; Q(x))</span> заставляет искать один общий предмет. Условие переноса нарушено. Правильная подготовка: <span class="f">(∃u P(u)) &amp; Q(x)</span>, затем <span class="f">∃u (P(u) &amp; Q(x))</span>.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre><span class="dim">Опр. 3.19, стр. 44</span>
+ПНФ:  Q₁x₁ Q₂x₂ … Qₙxₙ ψ
+      └──── префикс ────┘ └ матрица: без кванторов
+Qᵢ — один из ∀, ∃. Свободные переменные в ψ допустимы.
+
+<span class="dim">Предл. 3.20, стр. 44-45: для каждой формулы есть эквивалентная ПНФ.</span>
+1. Убрать →:  (φ → ψ) ∼ (¬φ ∨ ψ).
+2. Внести ¬ к атомарным формулам: де Морган, смена ∀/∃, ¬¬.
+3. Дать связанным переменным разные свежие имена;
+   не использовать имена свободных переменных.
+4. Вынести кванторы, проверяя условие FV.
+
+<span class="hi">Порядок зависимых ∀ и ∃ самовольно не переставлять.</span></pre></div>
+  <div class="sym"><span class="sym-lab">новые знаки на этой доске</span><span class="sym-i"><b>Q₁, …, Qₙ</b> выбранные кванторы ∀ или ∃</span><span class="sym-i"><b>x ∉ FV(ξ)</b> икс не свободна в кси</span><span class="sym-i"><b>ПНФ</b> предваренная, или пренексная, нормальная форма</span></div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 11</span><span class="ex-title">Полная ПНФ: отрицание, импликация и конфликт имён</span><span class="ex-how">преподаватель пишет, группа проверяет каждый шаг, 6 мин</span></div>
+    <p>Привести к ПНФ <span class="f">¬∀x (P(x) → ∃y R(x,y)) ∨ ∀x Q(x)</span>. Здесь P, Q — одноместные, R — двуместный предикат. Вся исходная формула — предложение.</p>
+    <div class="ans">
+      <p><b>Шаг 1. Убираем импликацию.</b></p>
+      <span class="fb">¬∀x (P(x) → ∃y R(x,y)) ∨ ∀x Q(x)
+  ∼ ¬∀x (¬P(x) ∨ ∃y R(x,y)) ∨ ∀x Q(x)</span>
+      <p><b>Шаг 2. Вносим отрицание.</b> Меняем внешний ∀ на ∃, применяем де Моргана, затем меняем внутренний ∃ на ∀:</p>
+      <span class="fb">∼ (∃x ¬(¬P(x) ∨ ∃y R(x,y))) ∨ ∀x Q(x)
+∼ (∃x (P(x) &amp; ¬∃y R(x,y))) ∨ ∀x Q(x)
+∼ (∃x (P(x) &amp; ∀y ¬R(x,y))) ∨ ∀x Q(x)</span>
+      <p><b>Шаг 3. Разводим имена.</b> Правый ∀x переименовываем в ∀z. Это другой квантор со своей областью; слева x остаётся x:</p>
+      <span class="fb">∼ (∃x (P(x) &amp; ∀y ¬R(x,y))) ∨ ∀z Q(z)</span>
+      <p><b>Шаг 4. Выносим кванторы.</b> Сначала внутренний ∀y через «и»: y не свободна в P(x). Затем ∃x через внешнее «или»: x не свободна в ∀z Q(z). После него через это «или» проходит ∀y: y тоже не свободна в ∀z Q(z). Последним переносим правый ∀z: z не свободна в левой матрице.</p>
+      <span class="fb">∼ (∃x ∀y (P(x) &amp; ¬R(x,y))) ∨ ∀z Q(z)
+∼ ∃x ((∀y (P(x) &amp; ¬R(x,y))) ∨ ∀z Q(z))
+∼ ∃x ∀y ((P(x) &amp; ¬R(x,y)) ∨ ∀z Q(z))
+∼ ∃x ∀y ∀z ((P(x) &amp; ¬R(x,y)) ∨ Q(z))</span>
+      <p><b>Проверка результата.</b> Префикс — <span class="f">∃x ∀y ∀z</span>. Матрица — <span class="f">(P(x) &amp; ¬R(x,y)) ∨ Q(z)</span>, кванторов в ней нет. Свободных переменных нет, как и в исходной формуле. Отрицания стоят только у атомарного R.</p>
+      <p><b>Проверка смысла.</b> Исходная левая часть означает: существует предмет со свойством P, не связанный R ни с одним предметом. Правая часть означает: все предметы имеют Q. В ПНФ эта альтернатива сохранена.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>¬</b> не, при проходе через квантор меняет ∀ и ∃</span><span class="sym-i"><b>→</b> заменить на ¬φ ∨ ψ</span><span class="sym-i"><b>&amp;, ∨</b> и, или</span><span class="sym-i"><b>∼</b> эквивалентность всей записи на шаге</span><span class="sym-i"><b>FV</b> проверка свободных переменных при переносе</span></div>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">Упр. 12</span><span class="ex-title">Самостоятельно: сохранить свободную y</span><span class="ex-how">2 мин в тетради, 3 мин разбор у доски</span></div>
+    <p>Привести к ПНФ <span class="f">(∀x R(x,y)) &amp; (∃y P(y))</span>. До преобразования записать FV. У каждого переноса указать, почему не происходит захвата.</p>
+    <div class="ans">
+      <p>В левой части y свободна, в правой связана. Поэтому <span class="f">FV = {y}</span>. Перед переносами выбираем свежие u, v:</p>
+      <span class="fb">(∀x R(x,y)) &amp; (∃y P(y))
+  ∼ (∀u R(u,y)) &amp; (∃v P(v))
+  ∼ ∀u (R(u,y) &amp; ∃v P(v))
+  ∼ ∀u ∃v (R(u,y) &amp; P(v))</span>
+      <p>Первый перенос: u не свободна в <span class="f">∃v P(v)</span>. Второй: v не свободна в <span class="f">R(u,y)</span>. Имена разные, свободная y не связалась. Итоговая ПНФ по-прежнему имеет <span class="f">FV = {y}</span>, поэтому не является предложением.</p>
+      <p><b>Ошибка для обсуждения:</b> <span class="f">∀x ∃y (R(x,y) &amp; P(y))</span> не годится. Она захватила исходную свободную y и заставила искать предмет со свойством P, связанный с x. Это другой смысл.</p>
+      <p>Можно получить и другую эквивалентную ПНФ, начиная с правой части. От задачи требуется корректная форма и объяснение переноса; ПНФ не обязана быть единственной.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>FV = {y}</b> свободна только игрек</span><span class="sym-i"><b>u, v</b> у, вэ, свежие предметные переменные</span><span class="sym-i"><b>∀, ∃</b> для всех, существует</span><span class="sym-i"><b>&amp;</b> и</span><span class="sym-i"><b>∼</b> семантически эквивалентны</span></div>
+  </div>
+  <div class="note"><p><b>Если времени осталось мало.</b> Упражнение 11 довести полностью: оно показывает все четыре шага. Упражнение 12 дать на дом, а устно проверить только FV и переименование. Не убирать условие переноса ради скорости: это главное место, где корректная цепочка превращается в неверную.</p></div>
+</section>
+
+<!-- =================== b7 =================== -->
+<section class="block" id="b7">
+  <div class="block-head">
+    <span class="mins">85-90 мин</span>
+    <h2>Итог и домашняя практика</h2>
+    <p class="goal">Пять опорных мыслей и короткая проверка без вычислений. Домашнее продолжает сегодняшние действия: разобрать запись, найти свидетеля, получить ПНФ.</p>
+  </div>
+  <div class="final"><ol>
+    <li>Сигнатура задаёт разрешённые символы и местности. Система задаёт область и интерпретации этих символов.</li>
+    <li>Терм получает предмет из M. Формула получает истину или ложь после выбора системы и означивания свободных переменных.</li>
+    <li><span class="f">∀x ∃y</span> позволяет выбирать y после x; <span class="f">∃y ∀x</span> требует один общий y. Порядок может изменить истину на ложь.</li>
+    <li>При переименовании и переносе квантора нельзя захватывать свободные переменные. Сначала свежие имена, затем проверка FV.</li>
+    <li>ПНФ — все кванторы в начале, бескванторная матрица после них. Алгоритм: убрать →, внести ¬, переименовать, вынести.</li>
+  </ol></div>
+  <div class="say">
+    <p>Задать четыре коротких вопроса разным студентам: «Что выдаёт терм?», «Что назначает γ?», «Чем опровергают ∀?», «Какое условие проверяем при переносе?» Ответы: предмет из M; предметы свободным переменным; одним контрпримером; переменная квантора не свободна в присоединяемом фрагменте.</p>
+    <p class="line">Сегодня мы научились читать формулу по её устройству. Пока не названы область, интерпретация и свободные переменные, даже очень похожие записи могут задавать разные задачи. На домашней работе каждый переход объясняйте именно через эти три вещи.</p>
+  </div>
+  <div class="board" data-tag="на доске"><pre>К следующему занятию:
+  прочитать §3.1-§3.4, стр. 37-45;
+  повторить Опр. 3.6-3.7, 3.10-3.12, 3.14, 3.19;
+  уметь применять Предл. 3.16 и алгоритм Предл. 3.20.
+
+Домашнее: Д1-Д3 обязательно, Д4 по желанию.
+В ПНФ отмечать причины переноса, а не только ответ.</pre></div>
+  <h3>Домашнее: сначала решить, затем открыть разборы</h3>
+  <ol class="tight">
+    <li><b>Д1. Синтаксис и FV.</b> В сигнатуре <span class="f">⟨P¹,R²,f¹,c⟩</span> определить тип записей <span class="f">f(c)</span>, <span class="f">R(f(x),c)</span>, <span class="f">P(R(x,y))</span>. Найти FV у <span class="f">∀x (R(x,y) → ∃y P(y))</span> и переименовать связанную y.</li>
+    <li><b>Д2. Истинность и область.</b> В <span class="f">M = {0,1}</span> взять R как равенство. Проверить <span class="f">∀x ∃y R(x,y)</span> и <span class="f">∃y ∀x R(x,y)</span>. Повторить проверку для одноэлементной области <span class="f">M = {0}</span>.</li>
+    <li><b>Д3. ПНФ и свободная переменная.</b> Привести к ПНФ <span class="f">¬∃x (R(x,z) &amp; ∀y P(y))</span>. Сравнить FV до и после. Пояснить условие единственного переноса.</li>
+    <li><b>Д4. По желанию.</b> Доказать, что из истинности <span class="f">∃y ∀x R(x,y)</span> следует истинность <span class="f">∀x ∃y R(x,y)</span> в той же системе. Показать контрпример к обратному направлению.</li>
+  </ol>
+  <div class="ans">
+    <p><b>Д1.</b> f(c) — терм, R(f(x),c) — атомарная формула, P(R(x,y)) — недопустимая запись: предикат ждёт терм, а получает формулу. У последней формулы <span class="f">FV = {y}</span>; безопасная запись: <span class="f">∀x (R(x,y) → ∃u P(u))</span>.</p>
+    <p><b>Д2.</b> На {0,1} первая истинна с y = x; вторая ложна: ни 0, ни 1 не равны обоим элементам. На {0} обе истинны: единственный свидетель 0 подходит единственному x. Неэквивалентные формулы могут совпадать на отдельных системах.</p>
+    <p><b>Д3.</b> Свободна только z. Цепочка:</p>
+    <span class="fb">¬∃x (R(x,z) &amp; ∀y P(y))
+  ∼ ∀x ¬(R(x,z) &amp; ∀y P(y))
+  ∼ ∀x (¬R(x,z) ∨ ¬∀y P(y))
+  ∼ ∀x (¬R(x,z) ∨ ∃y ¬P(y))
+  ∼ ∀x ∃y (¬R(x,z) ∨ ¬P(y))</span>
+    <p>Перенос допустим, потому что y не свободна в R(x,z). Итоговое <span class="f">FV = {z}</span>. z не попадает под новый квантор.</p>
+    <p><b>Д4.</b> Если есть один b, для которого R(a,b) истинно при каждом a, то для любого выбранного a используем тот же b как свидетель существования. Обратное направление опровергается равенством на {0,1}, как в Д2, или отношением &lt; на ℕ, как в упражнении 6.</p>
+  </div>
+  <div class="sym"><span class="sym-lab">знаки в домашней работе</span><span class="sym-i"><b>FV</b> свободные переменные</span><span class="sym-i"><b>¬, &amp;, ∨, →</b> не, и, или, если … то …</span><span class="sym-i"><b>∀, ∃</b> для всех, существует</span><span class="sym-i"><b>∼</b> эквивалентны при всех интерпретациях и оценках</span><span class="sym-i"><b>ℕ</b> натуральные числа</span></div>
+</section>
+
+<!-- =================== spare =================== -->
+<section class="block" id="spare">
+  <div class="block-head">
+    <span class="mins">запас</span>
+    <h2>Ещё четыре задачи для самостоятельной работы</h2>
+    <p class="goal">Для быстрой группы, второй доски или дополнительной практики. В основной хронометраж не входят. Условия и разборы составлены по понятиям главы 3.</p>
+  </div>
+  <p class="lvl">Уровень 1: интерпретация и захват</p>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З1</span><span class="ex-title">Не числовая система с функцией и отношением</span><span class="ex-how">3-4 мин</span></div>
+    <p><span class="f">σ = ⟨R²,f¹,c⟩</span>, <span class="f">M = {a,b}</span>. Константа c обозначает a; f меняет a и b местами; R истинно ровно на парах (a,a), (a,b), (b,b). Найти значение <span class="f">f(f(c))</span>, проверить <span class="f">R(f(c),c)</span>, <span class="f">∀x R(x,x)</span>, <span class="f">∃x ∀y R(x,y)</span>.</p>
+    <div class="ans">
+      <p><b>Терм:</b> c обозначает a, f(c) обозначает b, f(f(c)) обозначает a.</p>
+      <p><b>Атом:</b> R(f(c),c) получает ложь, поскольку пара (b,a) не включена в отношение.</p>
+      <p><b>Первое предложение:</b> ∀x R(x,x) истинно: обе диагональные пары (a,a), (b,b) включены.</p>
+      <p><b>Второе предложение:</b> ∃x ∀y R(x,y) истинно. Свидетель x = a подходит обоим возможным y. Предмет x = b не подходит y = a, но существованию достаточно одного удачного свидетеля.</p>
+      <p>Система не обязана состоять из чисел. Правила построения и проверки формул от этого не меняются.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>R², f¹</b> отношение на двух аргументах, функция на одном</span><span class="sym-i"><b>(a,b)</b> упорядоченная пара</span><span class="sym-i"><b>∀, ∃</b> каждый, хотя бы один</span><span class="sym-i"><b>c</b> выделенный предмет a</span></div>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З2</span><span class="ex-title">Поймать неверный перенос на конкретной оценке</span><span class="ex-how">3 мин</span></div>
+    <p>Почему <span class="f">(∃x P(x)) &amp; Q(x)</span> нельзя всегда заменить на <span class="f">∃x (P(x) &amp; Q(x))</span>? Построить контрпример. Затем записать правильный перенос.</p>
+    <div class="ans">
+      <p>Берём <span class="f">M = {0,1}</span>: P истинно только на 0, Q — только на 1. Свободной x назначаем 1.</p>
+      <p>Исходная формула истинна: у P есть свидетель 0, а Q(1) истинно. Формула после ошибочного переноса ложна: общего свидетеля P и Q нет. Условие <span class="f">x ∉ FV(Q(x))</span> не выполнено.</p>
+      <span class="fb">(∃x P(x)) &amp; Q(x)
+  ∼ (∃u P(u)) &amp; Q(x)
+  ∼ ∃u (P(u) &amp; Q(x))</span>
+      <p>Теперь u не свободна в Q(x), перенос допустим. Свободная x остаётся свободной, поэтому внешнее означивание не потеряно.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>∃</b> существует</span><span class="sym-i"><b>&amp;</b> и</span><span class="sym-i"><b>∉</b> не принадлежит</span><span class="sym-i"><b>FV</b> свободные переменные</span><span class="sym-i"><b>∼</b> эквивалентность</span></div>
+  </div>
+  <p class="lvl">Уровень 2: самостоятельные ПНФ</p>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З3</span><span class="ex-title">Отрицание существования с вложенным ∀</span><span class="ex-how">4 мин</span></div>
+    <p>Привести к ПНФ <span class="f">¬∃x (P(x) &amp; ∀y R(x,y))</span>. Назвать префикс, матрицу и множество свободных переменных.</p>
+    <div class="ans">
+      <span class="fb">¬∃x (P(x) &amp; ∀y R(x,y))
+  ∼ ∀x ¬(P(x) &amp; ∀y R(x,y))
+  ∼ ∀x (¬P(x) ∨ ¬∀y R(x,y))
+  ∼ ∀x (¬P(x) ∨ ∃y ¬R(x,y))
+  ∼ ∀x ∃y (¬P(x) ∨ ¬R(x,y))</span>
+      <p>Перенос ∃y допустим, потому что y не свободна в P(x). Префикс: <span class="f">∀x ∃y</span>. Матрица: <span class="f">¬P(x) ∨ ¬R(x,y)</span>. <span class="f">FV = ∅</span> до и после.</p>
+      <p><b>Смысл:</b> нет P-предмета, связанного R со всеми. Поэтому для каждого x либо P(x) ложно, либо найдётся y, с которым R(x,y) ложно. Если P(x) ложно, подходит любой y из непустой области.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>¬</b> не</span><span class="sym-i"><b>∀, ∃</b> для каждого, существует</span><span class="sym-i"><b>&amp;, ∨</b> и, или</span><span class="sym-i"><b>∼</b> эквивалентность</span><span class="sym-i"><b>FV = ∅</b> свободных переменных нет</span></div>
+  </div>
+  <div class="ex">
+    <div class="ex-head"><span class="ex-no">З4</span><span class="ex-title">Импликация с двумя кванторами по x</span><span class="ex-how">4-5 мин</span></div>
+    <p>Привести к ПНФ <span class="f">(∀x P(x)) → ∃x R(x,y)</span>. Свободная y должна остаться свободной. Дополнительный вопрос: можно ли здесь получить ПНФ с одним квантором?</p>
+    <div class="ans">
+      <span class="fb">(∀x P(x)) → ∃x R(x,y)
+  ∼ (¬∀x P(x)) ∨ ∃x R(x,y)
+  ∼ (∃x ¬P(x)) ∨ ∃x R(x,y)
+  ∼ (∃u ¬P(u)) ∨ ∃v R(v,y)
+  ∼ ∃u ∃v (¬P(u) ∨ R(v,y))</span>
+      <p>Свежие u, v устраняют совпадение имён. Для переноса u проверяем отсутствие свободной u справа; для v — отсутствие свободной v в ¬P(u). В результате <span class="f">FV = {y}</span>.</p>
+      <p><b>Да, здесь есть более короткий ответ:</b> <span class="f">∃x (¬P(x) ∨ R(x,y))</span>. Он получается из третьей строки по распределению ∃ через ∨, Предложение 3.16, пункт 4. Если есть свидетель хотя бы одной части, он делает дизъюнкцию истинной.</p>
+      <p>Не переносим это рассуждение на «и»: <span class="f">(∃x P(x)) &amp; (∃x Q(x))</span> может требовать двух разных свидетелей, а <span class="f">∃x (P(x) &amp; Q(x))</span> — одного общего. Контрпример уже был в упражнении 10.</p>
+    </div>
+    <div class="sym"><span class="sym-lab">знаки в этом упражнении</span><span class="sym-i"><b>→</b> импликация</span><span class="sym-i"><b>¬, ∨, &amp;</b> не, или, и</span><span class="sym-i"><b>∀, ∃</b> для всех, существует</span><span class="sym-i"><b>∼</b> семантическая эквивалентность</span><span class="sym-i"><b>FV</b> свободные переменные</span></div>
+  </div>
+</section>
+<footer>
+  Источник: Д. Е. Пальчунов. Математическая логика и теория алгоритмов. Ч. 1. НГУ, ФИТ, 2016.
+  Глава 3, §§3.1-3.4, стр. 37-45. Номера определений и предложений относятся к пособию;
+  упражнения и пояснения составлены для семинара.
+  <p style="margin-top:12px"><a class="btnlink" href="./">К первому семинару</a></p>
+</footer>
+</div>
+<script>
+(function(){
+  "use strict";
+  var LS_KEY = "sem2-answers-hidden";
+  var ansBtn = document.getElementById("ans");
+  var hidden = false;
+  try { hidden = localStorage.getItem(LS_KEY) === "1"; } catch(e){}
+
+  function applyAnswers(){
+    var list = document.querySelectorAll(".ans");
+    for (var i=0;i<list.length;i++){ list[i].hidden = hidden; }
+    ansBtn.setAttribute("aria-pressed", hidden ? "true" : "false");
+    ansBtn.textContent = hidden ? "Показать разборы" : "Скрыть разборы";
+  }
+  ansBtn.addEventListener("click", function(){
+    hidden = !hidden;
+    try { localStorage.setItem(LS_KEY, hidden ? "1" : "0"); } catch(e){}
+    applyAnswers();
+  });
+  applyAnswers();
+
+  var links = Array.prototype.slice.call(document.querySelectorAll("#rail a"));
+  var tEl = document.getElementById("t");
+  var stateEl = document.getElementById("tstate");
+  var nowEl = document.getElementById("now");
+  var goBtn = document.getElementById("go");
+  var rsBtn = document.getElementById("rs");
+  var started = null, accrued = 0, tick = null;
+
+  function elapsedMs(){ return accrued + (started ? Date.now() - started : 0); }
+
+  function pad(n){ return (n<10?"0":"") + n; }
+
+  function render(){
+    var ms = elapsedMs();
+    var total = Math.floor(ms/1000);
+    var m = Math.floor(total/60), s = total%60;
+    tEl.textContent = pad(m) + ":" + pad(s);
+    var live = null;
+    for (var i=0;i<links.length;i++){
+      var a = links[i];
+      var st = +a.dataset.start, en = +a.dataset.end;
+      a.classList.remove("live","done");
+      if (started || accrued){
+        if (m >= en) a.classList.add("done");
+        else if (m >= st) { a.classList.add("live"); live = a; }
+      }
+    }
+    if (live){
+      nowEl.textContent = "сейчас: " + live.textContent.replace(/^\d+-\d+/, "").trim() +
+        "  ·  до конца блока " + (+live.dataset.end - m) + " мин";
+    } else if (started || accrued){
+      nowEl.textContent = m >= 90 ? "пара окончена" : "";
+    } else {
+      nowEl.textContent = "";
+    }
+  }
+
+  goBtn.addEventListener("click", function(){
+    if (started){
+      accrued = elapsedMs(); started = null;
+      clearInterval(tick); tick = null;
+      goBtn.textContent = "Продолжить";
+      stateEl.textContent = "пауза";
+    } else {
+      started = Date.now();
+      tick = setInterval(render, 1000);
+      goBtn.textContent = "Пауза";
+      stateEl.textContent = "идёт пара";
+    }
+    render();
+  });
+
+  rsBtn.addEventListener("click", function(){
+    started = null; accrued = 0;
+    if (tick){ clearInterval(tick); tick = null; }
+    goBtn.textContent = "Старт";
+    stateEl.textContent = "пара не начата";
+    render();
+  });
+
+  render();
+})();
+
+(function(){
+  "use strict";
+  var KEY = "sem2-theme";
+  var btn = document.getElementById("theme");
+  if(!btn) return;
+  var cur = null;
+  try { cur = localStorage.getItem(KEY) || null; } catch(e){}
+  function apply(v){
+    if (v) document.documentElement.setAttribute("data-theme", v);
+    else document.documentElement.removeAttribute("data-theme");
+    btn.textContent = v === "dark" ? "Тёмная тема"
+                    : v === "light" ? "Светлая тема"
+                    : "Тема: как в системе";
+  }
+  apply(cur);
+  btn.addEventListener("click", function(){
+    cur = cur === null ? "light" : cur === "light" ? "dark" : null;
+    try { if (cur) localStorage.setItem(KEY, cur); else localStorage.removeItem(KEY); } catch(e){}
+    apply(cur);
+  });
+})();
+</script>
+</body>
+</html>
