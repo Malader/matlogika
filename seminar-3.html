@@ -486,6 +486,7 @@ table.properties th,table.properties td{padding:5px 6px}
     <span>90 минут</span><span>1 курс</span><span>Пальчунов, стр. 46-54</span>
     <span>12 задач у доски + 4 в запасе</span>
   </div>
+  <p style="margin:14px 0 0"><a class="btnlink" href="#homework">Домашнее с ответами</a></p>
 </header>
 <div class="bar">
   <div class="clock"><span id="t">00:00</span><small id="tstate">пара не начата</small></div>
@@ -517,12 +518,11 @@ table.properties th,table.properties td{padding:5px 6px}
 <div class="ex-head"><span class="ex-no">Упр. 1</span><span class="ex-title">Кто взял мяч?</span><span class="ex-how">устно, 2 мин</span></div>
 <p><span class="f">A = {Аня, Борис}</span>, <span class="f">B = {книга, мяч}</span>, <span class="f">G = {(Аня, книга), (Борис, мяч)}</span>. Кто взял мяч? Добавьте связь «Аня взяла мяч». Что означает (книга, Аня)?</p>
 <div class="ans">
-<p>Мяч взял Борис. Добавляем (Аня, мяч), прежние пары сохраняем.<br>(книга, Аня) означает «книгу взяла Аня». В G такая пара не подходит: первым должен стоять человек.</p>
+<p>Мяч взял Борис. Добавляем (Аня, мяч), прежние пары сохраняем.<br/>(книга, Аня) означает «книгу взяла Аня». В G такая пара не подходит: первым должен стоять человек.</p>
 </div>
 <div class="sym"><span class="sym-i"><b>G</b> имя списка связей</span></div>
 </div>
 </section>
-
 <!-- =================== b1 =================== -->
 <section class="block" id="b1">
 <div class="block-head">
@@ -535,9 +535,9 @@ table.properties th,table.properties td{padding:5px 6px}
 <p>Это <b>соответствие</b> между A и B. Можно оставить вход без стрелки или провести несколько. <span class="f">A × B</span> — все возможные пары: здесь их девять. Запись <span class="f">G ⊆ A × B</span> означает, что G содержит только пары из этого набора.</p>
 <div class="ex">
 <div class="ex-head"><span class="ex-no">Упр. 2</span><span class="ex-title">Перевернуть пары</span><span class="ex-how">4 мин</span></div>
-<p>Для G выше переверните пары. Выпишите использованные входы и выходы.</p>
+<p>Для G выше переверните пары. Затем выпишите использованные входы и выходы исходного G.</p>
 <div class="ans">
-<p><span class="f">G⁻¹ = {(a,1),(b,1),(b,2)}</span> — <b>обратное соответствие</b>.<br>Входы: <span class="f">pr<sub>A</sub> G = {1,2}</span>. Выходы: <span class="f">pr<sub>B</sub> G = {a,b}</span>.<br>Эти множества называют <b>проекциями</b>: собираем первые или вторые элементы пар.</p>
+<p><span class="f">G⁻¹ = {(a,1),(b,1),(b,2)}</span> — <b>обратное соответствие</b>.<br/>Входы: <span class="f">pr<sub>A</sub> G = {1,2}</span>. Выходы: <span class="f">pr<sub>B</sub> G = {a,b}</span>.<br/>Эти множества называют <b>проекциями</b>: собираем первые или вторые элементы пар.</p>
 </div>
 <div class="sym"><span class="sym-i"><b>⁻¹</b> поменять места в парах</span><span class="sym-i"><b>pr<sub>A</sub></b> нижняя A указывает, какие элементы собираем</span></div>
 </div>
@@ -546,12 +546,11 @@ table.properties th,table.properties td{padding:5px 6px}
 <div class="ex-head"><span class="ex-no">Упр. 3</span><span class="ex-title">Два шага</span><span class="ex-how">4 мин</span></div>
 <p>Для G и H выше найдите G ∘ H и обратное к нему. Будет ли пара, начинающаяся с 3?</p>
 <div class="ans">
-<p><span class="f">G ∘ H = {(1,10),(1,20),(2,20)}</span>.<br><span class="f">(G ∘ H)⁻¹ = {(10,1),(20,1),(20,2)}</span>.<br>От 3 нет первого шага. Обратно идём сначала по H⁻¹, затем по G⁻¹: <span class="f">(G ∘ H)⁻¹ = H⁻¹ ∘ G⁻¹</span>.</p>
+<p><span class="f">G ∘ H = {(1,10),(1,20),(2,20)}</span>.<br/><span class="f">(G ∘ H)⁻¹ = {(10,1),(20,1),(20,2)}</span>.<br/>От 3 нет первого шага. Обратно идём сначала по H⁻¹, затем по G⁻¹: <span class="f">(G ∘ H)⁻¹ = H⁻¹ ∘ G⁻¹</span>.</p>
 </div>
 <div class="sym"><span class="sym-i"><b>∘</b> соединить два шага</span></div>
 </div>
 </section>
-
 <!-- =================== b2 =================== -->
 <section class="block" id="b2">
 <div class="block-head">
@@ -573,7 +572,7 @@ table.properties th,table.properties td{padding:5px 6px}
 ③ {(1,a),(2,b)}
 ④ {(1,a),(2,a),(3,b)}</pre></div>
 <div class="ans">
-<p>① Биекция: ответы различны, все элементы B достигнуты.<br>② Не функция: у 1 два ответа.<br>③ Не функция: у 3 нет ответа.<br>④ Функция, но не инъекция и не сюръекция: ответ a повторяется, c не достигнут.</p>
+<p>① Биекция: ответы различны, все элементы B достигнуты.<br/>② Не функция: у 1 два ответа.<br/>③ Не функция: у 3 нет ответа.<br/>④ Функция, но не инъекция и не сюръекция: ответ a повторяется, c не достигнут.</p>
 </div>
 <div class="sym"><span class="sym-i"><b>B</b> все заявленные выходы, даже неиспользованные</span></div>
 </div>
@@ -581,13 +580,12 @@ table.properties th,table.properties td{padding:5px 6px}
 <div class="ex-head"><span class="ex-no">Упр. 5</span><span class="ex-title">Туда и обратно</span><span class="ex-how">3 мин</span></div>
 <p>Биекция <span class="f">f: {1,2,3} → {a,b,c}</span> задана стрелками 1 → b, 2 → c, 3 → a. Переверните пары. Куда ведут маршруты «вперёд, назад» и «назад, вперёд»?</p>
 <div class="ans">
-<p><span class="f">F⁻¹ = {(b,1),(c,2),(a,3)}</span>. Это тоже функция.<br><span class="f">F ∘ F⁻¹ = {(1,1),(2,2),(3,3)} = id<sub>A</sub></span>.<br><span class="f">F⁻¹ ∘ F = {(a,a),(b,b),(c,c)} = id<sub>B</sub></span>.<br>Каждый вернулся к себе: например, 1 → b → 1.</p>
+<p><span class="f">F⁻¹ = {(b,1),(c,2),(a,3)}</span>. Это тоже функция.<br/><span class="f">F ∘ F⁻¹ = {(1,1),(2,2),(3,3)} = id<sub>A</sub></span>.<br/><span class="f">F⁻¹ ∘ F = {(a,a),(b,b),(c,c)} = id<sub>B</sub></span>.<br/>Каждый вернулся к себе: например, 1 → b → 1.</p>
 </div>
 <div class="sym"><span class="sym-i"><b>F</b> пары функции f</span><span class="sym-i"><b>id<sub>A</sub></b> тождественное отношение: каждый связан только с собой</span></div>
 </div>
 <p>Обратные пары есть у любого соответствия. Обратная <b>функция на всём B</b> получается только у биекции: нигде нет ни пропусков, ни двух обратных ответов.</p>
 </section>
-
 <!-- =================== b3 =================== -->
 <section class="block" id="b3">
 <div class="block-head">
@@ -618,7 +616,7 @@ table.properties th,table.properties td{padding:5px 6px}
 <tr><td>Транзитивность</td><td>да</td><td>да</td><td>да</td><td>нет</td></tr>
 <tr><td>Линейность</td><td>нет</td><td>да</td><td>нет</td><td>нет</td></tr>
 </table></div>
-<p>≤ не симметрично: 1 ≤ 2, но не 2 ≤ 1.<br>≠ не транзитивно: 1 ≠ 2 и 2 ≠ 1, но не 1 ≠ 1.<br>≠ не антисимметрично: разные 1 и 2 связаны в обе стороны.</p>
+<p>≤ не симметрично: 1 ≤ 2, но не 2 ≤ 1.<br/>≠ не транзитивно: 1 ≠ 2 и 2 ≠ 1, но не 1 ≠ 1.<br/>≠ не антисимметрично: разные 1 и 2 связаны в обе стороны.</p>
 </div>
 <div class="sym"><span class="sym-i"><b>≤</b> меньше или равно</span><span class="sym-i"><b>≠</b> не равно</span></div>
 </div>
@@ -627,13 +625,12 @@ table.properties th,table.properties td{padding:5px 6px}
 <div class="ex-head"><span class="ex-no">Упр. 7</span><span class="ex-title">Какой стрелки не хватает?</span><span class="ex-how">4 мин</span></div>
 <p><span class="f">A = {a,b,c}</span>, <span class="f">R = {(a,a),(b,b),(c,c),(a,b),(b,a),(b,c),(c,b)}</span>. Проверьте рефлексивность, симметричность, транзитивность. Какие пары добавить для транзитивности?</p>
 <div class="ans">
-<p>Рефлексивность есть: все три связи с собой присутствуют.<br>Симметричность есть: у каждой стрелки есть обратная.<br>Транзитивности нет: есть a → b → c, но нет a → c.<br>Добавляем (a,c) и (c,a). Получены все девять пар; любой двухшаговый путь имеет прямую стрелку.</p>
+<p>Рефлексивность есть: все три связи с собой присутствуют.<br/>Симметричность есть: у каждой стрелки есть обратная.<br/>Транзитивности нет: есть a → b → c, но нет a → c.<br/>Добавляем (a,c) и (c,a). Получены все девять пар; любой двухшаговый путь имеет прямую стрелку.</p>
 </div>
 <div class="sym"><span class="sym-i"><b>(a,a)</b> связь с собой</span></div>
 </div>
 <p><b>Предпорядок</b> — рефлексивное и транзитивное отношение. <b>Строгий частичный порядок</b> — иррефлексивное, антисимметричное и транзитивное. Пример: &lt;. Некоторые разные элементы могут быть несравнимы.</p>
 </section>
-
 <section class="block" id="b4">
 <div class="block-head"><span class="mins">47–60 мин</span><h2>4. Делим на группы</h2><p class="goal">Одно правило — несколько групп.</p></div>
 <p>Числа 0, 3 и 6 дают одинаковый остаток при делении на 3. Соберём их вместе. Так работает <b>эквивалентность</b>: группируем по одному правилу.</p>
@@ -647,7 +644,6 @@ A/∼ = {{0,3,6}, {1,4,7}, {2,5,8}}</span><p>A/∼ — <b>фактор-множ�
 <div class="sym"><span class="sym-i"><b>∼</b> наше правило сходства</span><span class="sym-i"><b>[a]</b> группа числа a</span></div>
 </div>
 </section>
-
 <section class="block" id="b5">
 <div class="block-head"><span class="mins">60–74 мин</span><h2>5. Как сравнивать предметы</h2><p class="goal">Сравниваем по заданному правилу.</p></div>
 <p>Для множеств правило такое: первое целиком входит во второе. Например, {1} ⊆ {1,2}. Равенство тоже разрешено: {1} ⊆ {1}.</p>
@@ -656,17 +652,17 @@ A/∼ = {{0,3,6}, {1,4,7}, {2,5,8}}</span><p>A/∼ — <b>фактор-множ�
 <p>A = ρ({1,2}) = {∅,{1},{2},{1,2}}. Запись ρ(X) означает «все подмножества X». Проверить рефлексивность, антисимметричность и транзитивность включения. Линейный ли это порядок? Как сделать его строгим?</p>
 <div class="ans"><p>Каждое множество входит в себя; взаимное включение означает равенство; из U ⊆ V и V ⊆ W следует U ⊆ W. Это рефлексивность, антисимметричность и транзитивность — три условия <b>частичного порядка</b>.</p>
 <figure class="order-figure">
-<svg viewBox="0 0 360 260" role="img" aria-labelledby="subset-order-title">
+<svg aria-labelledby="subset-order-title" role="img" viewbox="0 0 360 260">
 <title id="subset-order-title">Четыре подмножества: пустое множество снизу, {1} и {2} посередине, {1,2} сверху</title>
-<g stroke="var(--ink-3)" stroke-width="2" fill="none">
-<line x1="180" y1="40" x2="70" y2="130"/><line x1="180" y1="40" x2="290" y2="130"/>
-<line x1="70" y1="130" x2="180" y2="220"/><line x1="290" y1="130" x2="180" y2="220"/>
+<g fill="none" stroke="var(--ink-3)" stroke-width="2">
+<line x1="180" x2="70" y1="40" y2="130"></line><line x1="180" x2="290" y1="40" y2="130"></line>
+<line x1="70" x2="180" y1="130" y2="220"></line><line x1="290" x2="180" y1="130" y2="220"></line>
 </g>
 <g fill="var(--surface)" stroke="var(--accent)" stroke-width="2">
-<circle cx="180" cy="40" r="30"/><circle cx="70" cy="130" r="27"/>
-<circle cx="290" cy="130" r="27"/><circle cx="180" cy="220" r="27"/>
+<circle cx="180" cy="40" r="30"></circle><circle cx="70" cy="130" r="27"></circle>
+<circle cx="290" cy="130" r="27"></circle><circle cx="180" cy="220" r="27"></circle>
 </g>
-<g fill="var(--ink)" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="17">
+<g fill="var(--ink)" font-family="JetBrains Mono,monospace" font-size="17" text-anchor="middle">
 <text x="180" y="46">{1,2}</text><text x="70" y="136">{1}</text>
 <text x="290" y="136">{2}</text><text x="180" y="226">∅</text>
 </g>
@@ -685,7 +681,6 @@ A/∼ = {{0,3,6}, {1,4,7}, {2,5,8}}</span><p>A/∼ — <b>фактор-множ�
 </div>
 <p class="note">В непустом конечном частичном порядке есть минимальные и максимальные элементы. В линейном они также наименьший и наибольший. Для бесконечного множества это не обещано: у натуральных чисел с обычным ≤ наибольшего нет.</p>
 </section>
-
 <section class="block" id="b6">
 <div class="block-head"><span class="mins">74–86 мин</span><h2>6. Что содержит оба множества?</h2><p class="goal">Ищем общую границу.</p></div>
 <p>Множества {1,2} и {1,2,3} содержат и {1}, и {2}. Это <b>верхние грани</b>. Среди них {1,2} — самая маленькая: <b>точная верхняя грань</b>, или sup.</p>
@@ -705,29 +700,21 @@ inf_A M = ∅; sup_A M = {1,2}.</span><p>Ответы входят в A, но н
 </div>
 <p class="note">В общей решётке пособие тоже обозначает sup пары через ∪, inf через ∩. В линейном порядке это больший и меньший элементы пары. Речь о парах, а не о произвольных бесконечных наборах.</p>
 </section>
-
 <section class="block" id="b7">
 <div class="block-head"><span class="mins">86–90 мин</span><h2>Проверка словами</h2><p class="goal">Объясните без формул.</p></div>
 <ol><li>Чем функция отличается от отношения?</li><li>Почему минимальных может быть несколько?</li><li>Где ищем грани: в выбранном M или во всём A?</li></ol>
-<details><summary>Домашнее: Д1–Д4, после занятия</summary>
-<div class="ex"><div class="ex-head"><span class="ex-no">Д1</span><span class="ex-title">Два действия</span></div><p>f:{0,1,2} → {1,2,3}, f(x)=x+1; g:{1,2,3} → {2,4,6}, g(y)=2y. Найти все пары f∘g; по 4.2 сначала f, затем g.</p><div class="ans"><p>Прибавляем 1, удваиваем: f∘g = {(0,2),(1,4),(2,6)}. Каждому входу соответствует один выход — это функция.</p></div><div class="sym"><span class="sym-i"><b>f∘g</b> сначала f, потом g</span></div></div>
-<div class="ex"><div class="ex-head"><span class="ex-no">Д2</span><span class="ex-title">Обычное «меньше»</span></div><p>На {0,1,2} проверить шесть свойств отношения a &lt; b из 4.12.</p><div class="ans"><p>R={(0,1),(0,2),(1,2)}: рефлексивности и симметричности нет; иррефлексивность, антисимметричность и транзитивность есть. Линейности по 4.12 нет: определение требует сравнивать также одинаковые числа, а 0 &lt; 0 неверно; это строгий частичный порядок.</p></div><div class="sym"><span class="sym-i"><b>&lt;</b> числовое «меньше»</span></div></div>
-<div class="ex"><div class="ex-head"><span class="ex-no">Д3</span><span class="ex-title">Чётность</span></div><p>A={0,1,2,3,4,5,6,7}; связываем числа одинаковой чётности. Проверить эквивалентность; найти [0], [4], [1], A/∼.</p><div class="ans"><p>Чётность совпадает с собой, симметрична и передаётся через третье число — эквивалентность. [0]=[4]={0,2,4,6}; [1]={1,3,5,7}; A/∼={{0,2,4,6},{1,3,5,7}}.</p></div><div class="sym"><span class="sym-i"><b>[a]</b> группа числа a</span></div></div>
-<div class="ex"><div class="ex-head"><span class="ex-no">Д4</span><span class="ex-title">Общие элементы</span></div><p>В A=ρ({a,b,c}) с включением для M={{a,b},{b,c}} найти все грани и точные грани.</p><div class="ans"><p>Нижние грани: ∅, {b}; верхняя: {a,b,c}. Значит, inf_A M={b}, sup_A M={a,b,c}; оба ответа в A, но вне M.</p></div><div class="sym"><span class="sym-i"><b>M</b> выбранная пара множеств</span></div></div>
-</details>
-</section>
 
+</section>
 <section class="block" id="spare">
 <div class="block-head"><span class="mins">резерв, вне 90 минут</span><h2>Дополнительная тренировка</h2></div>
 <details><summary>Открыть З1–З4</summary>
-<div class="ex"><div class="ex-head"><span class="ex-no">З1</span><span class="ex-title">Меняем разрешённые выходы</span></div><p>f: 1 → a, 2 → b. Проверить инъективность и сюръективность при B={a,b}, затем B={a,b,c}.</p><div class="ans"><p>Инъективна в обоих случаях: выходы разные. При B={a,b} сюръективна и биективна; при B={a,b,c} сюръективности нет: c не достигнуто.</p></div><div class="sym"><span class="sym-i"><b>B</b> разрешённые выходы</span></div></div>
+<div class="ex"><div class="ex-head"><span class="ex-no">З1</span><span class="ex-title">Меняем разрешённые выходы</span></div><p>A={1,2}; f: 1 → a, 2 → b. Проверить инъективность и сюръективность при B={a,b}, затем B={a,b,c}.</p><div class="ans"><p>Инъективна в обоих случаях: выходы разные. При B={a,b} сюръективна и биективна; при B={a,b,c} сюръективности нет: c не достигнуто.</p></div><div class="sym"><span class="sym-i"><b>B</b> разрешённые выходы</span></div></div>
 <div class="ex"><div class="ex-head"><span class="ex-no">З2</span><span class="ex-title">Два свойства сразу</span></div><p>A={a,b}, R={(a,a),(b,b)}. Есть ли симметричность и антисимметричность?</p><div class="ans"><p>Обе есть: обратные пары совпадают с исходными, встречных связей разных предметов нет. Антисимметричность не означает отсутствие симметричности.</p></div><div class="sym"><span class="sym-i"><b>(a,a)</b> связь с собой</span></div></div>
 <div class="ex"><div class="ex-head"><span class="ex-no">З3</span><span class="ex-title">Восстановить пары</span></div><p>A={1,2,3,4,5} разбито на {1,2}, {3}, {4,5}. Связь — быть в одной группе; выписать пары, [2], [3], [5].</p><div class="ans"><p>Пары: (1,1),(1,2),(2,1),(2,2),(3,3),(4,4),(4,5),(5,4),(5,5). [2]={1,2}; [3]={3}; [5]={4,5}; связь с собой, обратные связи и цепочки остаются внутри группы — это эквивалентность.</p></div><div class="sym"><span class="sym-i"><b>(x,y)</b> два числа одной группы</span></div></div>
 <div class="ex"><div class="ex-head"><span class="ex-no">З4</span><span class="ex-title">Грани чисел</span></div><p>A={−2,1,4,7}, обычное ≤. Найти (inf,sup) пар {−2,4}, {1,7}, {4,4}; наименьший и наибольший в A.</p><div class="ans"><p>Ответы: (−2,4), (1,7), (4,4); повтор числа ничего не меняет. Наименьший −2, наибольший 7; линейный порядок — решётка: у каждой пары есть меньшее и большее.</p></div><div class="sym"><span class="sym-i"><b>≤</b> обычное сравнение чисел</span></div></div>
 </details>
 <p class="note">Источник: Д. Е. Пальчунов, глава 4, стр. 46–54; композиция 4.2, эквивалентность 4.15–4.19, порядки 4.20–4.32, грани и решётки 4.33–4.39.</p>
 </section>
-
 <section class="block" id="slovar">
 <div class="block-head"><h2>Короткая памятка</h2></div>
 <details class="gl-sec">
@@ -744,7 +731,7 @@ inf_A M = ∅; sup_A M = {1,2}.</span><p>Ответы входят в A, но н
 <tr><td class="s">∪, ∩</td><td>Для множеств: объединение и пересечение.</td></tr>
 </table></div>
 </details>
-</section>
+</section><section aria-labelledby="homework-title" class="block" id="homework"><div class="block-head"><span class="mins">после занятия</span><h2 id="homework-title">Домашнее задание с ответами</h2><p>Четыре задачи. Ответы — под каждым условием.</p></div><div class="ex"><div class="ex-head"><span class="ex-no">Д1</span><span class="ex-title">Два действия</span></div><p>f:{0,1,2} → {1,2,3}, f(x)=x+1; g:{1,2,3} → {2,4,6}, g(y)=2y. Найти все пары f∘g; по 4.2 сначала f, затем g.</p><div class="ans"><p>Прибавляем 1, удваиваем: f∘g = {(0,2),(1,4),(2,6)}. Каждому входу соответствует один выход — это функция.</p></div><div class="sym"><span class="sym-i"><b>f∘g</b> сначала f, потом g</span></div></div><div class="ex"><div class="ex-head"><span class="ex-no">Д2</span><span class="ex-title">Обычное «меньше»</span></div><p>На {0,1,2} проверить шесть свойств отношения a &lt; b из 4.12.</p><div class="ans"><p>R={(0,1),(0,2),(1,2)}: рефлексивности и симметричности нет; иррефлексивность, антисимметричность и транзитивность есть. Линейности по 4.12 нет: определение требует сравнивать также одинаковые числа, а 0 &lt; 0 неверно; это строгий частичный порядок.</p></div><div class="sym"><span class="sym-i"><b>&lt;</b> числовое «меньше»</span></div></div><div class="ex"><div class="ex-head"><span class="ex-no">Д3</span><span class="ex-title">Чётность</span></div><p>A={0,1,2,3,4,5,6,7}; связываем числа одинаковой чётности. Проверить эквивалентность; найти [0], [4], [1], A/∼.</p><div class="ans"><p>Чётность совпадает с собой, симметрична и передаётся через третье число — эквивалентность. [0]=[4]={0,2,4,6}; [1]={1,3,5,7}; A/∼={{0,2,4,6},{1,3,5,7}}.</p></div><div class="sym"><span class="sym-i"><b>[a]</b> группа числа a</span></div></div><div class="ex"><div class="ex-head"><span class="ex-no">Д4</span><span class="ex-title">Общие элементы</span></div><p>В A=ρ({a,b,c}) с включением для M={{a,b},{b,c}} найти все грани и точные грани.</p><div class="ans"><p>Нижние грани: ∅, {b}; верхняя: {a,b,c}. Значит, inf_A M={b}, sup_A M={a,b,c}; оба ответа в A, но вне M.</p></div><div class="sym"><span class="sym-i"><b>M</b> выбранная пара множеств</span></div></div></section>
 <footer>
   Источник: Д. Е. Пальчунов. Математическая логика и теория алгоритмов. Ч. 1. НГУ, ФИТ, 2016.
   Глава 4, стр. 46-54. Упражнения составлены для семинара.
